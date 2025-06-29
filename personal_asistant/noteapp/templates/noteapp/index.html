@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Особистий Асистент</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-100 text-gray-800 min-h-screen flex flex-col">
+
+    <!-- Навігація -->
+    <header class="bg-white shadow-md p-4 flex items-center justify-between">
+      <h1 class="text-2xl font-bold">🤖 Асистент</h1>
+      <div class="flex items-center gap-4">
+        <input type="text" placeholder="Пошук..." class="rounded-md border px-2 py-1 text-sm" />
+        <button class="bg-blue-600 text-white px-3 py-1 rounded-lg hover:bg-blue-700">Увійти</button>
+      </div>
+    </header>
+
+    <!-- Головний блок -->
+    <div class="flex flex-1">
+
+      <!-- Меню -->
+      <aside class="w-64 bg-white shadow-md p-4 hidden md:block">
+        <nav class="space-y-2">
+          <a href="#" class="block text-blue-600 font-medium">📋 Завдання</a>
+          <a href="#" class="block hover:text-blue-600">📆 Календар</a>
+          <a href="#" class="block hover:text-blue-600">⏰ Нагадування</a>
+          <a href="#" class="block hover:text-blue-600">⚙️ Налаштування</a>
+        </nav>
+      </aside>
+
+      <!-- Контент -->
+      <main class="flex-1 p-6">
+        {% block content %}
+        <!-- Тут буде контент -->
+        {% endblock %}
+      </main>
+
+    </div>
+
+    <!-- Футер -->
+    <footer class="bg-white p-4 text-center text-sm text-gray-500">
+      &copy; {{ year }} Асистент. Усі права захищені.
+    </footer>
+
+  </body>
+</html>
