@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="bg-white p-4 rounded-xl shadow-md w-full max-w-3xl mx-auto">
+  <div class="flex items-center justify-between mb-4">
+    <button class="text-gray-500 hover:text-blue-600">&larr;</button>
+    <h2 class="text-xl font-semibold text-gray-800" id="calendar-month">Червень 2025</h2>
+    <button class="text-gray-500 hover:text-blue-600">&rarr;</button>
+  </div>
+
+  <div class="grid grid-cols-7 gap-2 text-center text-sm text-gray-500 mb-2">
+    <div>Пн</div><div>Вт</div><div>Ср</div><div>Чт</div><div>Пт</div><div>Сб</div><div>Нд</div>
+  </div>
+
+  <div id="calendar-days" class="grid grid-cols-7 gap-2 text-center text-sm">
+    <!-- Дні будуть згенеровані JavaScript -->
+  </div>
+</div>
+
+<script>
+  const monthNames = ['Січень', 'Лютий', 'Березень', 'Квітень', 'Травень', 'Червень',
+                      'Липень', 'Серпень', 'Вересень', 'Жовтень', 'Листопад', 'Грудень'];
+
+  const date = new Date();
+  const daysEl = document.getElementById("calendar-days");
+  const monthEl = document.getElementById("calendar-month");
+
+  const year = date.getFullYear();
+  const month = date.getMonth();
+
+  monthEl.textContent = `${monthNames[month]} ${year}`;
+
+  const firstDay = new Date(year, month, 1).getDay(); // 0 = неділя
+  const lastDate = new Date(year, month + 1, 0).getDate();
+
+  // зсув для правильного розташування (понеділок = 1)
+  const offset = firstDay === 0 ? 6 : firstDay - 1;
+
+  // порожні клітинки перед початком місяця
+  for (let i = 0; i < offset; i++) {
+    const cell = document.createElement("div");
+    daysEl.appendChild(cell);
+  }
+
+  // дні місяця
+  for (let d = 1; d <= lastDate; d++) {
+    const cell = document.createElement("div");
+    cell.textContent = d;
+    cell.className = "p-2 rounded hover:bg-blue-100 cursor-pointer";
+    if (d === date.getDate()) {
+      cell.classList.add("bg-blue-600", "text-white", "font-semibold");
+    }
+    daysEl.appendChild(cell);
+  }
+</script>
+
+{% endblock %}
+

@@ -55,7 +55,7 @@ ROOT_URLCONF = 'personal_asistant.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / "templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -66,6 +66,11 @@ TEMPLATES = [
         },
     },
 ]
+
+TEMPLATE_LOADERS = (
+    'django.teplate.loaders.filesystem.Loader',
+    'django.teplate.loaders.app_directories.Loader',
+)
 
 WSGI_APPLICATION = 'personal_asistant.wsgi.application'
 

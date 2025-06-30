@@ -4,3 +4,6 @@ from django.shortcuts import render
 
 def main(request):
     return render(request, 'noteapp/index.html')
+
+def calendar(request):
+    return render(request, 'noteapp/calendar.html')

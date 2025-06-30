@@ -6,4 +6,5 @@ app_name = 'noteapp'
 
 urlpatterns = [
     path('',views.main, name='main'),
+    path('calendar/',views.calendar, name = 'calendar'),
 ]
