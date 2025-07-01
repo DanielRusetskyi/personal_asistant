@@ -12,7 +12,9 @@ class Note(models.Model):
     description = models.CharField(max_length=150, null=False)
     done = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)
+    doe_date = models.DateField(null = True, blank = True)
     tags = models.ManyToManyField(Tag)
+
 
     def __str__(self):
         return f"{self.name}"

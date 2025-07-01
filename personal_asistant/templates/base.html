@@ -10,7 +10,9 @@
 
     <!-- Навігація -->
     <header class="bg-white shadow-md p-4 flex items-center justify-between">
-      <h1 class="text-2xl font-bold">🤖 Асистент</h1>
+      <nav class="space-y-2">
+        <a href="{% url 'noteapp:main' %}" class="block text-blue-800 font-medium">🤖 Асистент</a>
+      </nav>
       <div class="flex items-center gap-4">
         <input type="text" placeholder="Пошук..." class="rounded-md border px-2 py-1 text-sm" />
         <button class="bg-blue-600 text-white px-3 py-1 rounded-lg hover:bg-blue-700">Увійти</button>
@@ -23,7 +25,7 @@
       <!-- Меню -->
       <aside class="w-64 bg-white shadow-md p-4 hidden md:block">
         <nav class="space-y-2">
-          <a href="{% url 'noteapp:main' %}" class="block text-blue-600 font-medium">📋 Завдання</a>
+          <a href="{% url 'noteapp:task' %}" class="block text-blue-600 font-medium">📋 Завдання</a>
           <a href="{% url 'noteapp:calendar' %}" class="block hover:text-blue-600">📆 Календар</a>
           <a href="#" class="block hover:text-blue-600">⏰ Нагадування</a>          
           <a href="#" class="block hover:text-blue-600">🌦️ Погода</a>

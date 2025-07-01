@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- calendar.html -->
+<div class="bg-white p-4 rounded-xl shadow-md w-full max-w-3xl mx-auto">
+  <div class="flex items-center justify-between mb-4">
+    <button onclick="changeMonth(-1)" class="text-gray-500 hover:text-blue-600">&larr;</button>
+    <h2 class="text-xl font-semibold text-gray-800" id="calendar-month"></h2>
+    <button onclick="changeMonth(1)" class="text-gray-500 hover:text-blue-600">&rarr;</button>
+  </div>
+
+  <div class="grid grid-cols-7 gap-2 text-center text-sm text-gray-500 mb-2">
+    <div>Пн</div><div>Вт</div><div>Ср</div><div>Чт</div><div>Пт</div><div>Сб</div><div>Нд</div>
+  </div>
+
+  <div id="calendar-days" class="grid grid-cols-7 gap-2 text-center text-sm">
+    <!-- Дні будуть згенеровані JavaScript -->
+  </div>
+</div>
+
+<!-- Модальне вікно для додавання події -->
+<div id="event-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+  <div class="bg-white p-6 rounded shadow-md w-full max-w-sm">
+    <h3 class="text-lg font-semibold mb-4">Додати подію</h3>
+    <form id="event-form">
+      <input type="hidden" id="event-date">
+      <label class="block mb-2">Назва події:
+        <input type="text" id="event-title" class="w-full p-2 border rounded" required>
+      </label>
+      <div class="flex justify-end gap-2 mt-4">
+        <button type="button" onclick="closeModal()" class="px-4 py-2 bg-gray-200 rounded">Скасувати</button>
+        <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded">Зберегти</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  let currentDate = new Date();
+  const events = JSON.parse(localStorage.getItem("calendarEvents") || "{}");
+
+  function renderCalendar() {
+    const year = currentDate.getFullYear();
+    const month = currentDate.getMonth();
+    const monthNames = ['Січень','Лютий','Березень','Квітень','Травень','Червень','Липень','Серпень','Вересень','Жовтень','Листопад','Грудень'];
+
+    document.getElementById("calendar-month").textContent = `${monthNames[month]} ${year}`;
+
+    const firstDay = new Date(year, month, 1).getDay();
+    const lastDate = new Date(year, month + 1, 0).getDate();
+    const offset = firstDay === 0 ? 6 : firstDay - 1;
+    const daysEl = document.getElementById("calendar-days");
+    daysEl.innerHTML = "";
+
+    for (let i = 0; i < offset; i++) {
+      daysEl.appendChild(document.createElement("div"));
+    }
+
+    for (let d = 1; d <= lastDate; d++) {
+      const cell = document.createElement("div");
+      const fullDate = `${year}-${(month + 1).toString().padStart(2, '0')}-${d.toString().padStart(2, '0')}`;
+      cell.textContent = d;
+      cell.className = "p-2 rounded hover:bg-blue-100 cursor-pointer relative";
+      if (d === new Date().getDate() && month === new Date().getMonth() && year === new Date().getFullYear()) {
+        cell.classList.add("bg-blue-600", "text-white", "font-semibold");
+      }
+      if (events[fullDate]) {
+        const dot = document.createElement("div");
+        dot.className = "w-2 h-2 bg-red-500 rounded-full absolute bottom-1 right-1";
+        cell.appendChild(dot);
+      }
+      cell.onclick = () => openModal(fullDate);
+      daysEl.appendChild(cell);
+    }
+  }
+
+  function changeMonth(offset) {
+    currentDate.setMonth(currentDate.getMonth() + offset);
+    renderCalendar();
+  }
+
+  function openModal(date) {
+    document.getElementById("event-modal").classList.remove("hidden");
+    document.getElementById("event-date").value = date;
+  }
+
+  function closeModal() {
+    document.getElementById("event-modal").classList.add("hidden");
+    document.getElementById("event-form").reset();
+  }
+
+  document.getElementById("event-form").addEventListener("submit", function(e) {
+    e.preventDefault();
+    const date = document.getElementById("event-date").value;
+    const title = document.getElementById("event-title").value;
+    events[date] = title;
+    localStorage.setItem("calendarEvents", JSON.stringify(events));
+    closeModal();
+    renderCalendar();
+  });
+
+  renderCalendar();
+</script>
+
+
+{% endblock %}

@@ -7,3 +7,6 @@ def main(request):
 
 def calendar(request):
     return render(request, 'noteapp/calendar.html')
+
+def task(request):
+    return render(request, 'noteapp/task.html')
