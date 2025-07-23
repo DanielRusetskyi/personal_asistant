@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block content %}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="bg-white p-4 mb-4 mx-2 rounded custom-shadow">
+                <h3 class="text-center mb-4">Інформація про користувача</h3>
+                    <form action="{% url 'accounts:edit_profile' %}" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-12 mb-3 text-center">
+                                    {% if user.avatar %}
+                                        <img src="{{ user.avatar.url }}"
+                                             alt="Аватар користувача"
+                                             class="w-[150px] h-[150px] object-cover rounded-full mx-auto border-4 border-blue-300 shadow-lg transition-transform duration-300 hover:scale-105">
+                                    {% else %}
+                                        <img src="{% static 'images/default_avatar.png' %}"
+                                             alt="Аватар за замовчуванням"
+                                             class="w-[150px] h-[150px] object-cover rounded-full mx-auto border-4 border-blue-300 shadow-lg transition-transform duration-300 hover:scale-105">
+                                    {% endif %}
+                                    {{ form.avatar }}
+                                    {% if form.avatar.errors %}
+                                    <div class="alert alert-danger">{{ form.avatar.errors }}</div>
+                                    {% endif %}
+                                </div>
+
+                                <div class="col-md-12 mb-3 text-center">
+                                    {{ form.username.label_tag }}
+                                    {{ form.username }}
+                                    {% if form.username.errors %}
+                                    <div class="alert alert-danger">{{ form.username.errors }}</div>
+                                    {% endif %}
+                                </div>
+
+                                <div class="col-md-12 mb-3 text-center">
+                                    {{ form.email.label_tag }}
+                                    {{ form.email }}
+                                    {% if form.email.errors %}
+                                    <div class="alert alert-danger">{{ form.email.errors }}</div>
+                                    {% endif %}
+                                </div>
+
+                                <div class="col-md-12 mb-3 text-center">
+                                    {{ form.first_name.label_tag }}
+                                    {{ form.first_name }}
+                                    {% if form.first_name.errors %}
+                                    <div class="alert alert-danger">{{ form.first_name.errors }}</div>
+                                    {% endif %}
+                                </div>
+
+                                <div class="col-md-12 mb-3 text-center">
+                                    {{ form.last_name.label_tag }}
+                                    {{ form.last_name }}
+                                    {% if form.last_name.errors %}
+                                    <div class="alert alert-danger">{{ form.last_name.errors }}</div>
+                                    {% endif %}
+                                </div>
+
+                                <div class="col-md-12 mb-3 text-center">
+                                    {{ form.phone.label_tag }}
+                                    {{ form.phone }}
+                                    {% if form.phone.errors %}
+                                    <div class="alert alert-danger">{{ form.phone.errors }}</div>
+                                    {% endif %}
+                                </div>
+
+                            </div>
+
+                        <div class="row">
+                          <div class="col text-center">
+                            <button type="submit" class="btn btn-dark px-5 py-2 rounded-pill shadow-lg">💾 Зберегти</button>
+                          </div>
+                        </div>
+                    </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

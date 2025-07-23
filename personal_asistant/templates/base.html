@@ -1,47 +1,87 @@
+
 <!DOCTYPE html>
 <html lang="uk">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
     <title>Особистий Асистент</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
   </head>
-  <body class="bg-gray-100 text-gray-800 min-h-screen flex flex-col">
+  <body class="bg-gray-100 text-gray-800 min-h-screen flex flex-col" x-data="{ open: false }">
 
     <!-- Навігація -->
-    <header class="bg-white shadow-md p-4 flex items-center justify-between">
-      <nav class="space-y-2">
-        <a href="{% url 'noteapp:main' %}" class="block text-blue-800 font-medium">🤖 Асистент</a>
-      </nav>
-      <div class="flex items-center gap-4">
-        <input type="text" placeholder="Пошук..." class="rounded-md border px-2 py-1 text-sm" />
-        <a href="{% url 'accounts:login' %}" class="bg-blue-600 text-white px-3 py-1 rounded-lg hover:bg-blue-700">Увійти</a>
+    <div class="bg-white shadow-md">
+      <header class="p-4 flex items-center justify-between">
+        <a href="{% url 'noteapp:main' %}" class="text-blue-800 font-bold text-lg">🤖 Асистент</a>
+
+        <!-- Панель пошуку + кнопки -->
+        <div class="flex flex-col md:flex-row items-start md:items-center gap-2 md:gap-4 mt-4 md:mt-0">
+          <input type="text" placeholder="Пошук..." class="rounded-md border px-2 py-1 text-sm w-full md:w-auto" />
+          {% if user.is_authenticated %}
+          <a href="{% url 'accounts:profile' %}" class="bg-blue-600 text-white px-3 py-1 rounded-lg hover:bg-blue-700 text-center w-full md:w-auto">Профіль</a>
+          <form method="post" action="{% url 'accounts:logout' %}">
+            {% csrf_token %}
+            <button type="submit" class="bg-blue-600 text-white px-3 py-1 rounded-lg hover:bg-blue-700 text-center w-full md:w-auto">
+              Вихід
+            </button>
+          </form>
+          {% else %}
+          <a href="{% url 'accounts:login' %}" class="bg-blue-600 text-white px-3 py-1 rounded-lg hover:bg-blue-700 text-center w-full md:w-auto">Увійти</a>
+          <a href="{% url 'accounts:registration' %}" class="bg-blue-600 text-white px-3 py-1 rounded-lg hover:bg-blue-700 text-center w-full md:w-auto">Реєстрація</a>
+          {% endif %}
+        </div>
+      </header>
+
+      <!-- Контейнер меню + контент -->
+      <div class="flex flex-col md:flex-row flex-1">
+
+        <!-- Меню -->
+        <div class="md:w-64 w-full" x-data="{ open: false }">
+
+        <!-- Бургер-кнопка (мобілка) -->
+          <div class="md:hidden p-4 bg-white shadow relative">
+            <button @click="open = !open" class="text-2xl focus:outline-none">
+              ☰ Меню
+            </button>
+
+            <!-- Спливаюче меню біля кнопки -->
+            <div
+              x-show="open"
+              x-transition
+              @click.away="open = false"
+              class="absolute left-0 top-full mt-2 w-64 bg-white shadow-lg z-50 rounded-md p-4"
+              style="display: none;"
+            >
+              <button @click="open = false" class="text-gray-600 hover:text-red-500 mb-2 flex items-center gap-1">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+                Закрити
+              </button>
+              {% include 'includes/navbar_main.html' %}
+            </div>
+          </div>
+
+          <!-- Десктоп-меню -->
+          <div class="hidden md:block bg-white shadow-md h-full p-4">
+            {% include 'includes/navbar_main.html' %}
+          </div>
+        </div>
+
+        <!-- Контент -->
+        {% load static %}
+        <main class="flex-1 min-h-screen p-6 bg-cover bg-center rounded-lg shadow-md"
+          style="background-image: url('{% static 'images/bg.png' %}');">
+          {% block content %}
+          {% endblock %}
+        </main>
+
       </div>
-    </header>
-
-    <!-- Головний блок -->
-    <div class="flex flex-1">
-
-      <!-- Меню -->
-      <aside class="w-64 bg-white shadow-md p-4 hidden md:block">
-        <nav class="space-y-2">
-          <a href="{% url 'noteapp:task' %}" class="block text-blue-600 font-medium">📋 Завдання</a>
-          <a href="{% url 'noteapp:calendar' %}" class="block hover:text-blue-600">📆 Календар</a>
-          <a href="#" class="block hover:text-blue-600">⏰ Нагадування</a>          
-          <a href="#" class="block hover:text-blue-600">🌦️ Погода</a>
-          <a href="#" class="block hover:text-blue-600">💱 Курси валют</a>
-          <a href="#" class="block hover:text-blue-600">📻 Радіо</a>
-          <a href="#" class="block hover:text-blue-600">⚙️ Налаштування</a>
-        </nav>
-      </aside>
-
-      <!-- Контент -->
-      <main class="flex-1 p-6">
-        {% block content %}
-        <!-- Тут буде контент -->
-        {% endblock %}
-      </main>
-
     </div>
 
     <!-- Футер -->

@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load allauth %}
+{% load static %}
+
+{% block head_title %}
+  {% trans "Підтвердження входу" %}
+{% endblock head_title %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6 bg-white p-4 rounded shadow">
+
+      <h2 class="text-center mb-4 d-flex justify-content-center align-items-center flex-wrap">
+
+          <span class="fw-bold fs-4 animated-google-text ms-2">
+
+            <span style="color: #4285F4;" class="char">G</span>
+            <span style="color: #EA4335;" class="char">o</span>
+            <span style="color: #FBBC05;" class="char">o</span>
+            <span style="color: #34A853;" class="char">g</span>
+            <span style="color: #EA4335;" class="char">l</span>
+            <span style="color: #4285F4;" class="char">e</span>
+          </span>
+        </h2>
+
+        <style>
+          .animated-google-text .char {
+            opacity: 0;
+            transform: translateY(10px);
+            display: inline-block;
+            animation: fadeInUp 0.6s forwards;
+          }
+
+          {% comment %} Задаємо затримки анімації для кожної літери {% endcomment %}
+          {% for i in "01234567890123456789"|make_list %}
+            .animated-google-text .char:nth-child({{ forloop.counter }}) {
+              animation-delay: {{ forloop.counter|floatformat:2|add:"0.05"|floatformat:2 }}s;
+            }
+          {% endfor %}
+
+          @keyframes fadeInUp {
+            to {
+              opacity: 1;
+              transform: translateY(0);
+            }
+          }
+        </style>
+
+
+      {% if process == "connect" %}
+        <p class="text-center mb-3 text-muted">
+          Ви збираєтесь підключити новий сторонній акаунт <strong>{{ provider.name }}</strong> до вашого профілю.
+        </p>
+      {% else %}
+        <p class="text-center mb-3 text-muted">
+          Ви збираєтесь увійти за допомогою облікового запису <strong>{{ provider.name }}</strong>.
+        </p>
+      {% endif %}
+
+      <form method="post" class="text-center">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-outline-primary px-4 py-2 fw-semibold shadow-sm border-2 rounded-pill">
+          Продовжити вхід
+        </button>
+        <a href="{% url 'accounts:login' %}" class="btn btn-outline-secondary px-4 py-2 fw-semibold shadow-sm border-2 rounded-pill">
+          Скасувати
+        </a>
+
+      </form>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

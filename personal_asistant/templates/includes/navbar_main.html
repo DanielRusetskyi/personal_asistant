@@ -1,0 +1,11 @@
+<div class="flex flex-col space-y-2">
+  {% if user.is_authenticated %}
+    <a href="{% url 'noteapp:task' %}" class="text-blue-600 font-medium">📋 Завдання</a>
+    <a href="{% url 'noteapp:calendar' %}" class="hover:text-blue-600">📆 Календар</a>
+    <a href="#" class="hover:text-blue-600">⏰ Нагадування</a>
+    <a href="#" class="hover:text-blue-600">⚙️ Налаштування</a>
+  {% endif %}
+  <a href="#" class="hover:text-blue-600">🌦️ Погода</a>
+  <a href="#" class="hover:text-blue-600">💱 Курси валют</a>
+  <a href="#" class="hover:text-blue-600">📻 Радіо</a>
+</div>

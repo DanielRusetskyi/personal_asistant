@@ -1,0 +1,77 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+*.pdb
+*.egg-info/
+*.egg
+
+# Virtual env
+venv/
+env/
+ENV/
+.venv/
+.poetry/
+
+# Byte-compiled / optimized / DLL files
+*.so
+*.dll
+*.dylib
+
+# Django
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+media/
+staticfiles/
+static_root/
+
+# Migrations (optional: keep if under version control)
+**/migrations/*.pyc
+**/migrations/__pycache__/
+**/migrations/*.log
+
+# IDEs
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# MacOS
+.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# Testing
+htmlcov/
+coverage.xml
+.tox/
+.nox/
+.pytest_cache/
+.coverage*
+
+# MyPy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Build
+build/
+dist/
+*.spec
+
+# dotenv
+.env
+.env.*
+
+# Allauth email templates (if using temp files)
+*.eml

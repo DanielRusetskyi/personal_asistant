@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
+
 class CustomUser(AbstractUser):
     email = models.EmailField(unique=True, verbose_name='Email')
     avatar = models.ImageField(upload_to='avatars/', null=True, blank=True, verbose_name='Avatar')
@@ -8,12 +9,9 @@ class CustomUser(AbstractUser):
 
     class Meta:
         db_table = 'user'
-    
-    
+
     def __str__(self):
         return self.username
     
-
-
 # Create your models here.
 
