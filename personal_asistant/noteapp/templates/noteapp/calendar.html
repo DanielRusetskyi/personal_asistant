@@ -1,59 +1,67 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% if messages %}
+  <div class="container mt-2">
+    {% for message in messages %}
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
 
 {% block content %}
+<div class="container mt-2">
+    <h1 class="text-center mb-4">
+      <span class="d-inline-block bg-light px-2 py-2 border rounded-4 shadow">
+        📅 Календар завдань на {{ current_date|date:"F Y" }}
+      </span>
+    </h1>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <a href="{% url 'noteapp:calendar' year=prev_year month=prev_month %}"
+           class="btn btn-calendar-hover">
+            ← Попередній місяць
+        </a>
 
-<div class="bg-white p-4 rounded-xl shadow-md w-full max-w-3xl mx-auto">
-  <div class="flex items-center justify-between mb-4">
-    <button class="text-gray-500 hover:text-blue-600">&larr;</button>
-    <h2 class="text-xl font-semibold text-gray-800" id="calendar-month">Червень 2025</h2>
-    <button class="text-gray-500 hover:text-blue-600">&rarr;</button>
-  </div>
+        <a href="{% url 'noteapp:calendar' year=next_year month=next_month %}"
+           class="btn btn-calendar-hover">
+           Наступний місяць →
+        </a>
+    </div>
 
-  <div class="grid grid-cols-7 gap-2 text-center text-sm text-gray-500 mb-2">
-    <div>Пн</div><div>Вт</div><div>Ср</div><div>Чт</div><div>Пт</div><div>Сб</div><div>Нд</div>
-  </div>
-
-  <div id="calendar-days" class="grid grid-cols-7 gap-2 text-center text-sm">
-    <!-- Дні будуть згенеровані JavaScript -->
-  </div>
+    <div class="table-responsive">
+        <table class="table table-bordered text-center align-middle shadow-sm">
+            <thead class="table-light">
+                <tr>
+                    <th>Пн</th>
+                    <th>Вт</th>
+                    <th>Ср</th>
+                    <th>Чт</th>
+                    <th>Пт</th>
+                    <th class="text-primary">Сб</th>
+                    <th class="text-danger">Нд</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for week in calendar_weeks %}
+                    <tr>
+                        {% for day in week %}
+                            {% if day %}
+                                <td class="calendar-day {% if day == today %}bg-primary text-white fw-bold{% endif %}">
+                                  <a href="{% url 'noteapp:day_tasks' date=day.isoformat %}" class="text-decoration-none d-block py-2">
+                                    {{ day.day }}
+                                  </a>
+                                </td>
+                            {% else %}
+                                <td class="bg-light"></td>
+                            {% endif %}
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </div>
-
-<script>
-  const monthNames = ['Січень', 'Лютий', 'Березень', 'Квітень', 'Травень', 'Червень',
-                      'Липень', 'Серпень', 'Вересень', 'Жовтень', 'Листопад', 'Грудень'];
-
-  const date = new Date();
-  const daysEl = document.getElementById("calendar-days");
-  const monthEl = document.getElementById("calendar-month");
-
-  const year = date.getFullYear();
-  const month = date.getMonth();
-
-  monthEl.textContent = `${monthNames[month]} ${year}`;
-
-  const firstDay = new Date(year, month, 1).getDay(); // 0 = неділя
-  const lastDate = new Date(year, month + 1, 0).getDate();
-
-  // зсув для правильного розташування (понеділок = 1)
-  const offset = firstDay === 0 ? 6 : firstDay - 1;
-
-  // порожні клітинки перед початком місяця
-  for (let i = 0; i < offset; i++) {
-    const cell = document.createElement("div");
-    daysEl.appendChild(cell);
-  }
-
-  // дні місяця
-  for (let d = 1; d <= lastDate; d++) {
-    const cell = document.createElement("div");
-    cell.textContent = d;
-    cell.className = "p-2 rounded hover:bg-blue-100 cursor-pointer";
-    if (d === date.getDate()) {
-      cell.classList.add("bg-blue-600", "text-white", "font-semibold");
-    }
-    daysEl.appendChild(cell);
-  }
-</script>
-
 {% endblock %}
-

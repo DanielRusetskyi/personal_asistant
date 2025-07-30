@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% block content %}
+<div class="container mt-5">
+  <div class="card p-4">
+    <h3 class="mb-3 text-center" >Редагувати завдання</h3>
+
+    <form method="post" action="">
+      {% csrf_token %}
+      <input type="hidden" name="return_url" value="{{ return_url }}">
+
+      {% include 'includes/noteapp_form_fields.html' %}
+
+      <!-- Кнопки -->
+      <div class="d-flex flex-wrap gap-2 mt-3">
+        <button type="submit" class="btn btn-success text-nowrap">💾 Зберегти</button>
+        {% comment %}
+        <a href="{% url 'noteapp:day_tasks' date=form.instance.doe_date %}?page={{ request.GET.page }}" class="btn btn-secondary text-nowrap">⬅ Назад</a>
+        {% endcomment %}
+        <a href="{{ return_url|default:'#' }}" class="btn btn-secondary text-nowrap">⬅ Назад</a>
+        {% if form.instance.pk %}
+          <a href="{% url 'noteapp:note_delete' form.instance.pk %}?page={{ request.GET.page }}" class="btn btn-outline-danger ms-auto text-nowrap">
+            🗑️ Видалити
+          </a>
+        {% endif %}
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const dueTime = "{{ due_time|default:'' }}";
+    if (dueTime) {
+      const [h, m] = dueTime.split(":");
+      document.getElementById("hours").value = parseInt(h);
+      document.getElementById("minutes").value = parseInt(m);
+      document.getElementById("hourValue").textContent = h;
+      document.getElementById("minuteValue").textContent = m;
+      document.getElementById("enableTime").checked = true;
+    }
+  });
+</script>
+
+
+{% endblock %}

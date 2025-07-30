@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-2">
+  <h1 class="text-center mb-4 py-2 px-3  border-4 rounded-4 shadow-sm" style="background-color: #ced4da">
+    Завдання на {{ day|date:"d M Y" }}
+  </h1>
+
+   {% include 'includes/task_list.html' %}
+
+
+
+    <div class="card shadow-sm border-4 rounded-4">
+      <div class="card-body">
+        <h5 class="card-title text-center">Нове завдання</h5>
+
+        {% if form_disabled %}
+          <div class="alert alert-warning text-center mb-3">
+            ⛔ Неможливо створити завдання на дату що минула.
+          </div>
+        {% endif %}
+
+        <form method="post" action="">
+          {% csrf_token %}
+          <input type="hidden" name="page" value="{{ request.GET.page }}">
+
+          {% if form_disabled %}
+            <fieldset disabled>
+          {% endif %}
+
+          {% include 'includes/noteapp_form_fields.html' %}
+
+
+          {% if form_disabled %}
+            </fieldset>
+          {% endif %}
+
+          <!-- Кнопки -->
+          <div class="d-flex flex-column flex-md-row gap-2 justify-content-center justify-content-md-end mt-3">
+            <button type="submit" class="btn btn-primary text-nowrap"
+                    {% if form_disabled %}disabled{% endif %}>
+              💾 Зберегти
+            </button>
+            <a href="{% url 'noteapp:calendar_current' %}" class="btn btn-outline-secondary text-nowrap">↩ Назад</a>
+          </div>
+        </form>
+      </div>
+    </div>
+
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const dueTime = "{{ due_time|default:'' }}";
+    if (dueTime) {
+      const [h, m] = dueTime.split(":");
+      document.getElementById("hours").value = parseInt(h);
+      document.getElementById("minutes").value = parseInt(m);
+      document.getElementById("hourValue").textContent = h;
+      document.getElementById("minuteValue").textContent = m;
+      document.getElementById("enableTime").checked = true;
+    }
+  });
+</script>
+
+{% endblock %}
+
+{% if messages %}
+  <div class="container mt-2">
+    {% for message in messages %}
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
+
