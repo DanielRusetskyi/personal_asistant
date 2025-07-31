@@ -7,10 +7,13 @@ from .models import Note
 from .forms import NoteForm
 from datetime import datetime
 from django.shortcuts import render, redirect
-from datetime import date
+from datetime import date, timedelta
 from django.utils import timezone
 from django.contrib import messages
 from collections import defaultdict
+
+from .services import create_note_for_user
+from .utils import get_day_context
 
 
 def tasks_by_period_view(request):
@@ -59,7 +62,6 @@ def calendar_view(request, year=None, month=None):
         year = today.year
         month = today.month
 
-    from datetime import datetime
     import calendar
 
     calendar.setfirstweekday(calendar.MONDAY)
@@ -91,47 +93,96 @@ def task(request):
     })
 
 
+# class DayTaskView(LoginRequiredMixin, View):
+#     def get(self, request, date=timezone.localdate()):
+#         # if not date:
+#         #     day = timezone.localdate()
+#         # else:
+#         day = datetime.strptime(date, "%Y-%m-%d").date()
+#         # day = datetime.strptime(date, "%Y-%m-%d").date()
+#         prev_day = day - timedelta(days=1)
+#         next_day = day + timedelta(days=1)
+#         notes = Note.objects.filter(doe_date=day, user=request.user).order_by('due_time')
+#
+#         paginator = Paginator(notes_list, 7)  # нотаток на сторінку
+#         page_number = request.GET.get('page')
+#         notes = paginator.get_page(page_number)
+#
+#         return render(request, 'noteapp/day_tasks.html', {
+#             'notes': notes,
+#             'day': day.strftime('%Y-%m-%d'),
+#             "prev_day": prev_day.strftime('%Y-%m-%d'),
+#             "next_day": next_day.strftime('%Y-%m-%d'),
+#             'active_page': 'calendar'
+#         })
 class DayTaskView(LoginRequiredMixin, View):
-    def get(self, request, date):
-        day = datetime.strptime(date, "%Y-%m-%d").date()
-        today = timezone.localdate()
-        if day < today:
-            messages.warning(request, f"⚠️ Ви переглядаєте минулу дату: {day.strftime('%d.%m.%Y')}")
-            form_disabled = True
+    def get(self, request, date=None):
+        if not date:
+            day = timezone.localdate()
+            date = day.strftime('%Y-%m-%d')  # для виклику get_day_context
         else:
-            form_disabled = False
+            day = datetime.strptime(date, "%Y-%m-%d").date()
 
-        notes_list = Note.objects.filter(doe_date=day, user=request.user).order_by('due_time')
+        context = get_day_context(request, date)
 
-        paginator = Paginator(notes_list, 7)  # нотаток на сторінку
-        page_number = request.GET.get('page')
-        notes = paginator.get_page(page_number)
-
-        form = NoteForm(initial={'doe_date': day})
-        return render(request, 'noteapp/day_tasks.html', {
-            'notes': notes,
-            'form': form,
-            'day': day,
-            'active_page': 'calendar',
-            'form_disabled': form_disabled
+        # Додаткові змінні (навігація між днями, активна сторінка)
+        context.update({
+            'active_page': 'day_tasks',
+            'prev_day': (day - timedelta(days=1)).strftime('%Y-%m-%d'),
+            'next_day': (day + timedelta(days=1)).strftime('%Y-%m-%d'),
         })
+
+        return render(request, 'noteapp/day_tasks.html', context)
+
+
+class CreateDayTaskView(LoginRequiredMixin, View):
+    def get(self, request, date):
+        context = get_day_context(request, date)
+        context['form'] = NoteForm(initial={'doe_date': context['day']})
+        context['active_page'] = 'calendar'
+        return render(request, 'noteapp/create_day_tasks.html', context)
+        # day = datetime.strptime(date, "%Y-%m-%d").date()
+        # today = timezone.localdate()
+        # if day < today:
+        #     messages.warning(request, f"⚠️ Ви переглядаєте минулу дату: {day.strftime('%d.%m.%Y')}")
+        #     form_disabled = True
+        # else:
+        #     form_disabled = False
+        #
+        # notes_list = Note.objects.filter(doe_date=day, user=request.user).order_by('due_time')
+        #
+        # paginator = Paginator(notes_list, 7)  # нотаток на сторінку
+        # page_number = request.GET.get('page')
+        # notes = paginator.get_page(page_number)
+        #
+        # form = NoteForm(initial={'doe_date': day})
+        # return render(request, 'noteapp/create_day_tasks.html', {
+        #     'notes': notes,
+        #     'form': form,
+        #     'day': day,
+        #     'active_page': 'calendar',
+        #     'form_disabled': form_disabled
+        # })
 
     def post(self, request, date):
         form = NoteForm(request.POST)
         page = request.POST.get('page')
         if form.is_valid():
-            note = form.save(commit=False)
-            note.user = request.user
-            note.doe_date = datetime.strptime(date, "%Y-%m-%d").date()
-            note.save()
-            form.save_m2m()
-            url = reverse('noteapp:day_tasks', kwargs={'date': date})
+            note_data = form.cleaned_data
+            note_data["doe_date"] = datetime.strptime(date, "%Y-%m-%d").date()
+            create_note_for_user(request.user, note_data)
+            # note = form.save(commit=False)
+            # note.user = request.user
+            # note.doe_date = datetime.strptime(date, "%Y-%m-%d").date()
+            # note.save()
+            # form.save_m2m()
+            url = reverse('noteapp:create_day_tasks', kwargs={'date': date})
             if page:
                 return redirect(f"{url}?page={page}")
             return redirect(url)
         day = datetime.strptime(date, "%Y-%m-%d").date()
         notes = Note.objects.filter(doe_date=day, user=request.user)
-        return render(request, 'noteapp/day_tasks.html', {
+        return render(request, 'noteapp/create_day_tasks.html', {
             'notes': notes,
             'form': form,
             'day': day,
@@ -164,7 +215,7 @@ class NoteUpdateView(LoginRequiredMixin, UpdateView):
 
     def get_success_url(self):
         # fallback якщо немає return_url
-        return reverse('noteapp:day_tasks', kwargs={'date': self.object.doe_date})
+        return reverse('noteapp:create_day_tasks', kwargs={'date': self.object.doe_date})
 
 
 class NoteDeleteView(LoginRequiredMixin, DeleteView):
@@ -174,5 +225,5 @@ class NoteDeleteView(LoginRequiredMixin, DeleteView):
     def get_success_url(self):
         date_str = self.object.doe_date.isoformat()
         page = self.request.POST.get('page')
-        url = reverse('noteapp:day_tasks', kwargs={'date': date_str})
+        url = reverse('noteapp:create_day_tasks', kwargs={'date': date_str})
         return f"{url}?page={page}" if page else url

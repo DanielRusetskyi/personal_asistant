@@ -1,80 +1,126 @@
-{% extends 'base.html' %}
-{% load widget_tweaks %}
+{% extends "base.html" %}
 {% load static %}
+{% load tz %}
 
 {% block content %}
-<div class="container mt-2">
-  <h1 class="text-center mb-4 py-2 px-3  border-4 rounded-4 shadow-sm" style="background-color: #ced4da">
-    Завдання на {{ day|date:"d M Y" }}
-  </h1>
+<div class="container mt-4">
 
-   {% include 'includes/task_list.html' %}
+  <!-- Заголовок -->
+  <h2 class="text-center mb-4 animate-day bg-light px-2 py-2 border rounded-4 shadow" id="day-title">
+      Завдання на <span class="text-primary">{{ day|date:"l, d.m.Y" }}</span>
+  </h2>
+
+  <!-- Список завдань -->
+  <div class="animate-day" id="task-list">
+    {% if notes %}
+      <ul class="list-group mb-4">
+        {% for note in notes %}
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            <div>
+              <strong>{{ forloop.counter }}.</strong> {{ note.description }}
+            </div>
+            <div>
+              {% if note.done %}
+                <span class="badge bg-success">✅ Виконано</span>
+              {% else %}
+                <span class="badge bg-secondary">❌ Не виконано</span>
+              {% endif %}
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="text-center mb-4 animate-day bg-light px-2 py-2 border rounded-4 shadow">Завдань на цей день немає.</p>
+    {% endif %}
+  </div>
+
+  <!-- Навігація по днях (внизу, адаптивна) -->
+  <div class="d-flex flex-column flex-sm-row justify-content-between align-items-center gap-3 text-center">
+
+  <!-- Попередній день -->
+  <div class="w-100 w-sm-auto text-center text-sm-start">
+    <a href="{% url 'noteapp:day_tasks' date=prev_day %}"
+       class="btn btn-calendar-hover w-100 w-sm-auto"
+       data-dir="left">
+      ← Попередній день
+    </a>
+  </div>
+
+  <!-- Вибір дати -->
+  <div class="w-100 w-sm-auto d-flex justify-content-center">
+  <div class="input-group" style="max-width: 300px;">
+    <input type="date"
+           id="datePicker"
+           class="form-control"
+           value="{{ day|date:'Y-m-d' }}">
+    <button type="button" class="btn btn-primary" onclick="goToDate()">Перейти</button>
+  </div>
+</div>
 
 
-
-    <div class="card shadow-sm border-4 rounded-4">
-      <div class="card-body">
-        <h5 class="card-title text-center">Нове завдання</h5>
-
-        {% if form_disabled %}
-          <div class="alert alert-warning text-center mb-3">
-            ⛔ Неможливо створити завдання на дату що минула.
-          </div>
-        {% endif %}
-
-        <form method="post" action="">
-          {% csrf_token %}
-          <input type="hidden" name="page" value="{{ request.GET.page }}">
-
-          {% if form_disabled %}
-            <fieldset disabled>
-          {% endif %}
-
-          {% include 'includes/noteapp_form_fields.html' %}
-
-
-          {% if form_disabled %}
-            </fieldset>
-          {% endif %}
-
-          <!-- Кнопки -->
-          <div class="d-flex flex-column flex-md-row gap-2 justify-content-center justify-content-md-end mt-3">
-            <button type="submit" class="btn btn-primary text-nowrap"
-                    {% if form_disabled %}disabled{% endif %}>
-              💾 Зберегти
-            </button>
-            <a href="{% url 'noteapp:calendar_current' %}" class="btn btn-outline-secondary text-nowrap">↩ Назад</a>
-          </div>
-        </form>
-      </div>
-    </div>
+  <!-- Наступний день -->
+  <div class="w-100 w-sm-auto text-center text-sm-end">
+    <a href="{% url 'noteapp:day_tasks' date=next_day %}"
+       class="btn btn-calendar-hover w-100 w-sm-auto"
+       data-dir="right">
+      Наступний день →
+    </a>
+  </div>
 
 </div>
 
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const dueTime = "{{ due_time|default:'' }}";
-    if (dueTime) {
-      const [h, m] = dueTime.split(":");
-      document.getElementById("hours").value = parseInt(h);
-      document.getElementById("minutes").value = parseInt(m);
-      document.getElementById("hourValue").textContent = h;
-      document.getElementById("minuteValue").textContent = m;
-      document.getElementById("enableTime").checked = true;
+
+
+
+</div>
+
+<!-- Анімація -->
+<style>
+  .animate-day {
+    animation: fadeSlide 0.4s ease-in-out;
+  }
+
+  @keyframes fadeSlide {
+    from {
+      opacity: 0;
+      transform: translateX(30px);
     }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+</style>
+
+<!-- JS: анімація переходу між днями -->
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const links = document.querySelectorAll(".day-nav");
+    links.forEach(link => {
+      link.addEventListener("click", function (e) {
+        const taskList = document.getElementById("task-list");
+        const dayTitle = document.getElementById("day-title");
+
+        taskList.classList.remove("animate-day");
+        dayTitle.classList.remove("animate-day");
+
+        taskList.style.opacity = 0;
+        dayTitle.style.opacity = 0;
+
+        setTimeout(() => {
+          window.location.href = this.href;
+        }, 150);
+        e.preventDefault();
+      });
+    });
   });
+
+  function goToDate() {
+    const date = document.getElementById("datePicker").value;
+    if (date) {
+      const url = "{% url 'noteapp:day_tasks' date='__DATE__' %}".replace('__DATE__', date);
+      window.location.href = url;
+    }
+  }
 </script>
-
 {% endblock %}
-
-{% if messages %}
-  <div class="container mt-2">
-    {% for message in messages %}
-      <div class="alert alert-warning alert-dismissible fade show" role="alert">
-        {{ message }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>
-    {% endfor %}
-  </div>
-{% endif %}
-

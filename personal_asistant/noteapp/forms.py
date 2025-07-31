@@ -7,7 +7,7 @@ from .models import Note
 class NoteForm(forms.ModelForm):
     class Meta:
         model = Note
-        fields = ['description', 'doe_date', 'due_time', 'priority']
+        fields = ['description', 'doe_date', 'due_time', 'priority', 'done']
         widgets = {
             'doe_date': forms.DateInput(attrs={
                 'type': 'date',
@@ -20,5 +20,6 @@ class NoteForm(forms.ModelForm):
                 'placeholder': 'Опишіть завдання...'
             }),
             'due_time': forms.TimeInput(),
+            'done': forms.CheckboxInput(attrs={'class': 'form-check-input', 'type': 'checkbox'}),
             # 'tags': forms.SelectMultiple(attrs={'class': 'form-select'}),
         }

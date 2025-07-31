@@ -15,7 +15,7 @@
       <div class="d-flex flex-wrap gap-2 mt-3">
         <button type="submit" class="btn btn-success text-nowrap">💾 Зберегти</button>
         {% comment %}
-        <a href="{% url 'noteapp:day_tasks' date=form.instance.doe_date %}?page={{ request.GET.page }}" class="btn btn-secondary text-nowrap">⬅ Назад</a>
+        <a href="{% url 'noteapp:create_day_tasks' date=form.instance.doe_date %}?page={{ request.GET.page }}" class="btn btn-secondary text-nowrap">⬅ Назад</a>
         {% endcomment %}
         <a href="{{ return_url|default:'#' }}" class="btn btn-secondary text-nowrap">⬅ Назад</a>
         {% if form.instance.pk %}

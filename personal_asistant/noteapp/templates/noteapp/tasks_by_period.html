@@ -1,20 +1,23 @@
 {% extends "base.html" %}
 {% block content %}
 <form method="get" class="row g-3 align-items-end mb-4">
-  <div class="col-sm-5">
-    <label for="start_date" class="form-label">Початкова дата</label>
+  <div class="col-sm-4  text-center">
+    <label for="start_date" class="form-label  border-4 rounded-3 shadow-sm"
+           style="background-color: #ced4da">Початкова дата</label>
     <input type="date" id="start_date" name="start" class="form-control" required value="{{ request.GET.start }}">
   </div>
-  <div class="col-sm-5">
-    <label for="end_date" class="form-label">Кінцева дата</label>
+  <div class="col-sm-4 text-center">
+    <label for="end_date" class="form-label form-label  border-4 rounded-3 shadow-sm"
+           style="background-color: #ced4da">Кінцева дата</label>
     <input type="date" id="end_date" name="end" class="form-control" required value="{{ request.GET.end }}">
   </div>
-  <div class="col-sm-2 d-grid">
-    <button type="submit" class="btn btn-primary">🔍 Показати</button>
+  <div class="col-sm-4 d-grid">
+    <button type="submit" class="btn btn-primary text-nowrap">🔍 Показати</button>
   </div>
 </form>
 <div class="container mt-4">
-  <h2 class="text-center mb-4">Завдання за період {{ start_date }} — {{ end_date }}</h2>
+  <h2 class="text-center mb-4 border-4 rounded-3 shadow-sm"
+      style="background-color: #ced4da">Завдання за період {{ start_date }} — {{ end_date }}</h2>
 
   {% for day, tasks in tasks_by_day.items %}
     <div class="card shadow-sm mb-4 border-0">

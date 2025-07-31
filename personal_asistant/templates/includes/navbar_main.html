@@ -4,6 +4,14 @@
        class="{% if active_page == 'task' %}font-medium text-blue-600{% else %}text-gray-700 hover:text-blue-600{% endif %}">
        📋 Завдання
     </a>
+    {% now "Y-m-d" as today %}
+    {% with day|default:today as current_day %}
+      <a href="{% url 'noteapp:day_tasks' date=current_day %}"
+         class="{% if active_page == 'day_tasks' %}font-medium text-blue-600{% else %}text-gray-700 hover:text-blue-600{% endif %}">
+         📋 Завдання день
+      </a>
+    {% endwith %}
+
     {% if year and month %}
     <a href="{% url 'noteapp:calendar' year=year month=month %}"
     class="{% if active_page == 'calendar' %}font-medium text-blue-600{% else %}text-gray-700 hover:text-blue-600{% endif %}">
