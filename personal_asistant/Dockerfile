@@ -21,6 +21,8 @@ RUN poetry config virtualenvs.create false
 RUN poetry install --only main --no-root --no-interaction
 COPY . /code
 
+RUN python manage.py collectstatic --noinput
+
 EXPOSE 8000
 
-CMD ["gunicorn","--bind",":8000","--workers","2","personal_asistant.wsgi"]
+CMD ["gunicorn","--bind", ":8000", "personal_asistant.wsgi"]

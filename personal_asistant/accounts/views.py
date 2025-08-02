@@ -44,6 +44,13 @@ class UserEditView(LoginRequiredMixin, UpdateView):
     def get_object(self, queryset=None):
         return self.request.user
 
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        avatar_file = self.request.FILES.get('avatar_file')
+        if avatar_file:
+            self.object.upload_image(avatar_file)
+        return response
+
 
 class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
     template_name = 'accounts/password_reset.html'

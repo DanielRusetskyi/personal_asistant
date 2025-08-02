@@ -33,6 +33,7 @@
             </button>
           </form>
           {% else %}
+          {% csrf_token %}
           <a href="{% url 'accounts:login' %}" class="bg-blue-600 text-white px-3 py-1 rounded-lg hover:bg-blue-700 text-center w-full md:w-auto">Увійти</a>
           <a href="{% url 'accounts:registration' %}" class="bg-blue-600 text-white px-3 py-1 rounded-lg hover:bg-blue-700 text-center w-full md:w-auto">Реєстрація</a>
           {% endif %}

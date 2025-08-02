@@ -7,6 +7,8 @@ from .models import CustomUser
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm
 
+MAX_AVATAR_SIZE_MB = 1
+
 
 class EmailOrUsernameAuthenticationForm(AuthenticationForm):
     username = forms.CharField(
@@ -108,56 +110,10 @@ class UserRegistrationForm(UserCreationForm):
         return email
 
 
-class ProfileForm(UserChangeForm):
-    class Meta:
-        model = CustomUser
-        fields = (
-            "image",
-            "first_name",
-            "last_name",
-            "username",
-            "email",
-            "phone",
-             
-        )
-
-    image = forms.ImageField(required=False, widget=forms.FileInput(attrs={
-        'class': 'form-control-file'
-    }))
-    first_name = forms.CharField(widget=forms.TextInput(attrs={
-        'class': 'form-control',
-        'placeholder': 'Ваше ім’я'
-    }))
-    last_name = forms.CharField(widget=forms.TextInput(attrs={
-        'class': 'form-control',
-        'placeholder': 'Ваше прізвище'
-    }))
-    username = forms.CharField(widget=forms.TextInput(attrs={
-        'class': 'form-control',
-        'placeholder': 'Ім’я користувача'
-    }))
-    email = forms.EmailField(widget=forms.EmailInput(attrs={
-        'class': 'form-control',
-        'placeholder': 'example@domain.com'
-    }))
-    phone = forms.CharField(required=False, widget=forms.TextInput(attrs={
-        'class': 'form-control',
-        'placeholder': 'Ваш телефон'
-    }))
-
-    # Додамо ту ж кастомну валідацію для телефону
-    def clean_phone(self):
-        phone = self.cleaned_data.get('phone')
-        if phone and not phone.isdigit():
-            raise forms.ValidationError('Телефон повинен містити тільки цифри.')
-        return phone
-
-
 class ProfileEditForm(UserChangeForm):
     class Meta:
         model = CustomUser
         fields = (
-            "avatar",
             "first_name",
             "last_name",
             "username",
@@ -165,7 +121,7 @@ class ProfileEditForm(UserChangeForm):
             "phone",
         )
 
-    avatar = forms.ImageField(required=False, widget=forms.FileInput(attrs={
+    avatar_file = forms.ImageField(required=False, widget=forms.FileInput(attrs={
         'class': 'form-control-file'
     }))
     first_name = forms.CharField(widget=forms.TextInput(attrs={
@@ -195,6 +151,15 @@ class ProfileEditForm(UserChangeForm):
         if phone and not phone.isdigit():
             raise forms.ValidationError('Телефон повинен містити тільки цифри.')
         return phone
+
+    def clean_avatar_file(self):
+        avatar = self.cleaned_data.get('avatar_file')
+
+        if avatar:
+            max_size = MAX_AVATAR_SIZE_MB * 1024 * 1024  # перевести в байти
+            if avatar.size > max_size:
+                raise forms.ValidationError(f"Розмір файлу не повинен перевищувати {MAX_AVATAR_SIZE_MB}MB.")
+        return avatar
 
 
 class CustomPasswordChangeForm(PasswordChangeForm):

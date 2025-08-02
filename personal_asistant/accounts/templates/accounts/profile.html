@@ -25,7 +25,7 @@
                         </p>
                         <div class="mt-4">
                             {% if user.avatar %}
-                                <img src="{{ user.avatar.url }}"
+                                <img src="{{ user.avatar }}"
                                      alt="Аватар користувача"
                                      class="w-[150px] h-[150px] object-cover rounded-full mx-auto border-4 border-blue-300 shadow-lg transition-transform duration-300 hover:scale-105">
                             {% else %}
@@ -42,7 +42,7 @@
                 <a href="{% url 'accounts:edit_profile' %}" class="btn btn-outline-primary px-4 text-nowrap">
                     🔧 Редагувати профіль
                 </a>
-                <a href="{% url 'accounts:change_password' %}" class="btn btn-outline-secondary px-4 text-nowrap">
+                <a href="{% url 'accounts:change_password' %}" class="btn btn-outline-primary px-4 text-nowrap">
                     🔒 Змінити пароль
                 </a>
                 <a href="{% url 'noteapp:main' %}" class="btn btn-outline-secondary px-4 text-nowrap">

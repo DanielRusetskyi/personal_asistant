@@ -13,7 +13,7 @@
               {{ form.non_field_errors }}
 
               <div class="mb-3 text-center">
-                {{ form.username.label_tag }}
+
                 {{ form.username }}
                 {% for error in form.username.errors %}
                   <div class="text-danger">{{ error }}</div>
@@ -21,7 +21,7 @@
               </div>
 
               <div class="mb-3 text-center">
-                {{ form.password.label_tag }}
+
                 {{ form.password }}
                 {% for error in form.password.errors %}
                   <div class="text-danger">{{ error }}</div>

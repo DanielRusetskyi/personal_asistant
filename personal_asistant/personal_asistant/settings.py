@@ -11,7 +11,11 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 import os
 from pathlib import Path
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 from dotenv import load_dotenv
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,10 +29,11 @@ load_dotenv(BASE_DIR / '.env')
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get("DEBUG") == "True"
 
-ALLOWED_HOSTS = []
+#  ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "").split(",")
 
+ALLOWED_HOSTS = ['*']
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
@@ -46,6 +51,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'cloudinary',
+    'cloudinary_storage',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -57,6 +64,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -130,6 +138,10 @@ DATABASES = {
     }
 }
 
+# DATABASES = {
+#     'default': dj_database_url.config(conn_max_age=600)
+# }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
@@ -149,6 +161,13 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME'),
+    'API_KEY': os.getenv('CLOUDINARY_API_KEY'),
+    'API_SECRET': os.getenv('CLOUDINARY_API_SECRET'),
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
@@ -167,9 +186,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = [
-    BASE_DIR / 'static',
-]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_URL = '/media/'
 
@@ -184,4 +205,5 @@ AUTH_USER_MODEL = 'accounts.CustomUser'
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/login/'
+CSRF_TRUSTED_ORIGINS = ['https://personal-asistant.fly.dev']
 
