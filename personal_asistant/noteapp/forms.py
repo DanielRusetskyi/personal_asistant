@@ -23,3 +23,7 @@ class NoteForm(forms.ModelForm):
             'done': forms.CheckboxInput(attrs={'class': 'form-check-input', 'type': 'checkbox'}),
             # 'tags': forms.SelectMultiple(attrs={'class': 'form-select'}),
         }
+
+    def clean_description(self):
+        description = self.cleaned_data['description']
+        return description[:1].upper() + description[1:]

@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block content %}
-<div class="container mt-5 d-flex justify-content-center">
+<div class="container mt-5 d-flex justify-content-center animate-drop-bounce">
     <div class="row justify-content-center w-100">
         <!-- Профіль з даними користувача -->
         <div class="col-md-10">
@@ -45,7 +45,7 @@
                 <a href="{% url 'accounts:change_password' %}" class="btn btn-outline-primary px-4 text-nowrap">
                     🔒 Змінити пароль
                 </a>
-                <a href="{% url 'noteapp:main' %}" class="btn btn-outline-secondary px-4 text-nowrap">
+                <a href="{% url 'main' %}" class="btn btn-outline-secondary px-4 text-nowrap">
                     <i class="bi bi-arrow-left"></i> Назад
                 </a>
             </div>
@@ -54,4 +54,13 @@
         </div>
     </div>
 </div>
+
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    const el = document.querySelector('.container');
+    if (el) {
+      el.classList.add('animate-drop');
+    }
+  });
+</script>
 {% endblock %}

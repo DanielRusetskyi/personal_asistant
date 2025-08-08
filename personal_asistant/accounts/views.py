@@ -14,9 +14,13 @@ class CustomLoginView(LoginView):
     form_class = EmailOrUsernameAuthenticationForm
     template_name = 'accounts/login.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+
 
 class CustomLogoutView(LogoutView):
-    next_page = reverse_lazy('noteapp:main')
+    next_page = reverse_lazy('main')
 
 
 class RegisterView(CreateView):
@@ -33,6 +37,12 @@ class UserProfileView(LoginRequiredMixin, DetailView):
 
     def get_object(self):
         return self.request.user
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['active_page'] = 'profile'
+        context['active_menu'] = 'profile'
+        return context
 
 
 class UserEditView(LoginRequiredMixin, UpdateView):
@@ -51,6 +61,12 @@ class UserEditView(LoginRequiredMixin, UpdateView):
             self.object.upload_image(avatar_file)
         return response
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['active_page'] = 'edit_profile'
+        context['active_menu'] = 'profile'
+        return context
+
 
 class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
     template_name = 'accounts/password_reset.html'
@@ -67,3 +83,9 @@ class CustomPasswordChangeView(LoginRequiredMixin, PasswordChangeView):
     form_class = CustomPasswordChangeForm
     template_name = 'accounts/change_password.html'
     success_url = reverse_lazy('account:password_change_done')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['active_page'] = 'change_password'
+        context['active_menu'] = 'profile'
+        return context

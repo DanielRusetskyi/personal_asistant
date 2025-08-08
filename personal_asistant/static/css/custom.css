@@ -61,3 +61,263 @@ input[type="radio"] {
   transition: background-color 0.2s ease-in-out;
   border-radius: 4px;
 }
+
+@keyframes dropBounce {
+  0% {
+    opacity: 0;
+    transform: translateY(-100vh);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(30px);
+  }
+  80% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.animate-drop-bounce {
+  animation: dropBounce 1s ease-out forwards;
+}
+
+@keyframes dropBounce {
+    0% {
+      opacity: 0;
+      transform: translateY(-100vh);
+    }
+    60% {
+      opacity: 1;
+      transform: translateY(30px);
+    }
+    80% {
+      transform: translateY(-10px);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+
+  .animate-drop-bounce {
+    animation: dropBounce 0.9s ease forwards;
+  }
+
+  .notes-container {
+    min-height: 50vh;
+    max-height: 70vh;
+    overflow-y: auto;
+    position: relative;
+    transition: all 0.3s ease-in-out;
+  }
+
+  @media (min-width: 768px) {
+    .notes-container {
+      min-height: 60vh;
+      max-height: 75vh;
+    }
+  }
+
+  @media (min-width: 992px) {
+    .notes-container {
+      min-height: 70vh;
+      max-height: 80vh;
+    }
+  }
+
+  .empty-message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #6c757d;
+    font-size: 1.2rem;
+    text-align: center;
+  }
+  }
+
+
+@keyframes fade-in-down {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-down {
+  animation: fade-in-down 0.8s ease-out;
+}
+
+  .hotspot img {
+    width: 250px;
+    height: auto;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+  }
+
+  .hotspot img:hover {
+    transform: scale(1.05) rotate(-1deg);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  .caption {
+    margin-top: 10px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #222;
+  }
+
+  @keyframes dropFade {
+    0% {
+      transform: translateY(-50px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  /* Адаптивність */
+  @media (max-width: 768px) {
+    .hotspot img {
+      width: 100px;
+    }
+    .caption {
+      font-size: 1rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .hotspot img {
+      width: 80px;
+    }
+    .caption {
+      font-size: 0.9rem;
+    }
+  }
+
+  /* Стилі для анімації згортання вікна створення нотатки*/
+.note-form-transition {
+    transition: all 0.3s ease-in-out;
+    opacity: 1;
+    transform: scale(1);
+    max-height: 1000px;
+    overflow: hidden;
+  }
+
+  .note-form-hidden {
+    opacity: 0;
+    transform: scale(0.95);
+    max-height: 0;
+    overflow: hidden;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+ /*Стилі для запису завдання */
+
+.note-item {
+  transition: all 0.2s ease-in-out;
+
+}
+
+.note-item:hover {
+  background-color: #e9ecef; /* світло-сірий відтінок Bootstrap */
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2); /* легка тінь */
+}
+
+ /* Стилі для лістингу нотаток */
+.note-header,
+.note-row {
+display: grid;
+grid-template-columns: 1fr 5fr 1fr;
+align-items: center;
+padding: 0.5rem 1rem;
+}
+
+.note-header {
+background-color: #f8f9fa;
+font-weight: bold;
+color: #6c757d;
+border-bottom: 1px solid #dee2e6;
+}
+
+.note-row:hover {
+background-color: #f1f3f5;
+}
+
+.note-checkbox {
+display: flex;
+align-items: center;
+gap: 0.5rem;
+}
+
+.note-priority {
+text-align: right;
+}
+
+.note-link {
+text-decoration: none;
+color: inherit;
+display: block;
+}
+
+/* Адаптивність для мобільних */
+@media (max-width: 768px) {
+.note-header {
+  display: none;
+}
+
+.note-row {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.25rem;
+  padding: 0.75rem 1rem;
+}
+
+.note-checkbox {
+  order: 1;
+}
+
+.note-description {
+  order: 2;
+  font-weight: 500;
+}
+
+.note-priority {
+  order: 3;
+  width: 100%;
+  text-align: left;
+}
+}
+
+.note-description {
+  font-family: 'Caveat', cursive;
+  font-size: 1.1rem; /* або більший для кращого вигляду */
+}
+
+<!-- Анімація -->
+
+.animate-day {
+animation: fadeSlide 0.4s ease-in-out;
+}
+
+@keyframes fadeSlide {
+from {
+  opacity: 0;
+  transform: translateX(30px);
+}
+to {
+  opacity: 1;
+  transform: translateX(0);
+}
+}
+
+

@@ -1,0 +1,92 @@
+{% load static %}
+<div class="flex flex-col items-center space-y-4 text-gray-600 text-sm md:text-base">
+
+  {% if active_page == 'main' %}
+    <!-- Іконка записника -->
+    <a href="#"
+       class="flex flex-col items-center transform transition-transform duration-300 hover:scale-110 group"
+       title="Записник">
+      <img src="{% static 'images/notebook_icon.png' %}"
+           alt="Записник"
+           class="w-24 h-24 md:w-32 md:h-32 object-contain" />
+      <span class="mt-2 text-lg md:text-xl font-medium group-hover:underline text-white drop-shadow">Записник</span>
+    </a>
+
+    <!-- Іконка довідника -->
+    <a href="#"
+       class="flex flex-col items-center transform transition-transform duration-300 hover:scale-110 group"
+       title="Телефонний довідник">
+      <img src="{% static 'images/phone_icon.png' %}"
+           alt="Телефон"
+           class="w-24 h-24 md:w-32 md:h-32 object-contain" />
+      <span class="mt-2 text-lg md:text-xl font-medium group-hover:underline text-white drop-shadow">Телефонний довідник</span>
+    </a>
+  {% else %}
+
+  {% if user.is_authenticated %}
+    <!-- Завдання -->
+    <a href="{% url 'noteapp:task_by_period' %}"
+       class="flex flex-col items-center group {% if active_page == 'task' %}text-blue-600{% else %}hover:text-blue-600{% endif %}">
+      <span class="text-2xl">📋</span>
+      <span class="group-hover:underline">Завдання</span>
+    </a>
+
+    <!-- Завдання на день -->
+    {% now "Y-m-d" as today %}
+    {% with day|default:today as current_day %}
+      <a href="{% url 'noteapp:day_tasks' date=current_day %}"
+         class="flex flex-col items-center group {% if active_page == 'day_tasks' %}text-blue-600{% else %}hover:text-blue-600{% endif %}">
+        <span class="text-2xl">🗓️</span>
+        <span class="group-hover:underline">Сьогодні</span>
+      </a>
+    {% endwith %}
+
+    <!-- Календар -->
+    {% if year and month %}
+      <a href="{% url 'noteapp:calendar' year=year month=month %}"
+         class="flex flex-col items-center group {% if active_page == 'calendar' %}text-blue-600{% else %}hover:text-blue-600{% endif %}">
+        <span class="text-2xl">📆</span>
+        <span class="group-hover:underline">Календар</span>
+      </a>
+    {% else %}
+      <a href="{% url 'noteapp:calendar_current' %}"
+         class="flex flex-col items-center group {% if active_page == 'calendar' %}text-blue-600{% else %}hover:text-blue-600{% endif %}">
+        <span class="text-2xl">📆</span>
+        <span class="group-hover:underline">Календар</span>
+      </a>
+    {% endif %}
+
+    <!-- Нагадування -->
+    <a href="#" class="flex flex-col items-center group hover:text-blue-600">
+      <span class="text-2xl">⏰</span>
+      <span class="group-hover:underline">Нагадування</span>
+    </a>
+
+    <!-- Налаштування -->
+    <a href="#" class="flex flex-col items-center group hover:text-blue-600">
+      <span class="text-2xl">⚙️</span>
+      <span class="group-hover:underline">Налаштування</span>
+    </a>
+  {% endif %}
+
+  {% endif %}
+
+  <!-- Погода -->
+  <a href="#" class="flex flex-col items-center group hover:text-blue-600">
+    <span class="text-2xl">🌦️</span>
+    <span class="group-hover:underline">Погода</span>
+  </a>
+
+  <!-- Валюта -->
+  <a href="#" class="flex flex-col items-center group hover:text-blue-600">
+    <span class="text-2xl">💱</span>
+    <span class="group-hover:underline">Курси</span>
+  </a>
+
+  <!-- Радіо -->
+  <a href="#" class="flex flex-col items-center group hover:text-blue-600">
+    <span class="text-2xl">📻</span>
+    <span class="group-hover:underline">Радіо</span>
+  </a>
+
+</div>

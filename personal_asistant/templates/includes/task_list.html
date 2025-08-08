@@ -1,68 +1,155 @@
-{% if notes %}
-    <div class="row row-cols-1 g-3 mb-4">
-      {% for note in notes %}
-        <div class="col">
-          <a href="{% url 'noteapp:note_edit' note.pk %}?page={{ notes.number }}" class="text-decoration-none text-dark">
-            <div class="card h-100 shadow-sm border-8 transition-all hover-shadow custom-card-bg rounded-4
-                {% if note.priority == 'high' %}
-                  border-danger
-                {% elif note.priority == 'medium' %}
-                  border-warning
-                {% elif note.priority == 'low' %}
-                  border-secondary
-                {% else %}
-                  border-light
-                {% endif %}
-              ">
-              <div class="card-body">
-                  <!-- Рядок з описом і статусом -->
-                  <div class="d-flex justify-content-between align-items-center">
-                    <!-- Опис -->
-                    <p class="card-text mb-0 p-2 rounded">
-                      {{ note.description }}
-                    </p>
+{% comment %}
+<div class="row row-cols-1 g-3 mb-4 bg-light rounded-4 notes-container">
+  {% if notes %}
+    {% for note in notes %}
 
-                    <!-- Статус -->
-                    <div class="fw-bold ms-3">
-                      {% if note.done %}
-                        <span class="text-success">✅ Виконано</span>
-                      {% else %}
-                        <span class="text-secondary">❌ Не виконано</span>
-                      {% endif %}
-                    </div>
-                  </div>
+      <div class="col animate-drop-bounce">
+        <a href="{% url 'noteapp:note_edit' note.pk %}?page={{ notes.number }}" class="text-decoration-none text-dark">
+          <div class="card  shadow-sm border-3 transition-all hover-shadow custom-card-bg rounded-4
+              {% if note.priority == 'high' %}
+                border-danger
+              {% elif note.priority == 'medium' %}
+                border-warning
+              {% elif note.priority == 'low' %}
+                border-secondary
+              {% else %}
+                border-light
+              {% endif %}
+            ">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-center">
+                <p class="card-text mb-0 p-2 rounded">{{ note.description }}</p>
+                <div class="fw-bold ms-3">
+                  {% if note.done %}
+                    <span class="text-success">✅ Виконано</span>
+                  {% else %}
+                    <span class="text-secondary">❌ Не виконано</span>
+                  {% endif %}
+                </div>
+              </div>
             </div>
-
-            </div>
-          </a>
-        </div>
-      {% endfor %}
-    </div>
-
-    <!-- Пагінація -->
-    <nav class="d-flex justify-content-center">
-      <ul class="pagination">
-        {% if notes.has_previous %}
-          <li class="page-item"><a class="page-link" href="?page={{ notes.previous_page_number }}">&laquo;</a></li>
-        {% else %}
-          <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
-        {% endif %}
-
-        {% for num in notes.paginator.page_range %}
-          {% if notes.number == num %}
-            <li class="page-item active"><span class="page-link">{{ num }}</span></li>
-          {% else %}
-            <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
-          {% endif %}
-        {% endfor %}
-
-        {% if notes.has_next %}
-          <li class="page-item"><a class="page-link" href="?page={{ notes.next_page_number }}">&raquo;</a></li>
-        {% else %}
-          <li class="page-item disabled"><span class="page-link">&raquo;</span></li>
-        {% endif %}
-      </ul>
-    </nav>
+          </div>
+        </a>
+      </div>
+     {% endfor %}
   {% else %}
-    <p class="text-center mb-4 py-2 px-3 bg-light border-4 rounded-4 shadow-sm">Завдань ще немає.</p>
+    <div class="col text-center text-muted py-5">
+      <p>📭 Немає нотаток</p>
+    </div>
   {% endif %}
+</div>
+      {% endcomment %}
+
+
+<div class="card shadow-sm mb-4 border-0 animate-drop-bounce">
+  <div class="card-header bg-light fw-bold">
+    📅 {{ day|date:"l, d M Y" }}
+  </div>
+
+  <ul class="list-group list-group-flush">
+
+    <!-- Заголовок (ховається на мобільних) -->
+    <li class="list-group-item note-header">
+      <div>Статус</div>
+      <div>Опис</div>
+      <div class="text-end">Пріоритет</div>
+    </li>
+
+    {% for note in notes %}
+      <li class="list-group-item p-0">
+        <a href="{% url 'noteapp:note_edit' note.pk %}" class="note-link">
+          <div class="note-row">
+            <!-- Статус -->
+            <div class="note-checkbox">
+              <input type="checkbox"
+                     class="form-check-input task-toggle"
+                     data-task-id="{{ note.id }}"
+                     {% if note.done %}checked{% endif %}>
+            </div>
+
+            <!-- Опис -->
+            <div class="note-description">
+              {{ note.description }}
+            </div>
+
+            <!-- Пріоритет -->
+            <div class="note-priority">
+              {% if note.priority == 'high' %}
+                <span class="badge text-danger">🔴 Високий </span>
+              {% elif note.priority == 'medium' %}
+                <span class="badge text-dark">🟡 Середній</span>
+              {% elif note.priority == 'low' %}
+                <span class="badge text-secondary">🔵 Низький</span>
+              {% endif %}
+            </div>
+
+          </div>
+        </a>
+      </li>
+    {% empty %}
+      <li class="list-group-item text-muted text-center">Завдань немає</li>
+    {% endfor %}
+  </ul>
+</div>
+
+
+
+
+{% comment %}
+<!-- Пагінація -->
+<nav class="d-flex justify-content-center">
+  <ul class="pagination">
+    {% if notes.has_previous %}
+      <li class="page-item"><a class="page-link" href="?page={{ notes.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+      <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
+    {% endif %}
+
+    {% for num in notes.paginator.page_range %}
+      {% if notes.number == num %}
+        <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+      {% else %}
+        <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+      {% endif %}
+    {% endfor %}
+
+    {% if notes.has_next %}
+      <li class="page-item"><a class="page-link" href="?page={{ notes.next_page_number }}">&raquo;</a></li>
+    {% else %}
+      <li class="page-item disabled"><span class="page-link">&raquo;</span></li>
+    {% endif %}
+  </ul>
+</nav>
+{% endcomment %}
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const checkboxes = document.querySelectorAll(".task-toggle");
+
+    checkboxes.forEach(checkbox => {
+      checkbox.addEventListener("change", function () {
+        const taskId = this.dataset.taskId;
+        const isDone = this.checked;
+
+        fetch("{% url 'noteapp:toggle_task_status' %}", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": "{{ csrf_token }}"
+          },
+          body: JSON.stringify({
+            task_id: taskId,
+            done: isDone
+          })
+        })
+        .then(res => {
+          if (!res.ok) throw new Error("Помилка збереження");
+        })
+        .catch(err => {
+          alert("❌ Не вдалося оновити статус");
+          this.checked = !isDone; // повернути назад
+        });
+      });
+    });
+  });
+</script>

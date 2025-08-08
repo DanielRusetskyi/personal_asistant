@@ -17,12 +17,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
+from django.views.generic import TemplateView
 
 from . import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',include('noteapp.urls')),
+    path('', TemplateView.as_view(template_name="main.html",
+                                  extra_context={'active_menu': 'main', 'active_page': 'main'}), name='main'),
+    path('noteapp/', include('noteapp.urls')),
     path('account/', include('accounts.urls', namespace='account')),
     path('accounts/', include('allauth.urls')),
 ]

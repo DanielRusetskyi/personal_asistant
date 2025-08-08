@@ -1,0 +1,70 @@
+<div class="flex flex-col items-center space-y-4 text-gray-600 text-sm md:text-base">
+
+
+  {% if user.is_authenticated %}
+    <!-- Завдання -->
+    <a href="{% url 'noteapp:task_by_period' %}"
+       class="flex flex-col items-center group {% if active_page == 'task' %}text-blue-600{% else %}hover:text-blue-600{% endif %}">
+      <span class="text-2xl">📋</span>
+      <span class="group-hover:underline">Завдання</span>
+    </a>
+
+    <!-- Завдання на день -->
+    {% now "Y-m-d" as today %}
+    {% with day|default:today as current_day %}
+      <a href="{% url 'noteapp:day_tasks' date=current_day %}"
+         class="flex flex-col items-center group {% if active_page == 'day_tasks' %}text-blue-600{% else %}hover:text-blue-600{% endif %}">
+        <span class="text-2xl">🗓️</span>
+        <span class="group-hover:underline">Сьогодні</span>
+      </a>
+    {% endwith %}
+
+    <!-- Календар -->
+    {% if year and month %}
+      <a href="{% url 'noteapp:calendar' year=year month=month %}"
+         class="flex flex-col items-center group {% if active_page == 'calendar' %}text-blue-600{% else %}hover:text-blue-600{% endif %}">
+        <span class="text-2xl">📆</span>
+        <span class="group-hover:underline">Календар</span>
+      </a>
+    {% else %}
+      <a href="{% url 'noteapp:calendar_current' %}"
+         class="flex flex-col items-center group {% if active_page == 'calendar' %}text-blue-600{% else %}hover:text-blue-600{% endif %}">
+        <span class="text-2xl">📆</span>
+        <span class="group-hover:underline">Календар</span>
+      </a>
+    {% endif %}
+
+    <!-- Нагадування -->
+    <a href="#" class="flex flex-col items-center group hover:text-blue-600">
+      <span class="text-2xl">⏰</span>
+      <span class="group-hover:underline">Нагадування</span>
+    </a>
+
+    <!-- Налаштування -->
+    <a href="#" class="flex flex-col items-center group hover:text-blue-600">
+      <span class="text-2xl">⚙️</span>
+      <span class="group-hover:underline">Налаштування</span>
+    </a>
+  {% endif %}
+
+  {% endif %}
+
+  <!-- Погода -->
+  <a href="#" class="flex flex-col items-center group hover:text-blue-600">
+    <span class="text-2xl">🌦️</span>
+    <span class="group-hover:underline">Погода</span>
+  </a>
+
+  <!-- Валюта -->
+  <a href="#" class="flex flex-col items-center group hover:text-blue-600">
+    <span class="text-2xl">💱</span>
+    <span class="group-hover:underline">Курси</span>
+  </a>
+
+  <!-- Радіо -->
+  <a href="#" class="flex flex-col items-center group hover:text-blue-600">
+    <span class="text-2xl">📻</span>
+    <span class="group-hover:underline">Радіо</span>
+  </a>
+
+</div>

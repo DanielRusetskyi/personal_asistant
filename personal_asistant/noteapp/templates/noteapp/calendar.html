@@ -49,8 +49,13 @@
                     <tr>
                         {% for day in week %}
                             {% if day %}
-                                <td class="calendar-day {% if day == today %}bg-primary text-white fw-bold{% endif %}">
-                                  <a href="{% url 'noteapp:create_day_tasks' date=day.isoformat %}" class="text-decoration-none d-block py-2">
+                               <td class="calendar-day
+                                    {% if selected_day and day == selected_day %}
+                                        bg-primary text-white fw-bold
+                                    {% elif not selected_day and day == today %}
+                                        bg-primary text-white fw-bold
+                                    {% endif %}">
+                                  <a href="{% url 'noteapp:notebook_by_date' day|date:'Y-m-d' %}" class="text-decoration-none d-block py-2">
                                     {{ day.day }}
                                   </a>
                                 </td>

@@ -37,60 +37,44 @@
   <!-- Навігація по днях (внизу, адаптивна) -->
   <div class="d-flex flex-column flex-sm-row justify-content-between align-items-center gap-3 text-center">
 
-  <!-- Попередній день -->
-  <div class="w-100 w-sm-auto text-center text-sm-start">
-    <a href="{% url 'noteapp:day_tasks' date=prev_day %}"
-       class="btn btn-calendar-hover w-100 w-sm-auto"
-       data-dir="left">
-      ← Попередній день
-    </a>
+      <!-- Попередній день -->
+      <div class="w-100 w-sm-auto text-center text-sm-start">
+        <a href="{% url 'noteapp:day_tasks' date=prev_day %}"
+           class="btn btn-calendar-hover w-100 w-sm-auto"
+           data-dir="left">
+          ← Попередній день
+        </a>
+      </div>
+
+      <!-- Вибір дати -->
+      <div class="w-100 w-sm-auto d-flex justify-content-center">
+      <div class="input-group" style="max-width: 300px;">
+        <input type="date"
+               id="datePicker"
+               class="form-control"
+               value="{{ day|date:'Y-m-d' }}">
+        <button type="button" class="btn btn-primary" onclick="goToDate()">Перейти</button>
+      </div>
+    </div>
+
+
+      <!-- Наступний день -->
+      <div class="w-100 w-sm-auto text-center text-sm-end">
+        <a href="{% url 'noteapp:day_tasks' date=next_day %}"
+           class="btn btn-calendar-hover w-100 w-sm-auto"
+           data-dir="right">
+          Наступний день →
+        </a>
+      </div>
+
   </div>
 
-  <!-- Вибір дати -->
-  <div class="w-100 w-sm-auto d-flex justify-content-center">
-  <div class="input-group" style="max-width: 300px;">
-    <input type="date"
-           id="datePicker"
-           class="form-control"
-           value="{{ day|date:'Y-m-d' }}">
-    <button type="button" class="btn btn-primary" onclick="goToDate()">Перейти</button>
-  </div>
+
+
+
 </div>
 
 
-  <!-- Наступний день -->
-  <div class="w-100 w-sm-auto text-center text-sm-end">
-    <a href="{% url 'noteapp:day_tasks' date=next_day %}"
-       class="btn btn-calendar-hover w-100 w-sm-auto"
-       data-dir="right">
-      Наступний день →
-    </a>
-  </div>
-
-</div>
-
-
-
-
-</div>
-
-<!-- Анімація -->
-<style>
-  .animate-day {
-    animation: fadeSlide 0.4s ease-in-out;
-  }
-
-  @keyframes fadeSlide {
-    from {
-      opacity: 0;
-      transform: translateX(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-</style>
 
 <!-- JS: анімація переходу між днями -->
 <script>

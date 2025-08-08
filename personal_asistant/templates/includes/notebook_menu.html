@@ -1,0 +1,72 @@
+<div class="flex flex-col items-center space-y-4 text-gray-600 text-sm md:text-base">
+
+  {% if user.is_authenticated %}
+    <!-- Блок у рамці -->
+    <div class="border border-gray-300 rounded-lg p-4 w-full max-w-xs bg-white shadow-sm space-y-4">
+
+      <h2 class="text-lg font-semibold text-center text-gray-800 border-b pb-2">
+        📋 Notebook
+      </h2>
+
+
+      <!-- Календар -->
+      {% if date_ %}
+        <a href="{% url 'noteapp:calendar' date_=date_ %}"
+           class="flex flex-col items-center group {% if active_page == 'calendar' %}text-blue-600{% else %}hover:text-blue-600{% endif %}">
+          <span class="text-2xl">📆</span>
+          <span class="group-hover:underline">Календар</span>
+        </a>
+      {% elif year and month %}
+        <a href="{% url 'noteapp:calendar' year=year month=month %}"
+           class="flex flex-col items-center group {% if active_page == 'calendar' %}text-blue-600{% else %}hover:text-blue-600{% endif %}">
+          <span class="text-2xl">📆</span>
+          <span class="group-hover:underline">Календар</span>
+        </a>
+      {% else %}
+        <a href="{% url 'noteapp:calendar_current' %}"
+           class="flex flex-col items-center group {% if active_page == 'calendar' %}text-blue-600{% else %}hover:text-blue-600{% endif %}">
+          <span class="text-2xl">📆</span>
+          <span class="group-hover:underline">Календар</span>
+        </a>
+      {% endif %}
+
+      {% now "Y-m-d" as today %}
+      {% with selected_day|default:today as current_day %}
+        <a href="{% url 'noteapp:notebook_by_date' current_day %}"
+           class="flex flex-col items-center group {% if active_page == 'notebook_by_date' %}text-blue-600{% else %}hover:text-blue-600{% endif %}">
+          <span class="text-2xl">🗓️</span>
+          <span class="group-hover:underline">Сьогодні</span>
+        </a>
+      {% endwith %}
+
+
+      <!-- Завдання -->
+      <a href="{% url 'noteapp:task_by_period' %}"
+         class="flex flex-col items-center group {% if active_page == 'task_by_period' %}text-blue-600{% else %}hover:text-blue-600{% endif %}">
+        <span class="text-2xl">📋</span>
+        <span class="group-hover:underline">Завдання</span>
+      </a>
+
+      <!-- Нагадування -->
+      <a href="#" class="flex flex-col items-center group hover:text-blue-600">
+        <span class="text-2xl">⏰</span>
+        <span class="group-hover:underline">Нагадування</span>
+      </a>
+
+      <!-- Налаштування -->
+      <a href="#" class="flex flex-col items-center group hover:text-blue-600">
+        <span class="text-2xl">⚙️</span>
+        <span class="group-hover:underline">Налаштування</span>
+      </a>
+
+      <!-- Назад -->
+      <a href="{% url 'main' %}"
+         class="flex flex-col items-center group hover:text-blue-600">
+        <span class="text-2xl">🤖</span>
+        <span class="group-hover:underline">Повернутися</span>
+      </a>
+
+    </div>
+  {% endif %}
+
+</div>

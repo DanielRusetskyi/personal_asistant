@@ -30,7 +30,7 @@
             <div class="form-check d-flex align-items-center flex-grow-1">
               <input type="checkbox" class="form-check-input me-2" disabled {% if task.done %}checked{% endif %}>
               <label class="form-check-label">
-                <span class="me-2 text-muted">#{{ forloop.counter }}</span>
+                <span class="me-2 text-muted"> {{ forloop.counter }}</span>
                 {{ task.description }}
               </label>
             </div>

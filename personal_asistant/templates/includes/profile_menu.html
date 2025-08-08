@@ -1,0 +1,54 @@
+{% load static %}
+
+<div class="flex flex-col items-center space-y-4 text-gray-600 text-sm md:text-base">
+
+    <!-- Блок у рамці -->
+    <div class="border border-gray-300 rounded-lg p-4 w-full max-w-xs bg-white shadow-sm space-y-4">
+
+      <div class="mt-4">
+        {% if user.avatar %}
+            <img src="{{ user.avatar }}"
+                 alt="Аватар користувача"
+                 class="w-[100px] h-[100px] object-cover rounded-full mx-auto border-4 border-blue-300 shadow-lg transition-transform duration-300 hover:scale-105">
+        {% else %}
+            <img src="{% static 'images/default_avatar.png' %}"
+                 alt="Аватар за замовчуванням"
+                 class="w-[100px] h-[100px] object-cover rounded-full mx-auto border-4 border-blue-300 shadow-lg transition-transform duration-300 hover:scale-105">
+        {% endif %}
+    </div>
+
+      <!-- Назад -->
+      <a href="{% url 'main' %}"
+         class="flex flex-col items-center group hover:text-blue-600">
+        <span class="text-2xl">🔙</span>
+        <span class="group-hover:underline">Повернутися</span>
+      </a>
+
+    {% if user.is_authenticated %}
+
+      <!-- Редагувати профіль -->
+      <a href="{% url 'account:edit_profile' %}"
+           class="flex flex-col items-center group {% if active_page == 'edit_profile' %}text-blue-600{% else %}hover:text-blue-600{% endif %}">
+          <span class="text-2xl">🔧</span>
+          <span class="group-hover:underline text-nowrap">Редагувати профіль</span>
+      </a>
+
+        <!-- Змінити пароль -->
+      <a href="{% url 'accounts:change_password' %}"
+           class="flex flex-col items-center group {% if active_page == 'change_password' %}text-blue-600{% else %}hover:text-blue-600{% endif %}">
+          <span class="text-2xl">🔒</span>
+          <span class="group-hover:underline text-nowrap">Змінити пароль</span>
+      </a>
+
+      <!-- Налаштування -->
+      <a href="#" class="flex flex-col items-center group hover:text-blue-600">
+        <span class="text-2xl">⚙️</span>
+        <span class="group-hover:underline">Налаштування</span>
+      </a>
+    {% endif %}
+    </div>
+
+
+
+
+</div>
