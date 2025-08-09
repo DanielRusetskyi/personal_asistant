@@ -90,19 +90,14 @@
 
         <!-- Контент -->
 
-        <main class="flex-1 min-h-screen p-6 bg-cover bg-center rounded-lg shadow-md relative
-                      {% if active_page == 'notebook' %}animate-drop-bounce{% endif %}"
-              style="
-                  {% if active_menu == 'notebook' %}
-                    background-image: url('{% static 'images/bg_light.png' %}');
+        <main class="has-bg-main relative w-full
+            flex-none h-auto           <!-- mobile -->
+            md:flex-1 md:min-h-screen  <!-- desktop -->
+            p-6 bg-center rounded-lg shadow-md
+            {% if active_page == 'notebook' %}animate-drop-bounce{% endif %}
+            {% if active_menu == 'notebook' %}bg-notebook{% else %}bg-default{% endif %}">
 
-                  {% else %}
-                    background-image: url('{% static 'images/bg.png' %}');
-                  {% endif %}
-                ">
-
-          {% block content %}
-          {% endblock %}
+          {% block content %}{% endblock %}
 
         </main>
 

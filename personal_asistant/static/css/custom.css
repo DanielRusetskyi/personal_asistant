@@ -320,4 +320,24 @@ to {
 }
 }
 
+/* спільне */
+.bg-notebook, .bg-default {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;   /* заповнює, може трохи обрізати */
+  aspect-ratio: 4 / 6;      /* мобільна пропорція */
+}
 
+/* зображення */
+.bg-notebook { background-image: url("/static/images/bg_light.png"); }
+.bg-default  { background-image: url("/static/images/bg_desktop.jpg"); }
+
+/* мобільне фото + пропорція */
+@media (max-width: 768px) {
+  .bg-default { background-image: url("/static/images/bg_mobile.jpg"); }
+}
+
+/* десктопна пропорція */
+@media (min-width: 768px) {
+  .bg-notebook, .bg-default { aspect-ratio: 5 / 5; }
+}
