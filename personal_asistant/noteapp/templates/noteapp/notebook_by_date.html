@@ -47,19 +47,18 @@
     </div>
   </div>
   <!-- Навігація по днях (внизу, адаптивна) -->
-  <div class="d-flex flex-column flex-sm-row justify-content-between align-items-center gap-3 text-center">
+  <div class="d-flex justify-content-center align-items-center gap-1 text-center">
 
       <!-- Попередній день -->
-      <div class="w-100 w-sm-auto text-center text-sm-start">
+
         <a href="{% url 'noteapp:notebook_by_date' date=prev_day %}"
-           class="btn btn-calendar-hover w-100 w-sm-auto"
-           data-dir="left">
-          ← Попередній день
+           class="btn btn-calendar-hover">
+          ←
         </a>
-      </div>
+
 
       <!-- Вибір дати -->
-      <div class="w-100 w-sm-auto d-flex justify-content-center">
+
       <div class="input-group" style="max-width: 300px;">
         <input type="date"
                id="datePicker"
@@ -67,17 +66,14 @@
                value="{{ day|date:'Y-m-d' }}">
         <button type="button" class="btn btn-primary" onclick="goToDate()">Перейти</button>
       </div>
-    </div>
 
 
       <!-- Наступний день -->
-      <div class="w-100 w-sm-auto text-center text-sm-end">
+
         <a href="{% url 'noteapp:notebook_by_date' date=next_day %}"
-           class="btn btn-calendar-hover w-100 w-sm-auto"
-           data-dir="right">
-          Наступний день →
+           class="btn btn-calendar-hover">
+            →
         </a>
-      </div>
 
   </div>
 
