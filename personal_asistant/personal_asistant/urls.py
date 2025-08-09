@@ -28,6 +28,7 @@ urlpatterns = [
     path('noteapp/', include('noteapp.urls')),
     path('account/', include('accounts.urls', namespace='account')),
     path('accounts/', include('allauth.urls')),
+    path('additional/', include('additional.urls')), 
 ]
 
 if settings.DEBUG:
