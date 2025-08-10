@@ -19,26 +19,41 @@
 
     <!-- Навігація -->
     <div class="bg-white shadow-md">
-      <header class="p-4 flex items-center justify-between">
-        <a href="{% url 'main' %}" class="text-blue-800 font-bold text-lg">🤖 Асистент</a>
+      <header class="p-4 flex items-center justify-between flex-wrap gap-2">
+          <!-- Лого / фото -->
+          <a href="{% url 'main' %}" class="flex items-center gap-2">
+            <img src="{% static 'images/logo.jpg' %}" alt="Асистент" class="h-10 w-10 rounded-full object-cover">
+            <span class="text-blue-800 font-bold text-lg">Асистент</span>
+          </a>
 
-        <!-- Панель пошуку + кнопки -->
-        <div class="flex flex-col md:flex-row items-start md:items-center gap-2 md:gap-4 mt-4 md:mt-0">
-          <input type="text" placeholder="Пошук..." class="rounded-md border px-2 py-1 text-sm w-full md:w-auto" />
-          {% if user.is_authenticated %}
-          <a href="{% url 'accounts:profile' %}" class="bg-blue-600 text-white px-3 py-1 rounded-lg hover:bg-blue-700 text-center w-full md:w-auto">Профіль</a>
-          <form method="post" action="{% url 'accounts:logout' %}">
-            {% csrf_token %}
-            <button type="submit" class="bg-blue-600 text-white px-3 py-1 rounded-lg hover:bg-blue-700 text-center w-full md:w-auto">
-              Вихід
-            </button>
-          </form>
-          {% else %}
-          {% csrf_token %}
-          <a href="{% url 'accounts:login' %}" class="bg-blue-600 text-white px-3 py-1 rounded-lg hover:bg-blue-700 text-center w-full md:w-auto">Увійти</a>
-          <a href="{% url 'accounts:registration' %}" class="bg-blue-600 text-white px-3 py-1 rounded-lg hover:bg-blue-700 text-center w-full md:w-auto">Реєстрація</a>
-          {% endif %}
-        </div>
+          <!-- Панель пошуку + кнопки -->
+          <div class="flex flex-wrap items-center gap-2 w-full md:w-auto md:flex-nowrap md:justify-end">
+            <input type="text" placeholder="Пошук..."
+                   class="rounded-md border px-2 py-1 text-sm flex-grow min-w-[120px] md:min-w-0" />
+
+            {% if user.is_authenticated %}
+              <a href="{% url 'accounts:profile' %}"
+                 class="bg-blue-600 text-white px-3 py-1 rounded-lg hover:bg-blue-700 text-center">
+                Профіль
+              </a>
+              <form method="post" action="{% url 'accounts:logout' %}">
+                {% csrf_token %}
+                <button type="submit"
+                        class="bg-blue-600 text-white px-3 py-1 rounded-lg hover:bg-blue-700 text-center">
+                  Вихід
+                </button>
+              </form>
+            {% else %}
+              <a href="{% url 'accounts:login' %}"
+                 class="bg-blue-600 text-white px-3 py-1 rounded-lg hover:bg-blue-700 text-center">
+                Увійти
+              </a>
+              <a href="{% url 'accounts:registration' %}"
+                 class="bg-blue-600 text-white px-3 py-1 rounded-lg hover:bg-blue-700 text-center">
+                Реєстрація
+              </a>
+            {% endif %}
+          </div>
       </header>
 
 
@@ -49,7 +64,7 @@
         <div class="md:w-48 w-full" x-data="{ open: false }">
 
         <!-- Бургер-кнопка (мобілка) -->
-          <div class="md:hidden p-4 bg-white shadow relative">
+          <div class="md:hidden p-1 bg-white shadow relative">
             <button @click="open = !open" class="text-2xl focus:outline-none">
               ☰ Меню
             </button>
@@ -63,10 +78,6 @@
               style="display: none;"
             >
               <button @click="open = false" class="text-gray-600 hover:text-red-500 mb-2 flex items-center gap-1">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-                Закрити
               </button>
               {% if active_menu %}
                 {% include "includes/"|add:active_menu|add:"_menu.html" %}
