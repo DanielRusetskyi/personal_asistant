@@ -334,10 +334,115 @@ to {
 
 /* мобільне фото + пропорція */
 @media (max-width: 768px) {
-  .bg-default { background-image: url("/static/images/bg_mobile.jpg"); }
+  .bg-default { background-image: url("/static/images/bg_mobile1.png"); }
 }
 
 /* десктопна пропорція */
 @media (min-width: 768px) {
   .bg-notebook, .bg-default { aspect-ratio: 5 / 5; }
 }
+
+
+/* Контейнер радіального меню */
+.radial {
+  width: min(72vmin, 22rem);
+  height: min(72vmin, 22rem);
+}
+
+/* Центральна кнопка (FAB) */
+.radial-center {
+  width: 8rem;
+  height: 8rem;
+  position: absolute;
+  left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;                 /* ⬅️ вище за кільце */
+}
+
+/* Контейнер кільця */
+.radial-ring {
+  --count: 5;
+  --radius: clamp(10rem, 32vmin, 20rem); /* трохи збільшений радіус */
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* Кожен пункт меню */
+.radial-ring li[data-item] {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform-origin: 0 0;
+  transform: translate(-50%, -50%) scale(.2);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    transform .45s cubic-bezier(.2,.8,.2,1),
+    opacity .35s ease;
+  transition-delay: calc(var(--i) * 45ms);
+}
+
+/* Відкритий стан */
+.radial-ring.open li[data-item] {
+  opacity: 1;
+  pointer-events: auto;
+  transform:
+    translate(-50%, -50%)
+    rotate(calc(360deg / var(--count) * var(--i)))
+    translate(var(--radius))
+    rotate(calc(-360deg / var(--count) * var(--i)));
+}
+
+/* Кнопка пункту */
+.radial-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 5rem;
+  height: 5rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(0,0,0,.06);
+  box-shadow: 0 8px 24px rgba(0,0,0,.12);
+  color: #111827;
+  text-decoration: none;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  animation: pulse-glow 2.5s infinite ease-in-out;
+}
+
+.radial-item:hover {
+  transform: scale(1.06);
+  box-shadow: 0 12px 26px rgba(0,0,0,.16);
+}
+
+/* Текст під іконкою */
+.radial-label {
+  font-size: .75rem;
+  line-height: 1;
+  color: #374151;
+  position: absolute;
+  top: calc(100% + 0.25rem);
+  white-space: nowrap;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s infinite ease-in-out;
+}
+/* Анімація пульсу */
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(0, 191, 255, 0.6),
+                0 0 20px rgba(0, 191, 255, 0.4),
+                0 0 30px rgba(0, 191, 255, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(0, 191, 255, 0.9),
+                0 0 40px rgba(0, 191, 255, 0.6),
+                0 0 60px rgba(0, 191, 255, 0.3);
+  }
+}
+
+

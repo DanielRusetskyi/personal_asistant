@@ -1,6 +1,95 @@
 {% extends "base.html" %}
+{% load static %}
 
 
 {% block content %}
+<!-- Радіальне меню по центру тільки на мобільних -->
+<div class="md:hidden absolute inset-0 z-20 flex items-center justify-center -mt-20">
+  <div
+    x-data="{ open: false }"
+    x-init="$refs.ring.style.setProperty('--count', $refs.ring.querySelectorAll('li[data-item]').length)"
+    class="relative flex items-center justify-center"
+  >
+    <!-- Центральний тригер -->
+      <button
+        @click="open = !open"
+        :aria-expanded="open"
+        class="relative inline-flex items-center justify-center w-28 h-28 rounded-full
+               transition-transform duration-200 hover:scale-105 active:scale-195 focus:outline-none
+               animate-pulse-glow"
+        aria-label="Відкрити меню"
+      >
+        <!-- Іконка меню -->
+        <img
+          x-show="!open"
+          x-transition:enter="transition ease-out duration-200"
+          x-transition:enter-start="opacity-0 scale-75"
+          x-transition:enter-end="opacity-100 scale-100"
+          x-transition:leave="transition ease-in duration-150"
+          x-transition:leave-start="opacity-100 scale-100"
+          x-transition:leave-end="opacity-0 scale-75"
+          src="{% static 'images/menu_icon.png' %}"
+          alt="Menu"
+          class="absolute w-24 h-24 rounded-full"
+        />
+
+        <!-- Хрестик -->
+        <img
+          x-show="open"
+          x-transition:enter="transition ease-out duration-200"
+          x-transition:enter-start="opacity-0 scale-75"
+          x-transition:enter-end="opacity-100 scale-100"
+          x-transition:leave="transition ease-in duration-150"
+          x-transition:leave-start="opacity-100 scale-100"
+          x-transition:leave-end="opacity-0 scale-75"
+          src="{% static 'images/close_icon.png' %}"
+          alt="Menu"
+          class="absolute w-24 h-24 rounded-full"
+        />
+      </button>
+
+    <!-- Кільце пунктів -->
+      <ul
+        x-ref="ring"
+        :class="{ 'open': open }"
+        class="radial-ring"
+      >
+        {% if user.is_authenticated %}
+        <li data-item style="--i:0">
+          <a href="{% url 'noteapp:notebook' %}" class="radial-item" aria-label="Notebook">
+            <img src="{% static 'images/notebook_icon_2.png' %}" alt="Notebook" class="w-18 h-18 rounded-full">
+            <span class="radial-label">Notebook</span>
+          </a>
+        </li>
+        <li data-item style="--i:1">
+          <a href="#" class="radial-item" aria-label="Phonebook">
+            <img src="{% static 'images/phonebook_icon_3.png' %}" alt="Phonebook" class="w-18 h-18 rounded-full">
+            <span class="radial-label">Phonebook</span>
+          </a>
+        </li>
+        {% endif %}
+
+        <li data-item style="--i:2">
+          <a href="{% url 'weather' %}" class="radial-item" aria-label="Погода">
+            <img src="{% static 'images/weather_icon.png' %}" alt="Погода" class="w-18 h-18 rounded-full">
+            <span class="radial-label">Погода</span>
+          </a>
+        </li>
+        <li data-item style="--i:3">
+          <a href="#" class="radial-item" aria-label="Курси">
+            <img src="{% static 'images/exchange_icon.png' %}" alt="Курси" class="w-18 h-18 rounded-full">
+            <span class="radial-label">Курси</span>
+          </a>
+        </li>
+        <li data-item style="--i:4">
+          <a href="#" class="radial-item" aria-label="Радіо">
+            <img src="{% static 'images/radio_icon.png' %}" alt="Радіо" class="w-18 h-18 rounded-full">
+            <span class="radial-label">Радіо</span>
+          </a>
+        </li>
+      </ul>
+  </div>
+</div>
+
 
 {% endblock %}

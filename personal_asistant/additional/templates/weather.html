@@ -41,6 +41,11 @@
         cursor: pointer;
         transition: 0.3s;
     }
+    .button_weather:hover {
+    background-color: #e68900;
+    transform: translateY(-2px); /* легкий підйом */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
 
 <!--    button:hover {-->
 <!--        background-color: #e68900;-->
@@ -115,7 +120,7 @@
     to { transform: rotate(360deg);}
   }
 </style>
-
+<div class="flex items-center justify-center min-h-full flex-col w-full mt-10">
 <h2 class="sun_h2">
   Погода
   <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true">
@@ -148,5 +153,9 @@
         <p><strong>Відчувається як:</strong> {{ weather.feels_like }}°C</p>
         <p><strong>Опис:</strong> {{ weather.description }}</p>
     </div>
+    <a href="{% url 'main' %}" class="button_weather inline-block mt-1 text-center">
+      ⬅ Назад
+    </a>
+</div>
 {% endif %}
 {% endblock %}

@@ -19,7 +19,7 @@
 
     <!-- Навігація -->
     <div class="bg-white shadow-md">
-      <header class="p-4 flex items-center justify-between flex-wrap gap-2">
+      <header class="p-1 flex items-center justify-between flex-wrap gap-2">
           <!-- Лого / фото -->
           <a href="{% url 'main' %}" class="flex items-center gap-2">
             <img src="{% static 'images/logo.jpg' %}" alt="Асистент" class="h-10 w-10 rounded-full object-cover">
@@ -27,7 +27,7 @@
           </a>
 
           <!-- Панель пошуку + кнопки -->
-          <div class="flex flex-wrap items-center gap-2 w-full md:w-auto md:flex-nowrap md:justify-end">
+          <div class="flex flex-nowrap items-center gap-2 w-full md:w-auto md:flex-nowrap md:justify-end">
             <input type="text" placeholder="Пошук..."
                    class="rounded-md border px-2 py-1 text-sm flex-grow min-w-[120px] md:min-w-0" />
 
@@ -102,11 +102,11 @@
         <!-- Контент -->
 
         <main class="has-bg-main relative w-full
-            flex-none h-auto           <!-- mobile -->
-            md:flex-1 md:min-h-screen  <!-- desktop -->
-            p-6 bg-center rounded-lg shadow-md
-            {% if active_page == 'notebook' %}animate-drop-bounce{% endif %}
-            {% if active_menu == 'notebook' %}bg-notebook{% else %}bg-default{% endif %}">
+         min-h-screen md:min-h-screen
+         p-6 bg-center rounded-lg shadow-md
+         {% if active_page == 'notebook' %}animate-drop-bounce{% endif %}
+         {% if active_menu == 'notebook' %}bg-notebook{% else %}bg-default{% endif %}">
+
 
           {% block content %}{% endblock %}
 
