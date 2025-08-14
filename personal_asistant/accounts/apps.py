@@ -5,3 +5,7 @@ class AccountConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
     name = 'accounts'
 
+    def ready(self):
+        # Підключаємо сигнал при завантаженні додатку
+        from . import signals  # noqa: F401
+

@@ -41,7 +41,7 @@ class UserProfileView(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['active_page'] = 'profile'
-        context['active_menu'] = 'profile'
+        context['active_menu'] = 'main'
         return context
 
 
@@ -64,7 +64,7 @@ class UserEditView(LoginRequiredMixin, UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['active_page'] = 'edit_profile'
-        context['active_menu'] = 'profile'
+        context['active_menu'] = 'main'
         return context
 
 
@@ -87,5 +87,5 @@ class CustomPasswordChangeView(LoginRequiredMixin, PasswordChangeView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['active_page'] = 'change_password'
-        context['active_menu'] = 'profile'
+        context['active_menu'] = 'main'
         return context

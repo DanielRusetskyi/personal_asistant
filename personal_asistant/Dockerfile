@@ -13,6 +13,9 @@ RUN apt-get update && apt-get install -y \
 
 RUN mkdir -p /code
 
+RUN mkdir -p /code /data \
+    && chown -R root:root /data
+
 WORKDIR /code
 
 RUN pip install poetry
@@ -25,4 +28,7 @@ RUN python manage.py collectstatic --noinput
 
 EXPOSE 8000
 
-CMD ["gunicorn","--bind", ":8000", "personal_asistant.wsgi"]
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+CMD ["/entrypoint.sh"]

@@ -320,12 +320,14 @@ to {
 }
 }
 
+
+
 /* спільне */
 .bg-notebook, .bg-default {
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;   /* заповнює, може трохи обрізати */
-  aspect-ratio: 4 / 6;      /* мобільна пропорція */
+
 }
 
 /* зображення */
@@ -334,6 +336,7 @@ to {
 
 /* мобільне фото + пропорція */
 @media (max-width: 768px) {
+  .bg-notebook, .bg-default { aspect-ratio: 4 / 6; }
   .bg-default { background-image: url("/static/images/bg_mobile1.png"); }
 }
 
@@ -386,13 +389,16 @@ to {
 
 /* Відкритий стан */
 .radial-ring.open li[data-item] {
+  --start-angle: 0deg; /* Початок дуги (тут вгору) */
+  --arc: 180deg;         /* Довжина дуги (півколо) */
+
   opacity: 1;
   pointer-events: auto;
   transform:
     translate(-50%, -50%)
-    rotate(calc(360deg / var(--count) * var(--i)))
+    rotate(calc(var(--start-angle) + (var(--arc) / (var(--count) - 1) * var(--i))))
     translate(var(--radius))
-    rotate(calc(-360deg / var(--count) * var(--i)));
+    rotate(calc(-1 * (var(--start-angle) + (var(--arc) / (var(--count) - 1) * var(--i)))));
 }
 
 /* Кнопка пункту */
@@ -428,10 +434,7 @@ to {
   white-space: nowrap;
 }
 
-.animate-pulse-glow {
-  animation: pulse-glow 2s infinite ease-in-out;
-}
-/* Анімація пульсу */
+/* Сяйво */
 @keyframes pulse-glow {
   0%, 100% {
     box-shadow: 0 0 10px rgba(0, 191, 255, 0.6),
@@ -445,4 +448,20 @@ to {
   }
 }
 
+.animate-pulse-glow {
+  animation: pulse-glow 2s infinite ease-in-out;
+}
 
+/* Масштабування */
+@keyframes scale-pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.12);
+  }
+}
+
+.animate-scale-pulse {
+  animation: scale-pulse 1.5s infinite ease-in-out;
+}

@@ -31,6 +31,8 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG") == "True"
 
+# SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
+
 #  ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "").split(",")
 
 ALLOWED_HOSTS = ['*']
@@ -51,6 +53,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'cloudinary',
     'cloudinary_storage',
     'allauth',
@@ -59,7 +62,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     'widget_tweaks',
     'noteapp',
-    'accounts',
+    'accounts.apps.AccountConfig',
     'additional',
 
 ]
@@ -128,6 +131,14 @@ WSGI_APPLICATION = 'personal_asistant.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+
+# if os.getenv("USE_SQLITE", "1") == "1":
+#     DATABASES = {
+#         "default": {
+#             "ENGINE": "django.db.backends.sqlite3",
+#             "NAME": "/data/db.sqlite3",
+#         }
+#     }
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -140,7 +151,10 @@ DATABASES = {
 }
 
 # DATABASES = {
-#     'default': dj_database_url.config(conn_max_age=600)
+#     'default': dj_database_url.config(conn_max_age=0,
+#                                       conn_health_checks=True,
+#                                       )
+#
 # }
 
 

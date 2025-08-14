@@ -10,11 +10,13 @@ console_command = '/code/manage.py shell'
 [build]
 
 [deploy]
-release_command = 'sh -c "python manage.py migrate --noinput"'
+#release_command = 'sh -c "python manage.py migrate --noinput"'
 
 [env]
 PORT = '8000'
-DJANGO_SETTINGS_MODULE = "personal_asistant.settings"
+DJANGO_SETTINGS_MODULE = "personal_asistant.settings_dev"
+USE_SQLITE = "1"
+SQLITE_PATH = "/data/db.sqlite3"
 
 [http_service]
   internal_port = 8000
@@ -32,3 +34,7 @@ DJANGO_SETTINGS_MODULE = "personal_asistant.settings"
 [[statics]]
   guest_path = '/code/static'
   url_prefix = '/static/'
+
+[mounts]
+  source = "data"
+  destination = "/data"

@@ -19,17 +19,24 @@
 
     <!-- Навігація -->
     <div class="bg-white shadow-md">
+
       <header class="p-1 flex items-center justify-between flex-wrap gap-2">
-          <!-- Лого / фото -->
-          <a href="{% url 'main' %}" class="flex items-center gap-2">
-            <img src="{% static 'images/logo.jpg' %}" alt="Асистент" class="h-10 w-10 rounded-full object-cover">
-            <span class="text-blue-800 font-bold text-lg">Асистент</span>
-          </a>
+
 
           <!-- Панель пошуку + кнопки -->
-          <div class="flex flex-nowrap items-center gap-2 w-full md:w-auto md:flex-nowrap md:justify-end">
+        <div class="flex items-center justify-between w-full">
+
+          <!-- Лого / фото -->
+          <a href="{% url 'main' %}" class="flex items-center gap-2 pl-12">
+            <img src="{% static 'images/logo2.png' %}"
+                 alt="Асистент"
+                 class="h-16 w-16 rounded-full object-cover">
+          </a>
+
+          <!-- Пошук + кнопки -->
+          <div class="flex flex-nowrap items-center gap-2 pr-4">
             <input type="text" placeholder="Пошук..."
-                   class="rounded-md border px-2 py-1 text-sm flex-grow min-w-[120px] md:min-w-0" />
+                   class="rounded-md border px-2 py-1 text-sm min-w-[120px]" />
 
             {% if user.is_authenticated %}
               <a href="{% url 'accounts:profile' %}"
@@ -54,6 +61,8 @@
               </a>
             {% endif %}
           </div>
+        </div>
+
       </header>
 
 
@@ -64,29 +73,31 @@
         <div class="md:w-48 w-full" x-data="{ open: false }">
 
         <!-- Бургер-кнопка (мобілка) -->
-          <div class="md:hidden p-1 bg-white shadow relative">
-            <button @click="open = !open" class="text-2xl focus:outline-none">
-              ☰ Меню
-            </button>
+<!--          <div class="md:hidden p-1 bg-white shadow relative">-->
+<!--            {% if active_menu != 'main' %}-->
+<!--            <button @click="open = !open" class="text-2xl focus:outline-none">-->
+<!--              ☰ Меню-->
+<!--            </button>-->
 
-            <!-- Спливаюче меню біля кнопки -->
-            <div
-              x-show="open"
-              x-transition
-              @click.away="open = false"
-              class="absolute left-0 top-full mt-2 w-48 bg-white shadow-lg z-50 rounded-md p-4"
-              style="display: none;"
-            >
-              <button @click="open = false" class="text-gray-600 hover:text-red-500 mb-2 flex items-center gap-1">
-              </button>
-              {% if active_menu %}
-                {% include "includes/"|add:active_menu|add:"_menu.html" %}
-              {% else %}
-                {% include "includes/main_menu.html" %}
-              {% endif %}
+<!--            &lt;!&ndash; Спливаюче меню біля кнопки &ndash;&gt;-->
+<!--            <div-->
+<!--              x-show="open"-->
+<!--              x-transition-->
+<!--              @click.away="open = false"-->
+<!--              class="absolute left-0 top-full mt-2 w-48 bg-white shadow-lg z-50 rounded-md p-4"-->
+<!--              style="display: none;"-->
+<!--            >-->
+<!--              <button @click="open = false" class="text-gray-600 hover:text-red-500 mb-2 flex items-center gap-1">-->
+<!--              </button>-->
+<!--              {% if active_menu %}-->
+<!--                {% include "includes/"|add:active_menu|add:"_menu.html" %}-->
+<!--              {% else %}-->
+<!--                {% include "includes/main_menu.html" %}-->
+<!--              {% endif %}-->
 
-            </div>
-          </div>
+<!--            </div>-->
+<!--            {% endif %}-->
+<!--          </div>-->
 
           <!-- Десктоп-меню -->
           <div class="hidden md:block bg-white shadow-md h-full p-4">
@@ -122,5 +133,15 @@
     </footer>
     <script src="{% static 'noteapp/js/speech.js' %}"></script>
     <script src="{% static 'noteapp/js/time_slider.js' %}"></script>
+    <script>
+          // 🆕 Додаємо слухач події pageshow
+          // Якщо сторінка завантажена з bfcache (event.persisted === true)
+          // або браузер мобілки відкрив її з кешу — робимо reload
+          window.addEventListener("pageshow", function (event) {
+              if (event.persisted) {
+                  window.location.reload();
+              }
+          });
+      </script>
   </body>
 </html>
