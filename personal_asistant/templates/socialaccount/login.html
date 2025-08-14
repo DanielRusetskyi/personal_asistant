@@ -61,12 +61,14 @@
 
       <form method="post" class="text-center">
         {% csrf_token %}
-        <button type="submit" class="btn btn-outline-primary px-4 py-2 fw-semibold shadow-sm border-2 rounded-pill">
-          Продовжити вхід
-        </button>
-        <a href="{% url 'accounts:login' %}" class="btn btn-outline-secondary px-4 py-2 fw-semibold shadow-sm border-2 rounded-pill">
-          Скасувати
-        </a>
+        <div class="d-inline-flex flex-column gap-2 mx-auto">
+          <button type="submit" class="btn btn-outline-primary px-4 py-2 fw-semibold shadow-sm border-2 rounded-pill">
+            Продовжити вхід
+          </button>
+          <a href="{% url 'accounts:login' %}" class="btn btn-outline-secondary px-4 py-2 fw-semibold shadow-sm border-2 rounded-pill">
+            Скасувати
+          </a>
+        </div>
 
       </form>
 

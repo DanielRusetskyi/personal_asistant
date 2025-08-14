@@ -51,14 +51,14 @@
     <!-- Заголовок (ховається на мобільних) -->
     <li class="list-group-item note-header">
       <div>Статус</div>
-      <div>Опис</div>
+      <div class="text-center"> Опис</div>
       <div class="text-end">Пріоритет</div>
     </li>
 
     {% for note in notes %}
       <li class="list-group-item p-0">
         <a href="{% url 'noteapp:note_edit' note.pk %}" class="note-link">
-          <div class="note-row">
+          <div class="note-row ">
             <!-- Статус -->
             <div class="note-checkbox">
               <input type="checkbox"

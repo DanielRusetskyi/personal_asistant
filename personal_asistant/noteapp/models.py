@@ -19,7 +19,7 @@ class Note(models.Model):
     ]
 
     name = models.CharField(blank=True, null=True, max_length=50, verbose_name="Назва")
-    description = models.CharField(max_length=150, verbose_name="Опис")
+    description = models.CharField(max_length=250, verbose_name="Опис")
     done = models.BooleanField(default=False, verbose_name="Виконано")
     created = models.DateTimeField(auto_now_add=True, verbose_name="Створено")
     doe_date = models.DateField(null=True, blank=True, verbose_name="Дата виконання")

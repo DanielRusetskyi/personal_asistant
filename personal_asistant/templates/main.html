@@ -7,7 +7,7 @@
 <!-- Радіальне меню по центру тільки на мобільних -->
 <div class="md:hidden absolute inset-0 z-20 flex items-center justify-center pointer-events-none">
   <div
-    x-data="{ open: false }"
+    x-data="{ open: true }"
     x-init="$refs.ring.style.setProperty('--count', $refs.ring.querySelectorAll('li[data-item]').length)"
     class="relative flex items-center justify-center -translate-y-10 pointer-events-auto"
   >
@@ -29,9 +29,9 @@
           x-transition:leave="transition ease-in duration-150"
           x-transition:leave-start="opacity-100 scale-100"
           x-transition:leave-end="opacity-0 scale-75"
-          src="{% static 'images/menu_icon.png' %}"
+          src="{% static 'images/menu_icon2.png' %}"
           alt="Menu"
-          class="absolute w-24 h-24 rounded-full"
+          class="absolute w-28 h-28 rounded-full"
         />
 
         <!-- Хрестик -->
@@ -60,6 +60,39 @@
             </a>
           </li>
         {% endfor %}
+
+        {% with base=MAIN_MENU|length %}
+        {% header_menu as HEADER_MENU %}
+        {% for it in HEADER_MENU %}
+          <li data-item style="--i:{{ forloop.counter0|add:base }}"> {# змісти індекс якщо треба #}
+            {% if it.type == 'action' and it.action == 'open_search' %}
+              <button type="button"
+                      @click.stop="searchOpen = true; open = false"
+                      class="radial-item pointer-events-auto" aria-label="{{ it.label }}">
+                <img src="{% static it.icon_img %}" alt="{{ it.label }}" class="w-18 h-18 rounded-full">
+                <span class="radial-label">{{ it.label }}</span>
+              </button>
+
+            {% elif it.type == 'link' %}
+              <a href="{{ it.href }}" class="radial-item pointer-events-auto" aria-label="{{ it.label }}">
+                <img src="{% static it.icon_img %}" alt="{{ it.label }}" class="w-18 h-18 rounded-full">
+                <span class="radial-label">{{ it.label }}</span>
+              </a>
+
+            {% elif it.type == 'post' %}
+              <form method="post" action="{{ it.url }}" class="pointer-events-auto">
+                {% csrf_token %}
+                <button type="submit" class="radial-item" aria-label="{{ it.label }}">
+                  <img src="{% static it.icon_img %}" alt="{{ it.label }}" class="w-18 h-18 rounded-full">
+                  <span class="radial-label">{{ it.label }}</span>
+                </button>
+              </form>
+            {% endif %}
+          </li>
+        {% endfor %}
+        {% endwith %}
+
+
       </ul>
   </div>
 </div>

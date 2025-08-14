@@ -61,12 +61,12 @@
     <div class="d-flex justify-content-between align-items-center mb-3">
         <a href="{% url 'noteapp:calendar' year=prev_year month=prev_month %}"
            class="btn btn-calendar-hover">
-            ← Попередній місяць
+            ← Prev month
         </a>
-        <a class="btn btn-secondary" href="{% url 'noteapp:notebook' %}">↩ Назад</a>
+        <a class="btn btn-secondary" href="{% url 'noteapp:notebook' %}">↩ Back</a>
         <a href="{% url 'noteapp:calendar' year=next_year month=next_month %}"
            class="btn btn-calendar-hover">
-           Наступний місяць →
+           Next month →
         </a>
     </div>
 </div>

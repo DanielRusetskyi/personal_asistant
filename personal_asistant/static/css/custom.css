@@ -236,7 +236,7 @@ input[type="radio"] {
 .note-header,
 .note-row {
 display: grid;
-grid-template-columns: 1fr 5fr 1fr;
+grid-template-columns: 0.5fr 5fr 1fr;
 align-items: center;
 padding: 0.5rem 1rem;
 }
@@ -268,35 +268,30 @@ color: inherit;
 display: block;
 }
 
+.note-description{
+  display: block;           /* щоб займати всю клітинку grid */
+  min-width: 0;             /* критично для grid/flex, щоб текст не «розпихав» колонку */
+  white-space: normal;      /* дозволяє перенос рядків */
+  overflow-wrap: anywhere;  /* переносить дуже довгі слова/URL-и */
+  /* або кросбраузерно: word-wrap: break-word; */
+}
+
 /* Адаптивність для мобільних */
-@media (max-width: 768px) {
-.note-header {
-  display: none;
+@media (max-width: 768px){
+  .note-row{
+    display: grid;
+    grid-template-columns: auto 1fr;    /* чекбокс | опис */
+    grid-template-areas:
+      "checkbox desc"
+      "priority priority";
+    align-items: center;
+    gap: .5rem;
+  }
+  .note-checkbox   { grid-area: checkbox; }
+  .note-description{ grid-area: desc; min-width:0; }
+  .note-priority   { grid-area: priority; text-align:right; }
 }
 
-.note-row {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.25rem;
-  padding: 0.75rem 1rem;
-}
-
-.note-checkbox {
-  order: 1;
-}
-
-.note-description {
-  order: 2;
-  font-weight: 500;
-}
-
-.note-priority {
-  order: 3;
-  width: 100%;
-  text-align: left;
-}
-}
 
 .note-description {
   font-family: 'Caveat', cursive;
@@ -389,8 +384,8 @@ to {
 
 /* Відкритий стан */
 .radial-ring.open li[data-item] {
-  --start-angle: 0deg; /* Початок дуги (тут вгору) */
-  --arc: 180deg;         /* Довжина дуги (півколо) */
+  --start-angle: 270deg; /* Початок дуги (тут вгору) */
+  --arc: 270deg;         /* Довжина дуги (півколо) */
 
   opacity: 1;
   pointer-events: auto;
@@ -406,6 +401,7 @@ to {
   display: flex;
   align-items: center;
   justify-content: center;
+  opacity: 0.95;
   width: 5rem;
   height: 5rem;
   border-radius: 9999px;

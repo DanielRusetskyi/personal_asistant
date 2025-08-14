@@ -131,3 +131,66 @@ def notebook_submenu(context):
             "href": reverse("main"),
         },
     ]
+
+
+@register.simple_tag(takes_context=True)
+def header_menu(context):
+    """
+    Елементи хедера: Пошук + акаунт (профіль/логін/реєстрація/вихід).
+    type:
+      - 'action'  -> кнопка, що тригерить модалку/скрипт (наприклад, пошук або акаунт)
+      - 'link'    -> звичайне посилання
+      - 'post'    -> треба відправити форму (logout)
+    """
+    user = context.get("user")
+    items = [
+        {
+            "key": "search",
+            "label": "Пошук",
+            "icon_img": "images/search_icon.png",
+            "icon_emoji": "🔎",
+            "type": "action",
+            "action": "open_search",   # для Alpine: searchOpen = true
+        },
+    ]
+
+    if user and user.is_authenticated:
+        items += [
+            {
+                "key": "profile",
+                "label": "Профіль",
+                "icon_img": "images/profile_icon.png",
+                "icon_emoji": "👤",
+                "type": "link",
+                "href": reverse("accounts:profile"),
+            },
+            {
+                "key": "logout",
+                "label": "Вихід",
+                "icon_img": "images/logout_icon.png",
+                "icon_emoji": "🚪",
+                "type": "post",
+                "url": reverse("accounts:logout"),
+            },
+        ]
+    else:
+        items += [
+            {
+                "key": "login",
+                "label": "Увійти",
+                "icon_img": "images/login_icon.png",
+                "icon_emoji": "🔐",
+                "type": "link",
+                "href": reverse("accounts:login"),
+            },
+            {
+                "key": "registration",
+                "label": "Реєстрація",
+                "icon_img": "images/register_icon.png",
+                "icon_emoji": "📝",
+                "type": "link",
+                "href": reverse("accounts:registration"),
+            },
+        ]
+
+    return items
