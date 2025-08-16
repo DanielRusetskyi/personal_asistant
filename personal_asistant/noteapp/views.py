@@ -4,12 +4,12 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse
 from django.urls import reverse_lazy, reverse
 from django.views.decorators.http import require_POST
-from django.views.generic import UpdateView, DeleteView, TemplateView
+from django.views.generic import UpdateView, DeleteView, TemplateView, CreateView, FormView
 from django.views import View
 from django.core.paginator import Paginator
 from .models import Note
 from .forms import NoteForm
-from datetime import datetime
+from datetime import datetime, time as dt_time
 from django.shortcuts import render, redirect
 from datetime import date, timedelta
 from django.utils import timezone
@@ -20,6 +20,7 @@ import calendar as calmod
 
 from .services import create_note_for_user
 from .utils import get_day_context
+from .tasks import send_note_reminder
 
 
 @require_POST
@@ -131,29 +132,69 @@ def task(request):
     })
 
 
-class DayTaskView_(LoginRequiredMixin, View):
-    def get(self, request, date=None):
-        if not date:
-            day = timezone.localdate()
-            date = day.strftime('%Y-%m-%d')  # для виклику get_day_context
-        else:
-            day = datetime.strptime(date, "%Y-%m-%d").date()
+class DayContextMixin:
+    def parse_day(self):
+        date = self.kwargs.get("date")
+        return timezone.localdate() if not date else datetime.strptime(date, "%Y-%m-%d").date()
 
-        context = get_day_context(request, date)
-
-        # Додаткові змінні (навігація між днями, активна сторінка)
-        context.update({
-            'active_page': 'day_tasks',
-            'active_menu': 'notebook',
-            'prev_day': (day - timedelta(days=1)).strftime('%Y-%m-%d'),
-            'next_day': (day + timedelta(days=1)).strftime('%Y-%m-%d'),
-            'day': context['day']
+    def get_context_data(self, **kwargs):
+        day = self.parse_day()
+        form_disabled = day < timezone.localdate()
+        ctx = super().get_context_data(**kwargs)
+        notes = Note.objects.filter(doe_date=day, user=self.request.user).order_by('due_time')
+        ctx.update({
+            "form": NoteForm(initial={"doe_date": day}),
+            "active_page": "notebook_by_date",
+            "active_menu": "notebook",
+            "prev_day": (day - timedelta(days=1)).strftime("%Y-%m-%d"),
+            "next_day": (day + timedelta(days=1)).strftime("%Y-%m-%d"),
+            "day": day,
+            "year": day.year,
+            "month": day.month,
+            "notes": notes,
+            "form_disabled": form_disabled
         })
+        return ctx
 
-        return render(request, 'noteapp/day_tasks.html', context)
+
+class DayTaskView(LoginRequiredMixin, DayContextMixin, TemplateView):
+    template_name = "noteapp/notebook_by_date.html"
 
 
-class DayTaskView(LoginRequiredMixin, View):
+class CreateTaskView(LoginRequiredMixin, DayContextMixin, FormView):
+    form_class = NoteForm
+    template_name = "noteapp/notebook_by_date.html"
+
+    @staticmethod
+    def combine_due(day, due_time_str):
+        if not due_time_str:
+            return None
+        h, m = map(int, due_time_str.split(":"))
+        naive = datetime.combine(day, dt_time(hour=h, minute=m))
+        return timezone.make_aware(naive, timezone.get_current_timezone())
+
+    def form_valid(self, form):
+        day = self.parse_day()
+        data = form.cleaned_data
+        data["doe_date"] = day
+        due_time_str = self.request.POST.get("due_time")
+        due_at = self.combine_due(day, due_time_str)
+        note = create_note_for_user(self.request.user, data)
+        if due_at and due_at > timezone.now():
+            send_note_reminder.apply_async(args=[note.id], eta=due_at)
+
+        url = reverse("noteapp:notebook_by_date", kwargs={"date": day.strftime("%Y-%m-%d")})
+        page = self.request.POST.get("page")
+        return redirect(f"{url}?page={page}") if page else redirect(url)
+
+    # опційно: заборонити GET напряму на /create/
+    def get(self, request, *args, **kwargs):
+        # або повернути 405, або редіректити на сторінку дня:
+        day = self.parse_day()
+        return redirect("noteapp:notebook_by_date", date=day.strftime("%Y-%m-%d"))
+
+
+class DayTaskView__(LoginRequiredMixin, View):
     def get(self, request, date=None):
         if not date:
             day = timezone.localdate()
@@ -167,7 +208,6 @@ class DayTaskView(LoginRequiredMixin, View):
         context['active_menu'] = 'notebook'
         context['prev_day'] = (day - timedelta(days=1)).strftime('%Y-%m-%d')
         context['next_day'] = (day + timedelta(days=1)).strftime('%Y-%m-%d')
-        context['today'] = day
         context['year'] = day.year
         context['month'] = day.month
 
@@ -217,14 +257,12 @@ class NoteUpdateView(LoginRequiredMixin, UpdateView):
 
     def form_valid(self, form):
         response = super().form_valid(form)
-        # Пробуємо витягнути return_url із POST
         return_url = self.request.POST.get('return_url')
         if return_url:
             return redirect(return_url)
         return response
 
     def get_success_url(self):
-        # fallback якщо немає return_url
         return reverse('noteapp:notebook_by_date', kwargs={'date': self.object.doe_date})
 
 

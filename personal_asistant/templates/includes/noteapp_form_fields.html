@@ -14,40 +14,57 @@
   <div class="row gx-3 align-items-center justify-content-center">
     <!-- Вибір дати -->
     {% if form.instance.pk %}
+
     <div class="col-auto text-center">
       <label for="{{ form.doe_date.id_for_label }}" class="form-label mb-1">Дата</label>
       {{ form.doe_date }}
     </div>
     {% endif %}
 
-    <!-- Вибір часу -->
+    <!-- Час / нагадування -->
     <div class="col-auto text-center">
+
+      <!-- Перемикач нагадування -->
       <div class="form-check d-inline-flex align-items-center justify-content-center">
-        <input class="form-check-input me-2" type="checkbox" id="enableTime" {% if form_disabled %}disabled{% endif %}>
-        <label class="form-check-label mb-0" for="enableTime">Вказати час</label>
+        <input class="form-check-input me-2"
+               type="checkbox"
+               id="enableReminder"
+               {% if due_time %}checked{% endif %}
+               {% if form_disabled %}disabled{% endif %}>
+        <label class="form-check-label mb-0" for="enableReminder">
+          Створити нагадування
+        </label>
       </div>
 
-      <div class="d-flex align-items-center mt-2 gap-3">
+      <!-- Блок вибору часу: показуємо лише коли чекбокс увімкнено -->
+      <div id="timeBlock"
+           class="d-flex align-items-center mt-2 gap-3 {% if not due_time %}d-none{% endif %}">
         <div>
           <input type="range" id="hours" min="0" max="23"
-             value="{{ due_time|default:"12:00"|slice:":2" }}"
-             class="form-range" {% if form_disabled %}disabled{% endif %}>
-          <div class="text-center"><strong id="hourValue">12</strong> год</div>
+                 value="{{ due_time|default:'12:00'|slice:':2' }}"
+                 class="form-range"
+                 {% if not due_time %}disabled{% endif %}
+                 {% if form_disabled %}disabled{% endif %}>
+          <div class="text-center"><strong id="hourValue">
+            {{ due_time|default:'12:00'|slice:':2'|default:'12' }}
+          </strong> год</div>
         </div>
         <div>
           <input type="range" id="minutes" min="0" max="59" step="5"
-             value="{{ due_time|default:"12:00"|slice:"3:" }}"
-             class="form-range" {% if form_disabled %}disabled{% endif %}>
-          <div class="text-center"><strong id="minuteValue">00</strong> хв</div>
+                 value="{{ due_time|default:'12:00'|slice:'3:' }}"
+                 class="form-range"
+                 {% if not due_time %}disabled{% endif %}
+                 {% if form_disabled %}disabled{% endif %}>
+          <div class="text-center"><strong id="minuteValue">
+            {{ due_time|default:'12:00'|slice:'3:'|default:'00' }}
+          </strong> хв</div>
         </div>
-
-
       </div>
+
+      <!-- Приховане поле, що піде до форми у форматі HH:MM -->
+      <input type="hidden" name="due_time" id="due_time" value="{{ due_time|default:'' }}">
     </div>
 
-
-
-  <input type="hidden" name="due_time" id="due_time">
 </div>
 <div class="row gx-3 align-items-center justify-content-center">
   <!-- Пріоритет -->

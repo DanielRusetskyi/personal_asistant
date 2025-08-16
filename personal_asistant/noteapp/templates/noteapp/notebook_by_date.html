@@ -20,7 +20,7 @@
         </div>
       {% endif %}
 
-      <form method="post" action="">
+      <form method="post" action="{% url 'noteapp:notebook_by_date_create' date=day|date:'Y-m-d' %}">
         {% csrf_token %}
         <input type="hidden" name="page" value="{{ request.GET.page }}">
 
@@ -94,7 +94,7 @@
       document.getElementById("minutes").value = parseInt(m);
       document.getElementById("hourValue").textContent = h;
       document.getElementById("minuteValue").textContent = m;
-      document.getElementById("enableTime").checked = true;
+      document.getElementById("enableReminder").checked = true;
     }
   });
 </script>
@@ -123,7 +123,7 @@
       document.getElementById("minutes").value = parseInt(m);
       document.getElementById("hourValue").textContent = h;
       document.getElementById("minuteValue").textContent = m;
-      document.getElementById("enableTime").checked = true;
+      document.getElementById("enableReminder").checked = true;
     }
   });
 </script>

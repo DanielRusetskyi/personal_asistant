@@ -9,14 +9,18 @@ console_command = '/code/manage.py shell'
 
 [build]
 
-[deploy]
-#release_command = 'sh -c "python manage.py migrate --noinput"'
 
 [env]
 PORT = '8000'
 DJANGO_SETTINGS_MODULE = "personal_asistant.settings_dev"
 USE_SQLITE = "1"
 SQLITE_PATH = "/data/db.sqlite3"
+
+[processes]
+app    = "sh -c '/entrypoint.sh'"
+worker = "celery -A personal_asistant worker -l info"
+beat   = "celery -A personal_asistant beat -l info"
+
 
 [http_service]
   internal_port = 8000
@@ -38,3 +42,6 @@ SQLITE_PATH = "/data/db.sqlite3"
 [mounts]
   source = "data"
   destination = "/data"
+
+[deploy]
+  release_command = "sh -c 'python manage.py migrate --noinput && python manage.py init_socialapps'"

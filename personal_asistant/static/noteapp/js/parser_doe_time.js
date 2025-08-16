@@ -3,17 +3,17 @@ document.addEventListener("DOMContentLoaded", function () {
   const minuteSlider = document.getElementById("minutes");
   const hourValue = document.getElementById("hourValue");
   const minuteValue = document.getElementById("minuteValue");
-  const enableTimeCheckbox = document.getElementById("enableTime");
+  const enableReminderCheckbox = document.getElementById("enableReminder");
 
   // Перевірка, чи існує глобальна змінна window.dueTime
   if (window.dueTime) {
     const [h, m] = window.dueTime.split(":");
-    if (hourSlider && minuteSlider && hourValue && minuteValue && enableTimeCheckbox) {
+    if (hourSlider && minuteSlider && hourValue && minuteValue && enableReminderCheckbox) {
       hourSlider.value = parseInt(h);
       minuteSlider.value = parseInt(m);
       hourValue.textContent = h;
       minuteValue.textContent = m;
-      enableTimeCheckbox.checked = true;
+      enableReminderCheckbox.checked = true;
     }
   }
 });

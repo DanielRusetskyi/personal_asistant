@@ -10,6 +10,10 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 import os
+import ssl
+from urllib.parse import urlparse
+
+import certifi
 from pathlib import Path
 import cloudinary
 import cloudinary.uploader
@@ -30,6 +34,48 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG") == "True"
+
+REDIS_URL = os.getenv("REDIS_URL", "redis://localhost:6379/0")
+
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": REDIS_URL,
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            # Дод. TLS параметри (ок для rediss://; для redis:// — не впливають)
+            # "CONNECTION_POOL_KWARGS": {
+            #     "ssl_cert_reqs": "required",      # "required"/"optional"/"none"
+            #     "ssl_ca_certs": certifi.where(),
+            # },
+            "HEALTH_CHECK_INTERVAL": 30,
+        },
+        "TIMEOUT": 300,
+    }
+}
+
+CELERY_BROKER_URL = os.getenv("CELERY_BROKER_URL", REDIS_URL)
+CELERY_RESULT_BACKEND = os.getenv("CELERY_RESULT_BACKEND", REDIS_URL)
+
+# CELERY_BROKER_USE_SSL = {
+#     "ssl_cert_reqs": ssl.CERT_REQUIRED,
+#     "ssl_ca_certs": certifi.where(),
+# }
+# CELERY_REDIS_BACKEND_USE_SSL = {
+#     "ssl_cert_reqs": ssl.CERT_REQUIRED,
+#     "ssl_ca_certs": certifi.where(),
+# }
+
+
+CELERY_BROKER_TRANSPORT_OPTIONS = {
+    "visibility_timeout": 3600,
+    "socket_timeout": 5,
+    "socket_connect_timeout": 5,
+    "retry_on_timeout": True,
+}
+
+CELERY_TIMEZONE = "Europe/Kyiv"
+CELERY_ENABLE_UTC = True
 
 # SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
 
@@ -189,12 +235,13 @@ CLOUDINARY_STORAGE = {
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+# TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
 USE_TZ = True
 
+TIME_ZONE = "Europe/Kyiv"
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
