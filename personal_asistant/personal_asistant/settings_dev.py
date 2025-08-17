@@ -15,6 +15,7 @@ import cloudinary
 import cloudinary.uploader
 import cloudinary.api
 from dotenv import load_dotenv
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -75,38 +76,6 @@ CELERY_ENABLE_UTC = True
 SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
 
 USE_SQLITE = os.getenv("USE_SQLITE", "1") == "1"
-
-if USE_SQLITE:
-    # 2A) SQLite + volume на Fly (найстабільніше для dev)
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.sqlite3",
-            "NAME": os.getenv("SQLITE_PATH", "/data/db.sqlite3"),
-        }
-    }
-else:
-    # 2B) Postgres (наприклад, керований інстанс/fly-postgres)
-    #    Потрібно: pip install dj-database-url
-    import dj_database_url
-    DATABASES = {
-        "default": dj_database_url.config(
-            env="DATABASE_URL",
-            conn_max_age=0,           # нове з’єднання на кожен запит
-            ssl_require=os.getenv("DB_SSL", "1") == "1",
-        )
-    }
-    # оздоровчі перевірки + keepalive-и, щоб уникати «завислих» конекшенів
-    DATABASES["default"]["CONN_HEALTH_CHECKS"] = True
-    DATABASES["default"].setdefault("OPTIONS", {})
-    DATABASES["default"]["OPTIONS"].update({
-        "keepalives": 1,
-        "keepalives_idle": 30,
-        "keepalives_interval": 10,
-        "keepalives_count": 5,
-    })
-    # якщо використовуєш PgBouncer — вимкни server-side cursors
-    if os.getenv("USE_PGBOUNCER", "0") == "1":
-        DISABLE_SERVER_SIDE_CURSORS = True
 
 #  ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "").split(",")
 
@@ -205,26 +174,6 @@ WSGI_APPLICATION = 'personal_asistant.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
-
-
-# if os.getenv("USE_SQLITE", "1") == "1":
-#     DATABASES = {
-#         "default": {
-#             "ENGINE": "django.db.backends.sqlite3",
-#             "NAME": "/data/db.sqlite3",
-#         }
-#     }
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'personal_assistant',
-#         'USER': 'postgres',
-#         'PASSWORD': '567234',
-#         'HOST': '127.0.0.1',
-#         'PORT': '5432',
-#     }
-# }
-
 if USE_SQLITE:
     # 2A) SQLite + volume на Fly (найстабільніше для dev)
     DATABASES = {
@@ -234,28 +183,13 @@ if USE_SQLITE:
         }
     }
 else:
-    # 2B) Postgres (наприклад, керований інстанс/fly-postgres)
-    #    Потрібно: pip install dj-database-url
-    import dj_database_url
-    DATABASES = {
+   DATABASES = {
         "default": dj_database_url.config(
             env="DATABASE_URL",
-            conn_max_age=0,           # нове з’єднання на кожен запит
-            ssl_require=os.getenv("DB_SSL", "1") == "1",
+            conn_max_age=600,  # пулінг
+            ssl_require=False,  # важливо: ми вже поставили ?sslmode=disable в URL
         )
     }
-    # оздоровчі перевірки + keepalive-и, щоб уникати «завислих» конекшенів
-    DATABASES["default"]["CONN_HEALTH_CHECKS"] = True
-    DATABASES["default"].setdefault("OPTIONS", {})
-    DATABASES["default"]["OPTIONS"].update({
-        "keepalives": 1,
-        "keepalives_idle": 30,
-        "keepalives_interval": 10,
-        "keepalives_count": 5,
-    })
-    # якщо використовуєш PgBouncer — вимкни server-side cursors
-    if os.getenv("USE_PGBOUNCER", "0") == "1":
-        DISABLE_SERVER_SIDE_CURSORS = True
 
 # інше типове дев-оточення
 CSRF_COOKIE_SECURE = False

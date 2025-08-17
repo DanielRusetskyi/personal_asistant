@@ -331,7 +331,7 @@ to {
 
 /* мобільне фото + пропорція */
 @media (max-width: 768px) {
-  .bg-notebook, .bg-default { aspect-ratio: 4 / 6; }
+  .bg-notebook, .bg-default { aspect-ratio: 4 / 7; }
   .bg-default { background-image: url("/static/images/bg_mobile1.png"); }
 }
 
@@ -360,7 +360,7 @@ to {
 /* Контейнер кільця */
 .radial-ring {
   --count: 5;
-  --radius: clamp(10rem, 32vmin, 20rem); /* трохи збільшений радіус */
+  --radius: clamp(10rem, 28vmin, 20rem); /* трохи збільшений радіус */
   position: absolute;
   inset: 0;
   pointer-events: none;
