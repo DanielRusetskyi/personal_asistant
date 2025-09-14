@@ -9,8 +9,10 @@ https://docs.djangoproject.com/en/5.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
+import base64
 import os
-import ssl
+import textwrap
+import logging
 from urllib.parse import urlparse
 
 import certifi
@@ -20,10 +22,74 @@ import cloudinary.uploader
 import cloudinary.api
 from dotenv import load_dotenv
 import dj_database_url
+from cryptography.hazmat.primitives import serialization
+from django.core.exceptions import ImproperlyConfigured
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv(BASE_DIR / '.env')
+
+LOG_DIR = BASE_DIR / "logs"
+LOG_DIR.mkdir(exist_ok=True)
+
+logger = logging.getLogger(__name__)
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "verbose": {
+            "format": "%(asctime)s | %(levelname)s | %(name)s | %(process)d | %(message)s"
+        },
+    },
+    "handlers": {
+        "console": {"class": "logging.StreamHandler", "formatter": "verbose"},
+        "django_file": {
+            "class": "logging.handlers.RotatingFileHandler",
+            "filename": str(LOG_DIR / "django.log"),
+            "maxBytes": 1024 * 1024 * 10,
+            "backupCount": 3,
+            "formatter": "verbose",
+        },
+        "ws_file": {
+            "class": "logging.handlers.RotatingFileHandler",
+            "filename": str(LOG_DIR / "ws.log"),
+            "maxBytes": 1024 * 1024 * 10,
+            "backupCount": 3,
+            "formatter": "verbose",
+        },
+        "celery_file": {
+            "class": "logging.handlers.RotatingFileHandler",
+            "filename": str(LOG_DIR / "celery.log"),
+            "maxBytes": 1024 * 1024 * 10,
+            "backupCount": 3,
+            "formatter": "verbose",
+        },
+    },
+    "loggers": {
+        # Django
+        "django": {"handlers": ["console", "django_file"], "level": "INFO"},
+        "django.request": {"handlers": ["console", "django_file"], "level": "WARNING", "propagate": False},
+
+        # Channels/WS
+        "channels": {"handlers": ["console", "ws_file"], "level": "DEBUG"},
+        "channels_redis": {"handlers": ["console", "ws_file"], "level": "DEBUG"},
+        "daphne.server": {"handlers": ["console", "ws_file"], "level": "INFO"},
+        "uvicorn.error": {"handlers": ["console", "ws_file"], "level": "INFO"},
+        "uvicorn.access": {"handlers": ["console", "ws_file"], "level": "INFO"},
+
+        # Ваш додаток
+        "noteapp.ws": {"handlers": ["console", "ws_file"], "level": "DEBUG"},
+        "noteapp.tasks": {"handlers": ["console", "celery_file"], "level": "DEBUG"},
+
+        # Celery stack
+        "celery": {"handlers": ["console", "celery_file"], "level": "INFO"},
+        "kombu": {"handlers": ["console", "celery_file"], "level": "INFO"},
+
+        # Щоб бачити помилки з asyncio
+        "asyncio": {"handlers": ["console", "ws_file"], "level": "WARNING"},
+    },
+}
 
 
 # Quick-start development settings - unsuitable for production
@@ -102,6 +168,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'cloudinary',
     'cloudinary_storage',
+    'channels',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -114,8 +181,8 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -173,6 +240,49 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'personal_asistant.wsgi.application'
 
+ASGI_APPLICATION = "personal_asistant.asgi.application"
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {"hosts": [os.getenv("REDIS_URL", "redis://localhost:6379/0")]},
+    }
+}
+
+VAPID_PUBLIC_KEY_B64URL = os.getenv("VAPID_PUBLIC_KEY_B64URL", "").strip()
+PUSH_SUBJECT = os.getenv("PUSH_SUBJECT", "mailto:sergrus1974@gmail.com")
+
+_pem = (os.getenv("VAPID_PRIVATE_KEY_PEM", "") or "").strip()
+if _pem.startswith('"') and _pem.endswith('"'):
+    _pem = _pem[1:-1]
+VAPID_PRIVATE_KEY_PEM = _pem.replace("\\n", "\n").strip()
+
+if not VAPID_PRIVATE_KEY_PEM.lstrip().startswith("-----BEGIN"):
+    raise ImproperlyConfigured("VAPID_PRIVATE_KEY_PEM має починатися з '-----BEGIN'.")
+
+# Перевіряємо, що PEM валідний, і одночасно готуємо DER→base64url
+try:
+    _key_obj = serialization.load_pem_private_key(
+        VAPID_PRIVATE_KEY_PEM.encode("utf-8"), password=None
+    )
+    der = _key_obj.private_bytes(serialization.Encoding.DER, serialization.PrivateFormat.PKCS8, serialization.NoEncryption())
+    VAPID_PRIVATE_KEY_B64URL = base64.urlsafe_b64encode(der).rstrip(b"=").decode()
+    logger.info("VAPID key OK: PEM parsed, DER prepared (len=%d).", len(der))
+except Exception as e:
+    raise ImproperlyConfigured(f"Не вдалося розпарсити VAPID_PRIVATE_KEY_PEM: {e}")
+
+# VAPID_PRIVATE_KEY_DER_B64URL = ""
+# if VAPID_PRIVATE_KEY_PEM:
+#     _key = serialization.load_pem_private_key(VAPID_PRIVATE_KEY_PEM.encode(), password=None)
+#     _der = _key.private_bytes(
+#         encoding=serialization.Encoding.DER,
+#         format=serialization.PrivateFormat.PKCS8,
+#         encryption_algorithm=serialization.NoEncryption(),
+#     )
+#     VAPID_PRIVATE_KEY_DER_B64URL = base64.urlsafe_b64encode(_der).rstrip(b"=").decode()
+# else:
+#     # Якщо у тебе вже є готовий DER у .env (опціонально)
+#     VAPID_PRIVATE_KEY_DER_B64URL = os.getenv("VAPID_PRIVATE_KEY", "").strip()
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases

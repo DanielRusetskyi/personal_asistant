@@ -100,6 +100,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'cloudinary',
     'cloudinary_storage',
+    'channels',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -112,8 +113,8 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -171,6 +172,14 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'personal_asistant.wsgi.application'
 
+ASGI_APPLICATION = "personal_asistant.asgi.application"
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {"hosts": [os.getenv("REDIS_URL", "redis://localhost:6379/0")]},
+    }
+}
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases

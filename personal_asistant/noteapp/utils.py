@@ -11,9 +11,14 @@ def get_day_context(request, day: datetime.date):
     form_disabled = day < today
 
     notes = Note.objects.filter(doe_date=day, user=request.user).order_by('due_time')
+    referer = request.META.get('HTTP_REFERER')
 
-    return {
-        'notes': notes,
-        'day': day,
-        'form_disabled': form_disabled,
-    }
+    context = {
+            'notes': notes,
+            'day': day,
+            'form_disabled': form_disabled,
+       }
+    if referer:
+        context['return_url'] = referer
+
+    return context

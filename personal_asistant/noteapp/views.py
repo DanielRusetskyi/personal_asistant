@@ -1,13 +1,15 @@
-import json
+import json, logging
 
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import JsonResponse
+from django.db import transaction
+from django.http import JsonResponse, HttpResponseBadRequest
 from django.urls import reverse_lazy, reverse
 from django.views.decorators.http import require_POST
 from django.views.generic import UpdateView, DeleteView, TemplateView, CreateView, FormView
 from django.views import View
 from django.core.paginator import Paginator
-from .models import Note
+from .models import Note, PushSubscription
 from .forms import NoteForm
 from datetime import datetime, time as dt_time
 from django.shortcuts import render, redirect
@@ -21,6 +23,9 @@ import calendar as calmod
 from .services import create_note_for_user
 from .utils import get_day_context
 from .tasks import send_note_reminder
+
+
+logger = logging.getLogger(__name__)
 
 
 @require_POST
@@ -38,6 +43,7 @@ def toggle_task_status(request):
         return JsonResponse({"success": False, "error": "Note not found"}, status=404)
 
 
+@login_required
 def tasks_by_period_view(request):
     start = request.GET.get("start")
     end = request.GET.get("end")
@@ -75,6 +81,7 @@ def tasks_by_period_view(request):
     })
 
 
+@login_required
 def notebook(request):
     return render(request, 'noteapp/notebook.html', {
         "active_page": "notebook",
@@ -82,6 +89,7 @@ def notebook(request):
     })
 
 
+@login_required
 def calendar_view(request, date_=None, year=None, month=None):
     today = timezone.localdate()
     selected_day = None
@@ -124,6 +132,7 @@ def calendar_view(request, date_=None, year=None, month=None):
     return render(request, "noteapp/calendar.html", context)
 
 
+@login_required
 def task(request):
 
     return render(request, 'noteapp/task.html', {
@@ -141,6 +150,9 @@ class DayContextMixin:
         day = self.parse_day()
         form_disabled = day < timezone.localdate()
         ctx = super().get_context_data(**kwargs)
+        referer = self.request.META.get('HTTP_REFERER')
+        if referer:
+            ctx['return_url'] = referer
         notes = Note.objects.filter(doe_date=day, user=self.request.user).order_by('due_time')
         ctx.update({
             "form": NoteForm(initial={"doe_date": day}),
@@ -181,7 +193,13 @@ class CreateTaskView(LoginRequiredMixin, DayContextMixin, FormView):
         due_at = self.combine_due(day, due_time_str)
         note = create_note_for_user(self.request.user, data)
         if due_at and due_at > timezone.now():
-            send_note_reminder.apply_async(args=[note.id], eta=due_at)
+            def schedule():
+                send_note_reminder.apply_async(
+                    args=[note.id],
+                    eta=due_at,
+                )
+
+            transaction.on_commit(schedule)
 
         url = reverse("noteapp:notebook_by_date", kwargs={"date": day.strftime("%Y-%m-%d")})
         page = self.request.POST.get("page")
@@ -280,3 +298,5 @@ class NoteDeleteView(LoginRequiredMixin, DeleteView):
         context = super().get_context_data(**kwargs)
         context['active_menu'] = 'notebook'
         return context
+
+

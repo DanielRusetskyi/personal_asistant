@@ -27,6 +27,14 @@ def main_menu(context):
             "href": "#",
             "auth_only": True,
         },
+        {
+            "key": "settings",
+            "label": "Налаштування",
+            "icon_img": "images/settings_icon.png",
+            "icon_emoji": "⚙️",
+            "href": reverse("noteapp:settings"),
+            "auth_only": True,
+        },
         # public
         {
             "key": "weather",
@@ -116,13 +124,7 @@ def notebook_submenu(context):
             "icon_emoji": "⏰",
             "href": "#",
         },
-        {
-            "key": "settings",
-            "label": "Налаштування",
-            "icon_img": "images/settings_icon.png",
-            "icon_emoji": "⚙️",
-            "href": "#",
-        },
+
         {
             "key": "back",
             "label": "Повернутися",

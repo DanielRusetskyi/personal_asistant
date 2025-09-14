@@ -1,8 +1,11 @@
 from django.urls import path
-from . import views
+from . import views, views_push, views_settings
+from django.http import HttpResponse
+from django.conf import settings
 
 
 app_name = 'noteapp'
+
 
 urlpatterns = [
     path('', views.notebook, name='notebook'),
@@ -15,6 +18,12 @@ urlpatterns = [
     path('tasks/<date>/', views.DayTaskView.as_view(), name='day_tasks'),
     path('task/<int:pk>/delete/', views.NoteDeleteView.as_view(), name='note_delete'),
     path('task/<int:pk>/edit/', views.NoteUpdateView.as_view(), name='note_edit'),
-    path('toggle-task-status/', views.toggle_task_status, name='toggle_task_status')
-    # path('task/')
+    path('toggle-task-status/', views.toggle_task_status, name='toggle_task_status'),
+    path("push/subscribe/", views_push.push_subscribe, name="push_subscribe"),
+    path("push/unsubscribe/", views_push.push_unsubscribe, name="push_unsubscribe"),
+    # path("push/vapid-public.txt", views_push.vapid_public, name="vapid_public"),
+    path("push/public-key/", views_push.vapid_public, name="push_public_key"),
+    path("settings/", views_settings.SettingsView.as_view(), name="settings"),
+    path("push/toggle/", views_push.push_toggle, name="push_toggle"),
+    path("push/status/", views_push.push_status,    name="push_status"),
 ]

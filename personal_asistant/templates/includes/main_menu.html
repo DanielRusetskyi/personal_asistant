@@ -1,40 +1,14 @@
 {% load static %}
+{% load menu %}
+
 <div class="flex flex-col items-center space-y-4 text-gray-600 text-sm md:text-base">
-
-    {% if user.is_authenticated %}
-    <!-- Іконка записника -->
-    <a href="{% url 'noteapp:notebook' %}"
-       class="flex flex-col items-center group {% if active_page == 'notebook' %}text-blue-600{% else %}hover:text-blue-600{% endif %}">
-      <span class="text-2xl">📋</span>
-      <span class="group-hover:underline">Notebook</span>
-    </a>
-
-    <!-- Іконка довідника -->
-    <a href="#"
-       class="flex flex-col items-center group {% if active_page == 'phonebook' %}text-blue-600{% else %}hover:text-blue-600{% endif %}">
-      <span class="text-2xl">📞</span>
-      <span class="group-hover:underline">Phonebook</span>
-    </a>
-
-    {% endif %}
-
-
-  <!-- Погода -->
-  <a href="{% url 'weather' %}" class="flex flex-col items-center group hover:text-blue-600">
-    <span class="text-2xl">🌦️</span>
-    <span class="group-hover:underline">Погода</span>
-  </a>
-
-  <!-- Валюта -->
-  <a href="#" class="flex flex-col items-center group hover:text-blue-600">
-    <span class="text-2xl">💱</span>
-    <span class="group-hover:underline">Курси</span>
-  </a>
-
-  <!-- Радіо -->
-  <a href="#" class="flex flex-col items-center group hover:text-blue-600">
-    <span class="text-2xl">📻</span>
-    <span class="group-hover:underline">Радіо</span>
-  </a>
+    {% main_menu as MAIN_MENU %}
+    {% for it in MAIN_MENU %}
+      <a href="{{ it.href }}"
+         class="flex flex-col items-center group {% if active_page == it.key %}text-blue-600{% else %}hover:text-blue-600{% endif %}">
+        <span class="text-2xl">{{ it.icon_emoji }}</span>
+        <span class="group-hover:underline">{{ it.label }}</span>
+      </a>
+    {% endfor %}
 
 </div>

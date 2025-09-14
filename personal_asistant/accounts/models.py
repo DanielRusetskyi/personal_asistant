@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from cloudinary import uploader
+from django.conf import settings
 import logging
 
 logger = logging.getLogger(__name__)
@@ -41,3 +42,10 @@ class CustomUser(AbstractUser):
         return self.username
 
 
+class UserSettings(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, unique=True)
+    push_enabled = models.BooleanField(default=False)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"UserSettings(user={self.user.name}, push_enabled={self.push_enabled})"

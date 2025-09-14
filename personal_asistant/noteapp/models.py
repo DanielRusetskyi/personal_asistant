@@ -35,3 +35,20 @@ class Note(models.Model):
 
     def __str__(self):
         return f"{self.name} ({self.get_priority_display()})"  # type: ignore
+
+
+class PushSubscription(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    endpoint = models.TextField()
+    p256dh = models.CharField(max_length=255)
+    auth = models.CharField(max_length=255)
+    ua = models.TextField(blank=True, default="", max_length=512)
+    created_at = models.DateTimeField(auto_now_add=True)
+    last_success_at = models.DateTimeField(null=True, blank=True)
+    last_error = models.TextField(blank=True, default="")
+
+    class Meta:
+        unique_together = (("user", "endpoint"),)
+        indexes = [
+            models.Index(fields=["user"]),
+        ]
