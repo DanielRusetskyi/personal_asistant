@@ -1,0 +1,47 @@
+[
+{
+"model": "additional.station",
+"pk": 1,
+"fields": {
+"name": "BBC World Service",
+"slug": "bbc-world-service",
+"stream_url": "https://stream.live.vc.bbcmedia.co.uk/bbc_world_service",
+"website_url": "https://www.bbc.co.uk/worldserviceradio",
+"icon_url": "https://www.bbc.co.uk/favicon.ico",
+"country": "UK",
+"tags": "news, world",
+"is_active": true,
+"order": 1
+}
+},
+{
+"model": "additional.station",
+"pk": 2,
+"fields": {
+"name": "SomaFM Groove Salad",
+"slug": "somafm-groove-salad",
+"stream_url": "https://ice2.somafm.com/groovesalad-128-mp3",
+"website_url": "https://somafm.com/",
+"icon_url": "https://somafm.com/img3/somafm256.png",
+"country": "US",
+"tags": "chillout, ambient",
+"is_active": true,
+"order": 2
+}
+},
+{
+"model": "additional.station",
+"pk": 3,
+"fields": {
+"name": "Radio Paradise (Main Mix)",
+"slug": "radio-paradise",
+"stream_url": "https://stream-uk1.radioparadise.com/aac-320",
+"website_url": "https://radioparadise.com/",
+"icon_url": "https://radioparadise.com/favicon.ico",
+"country": "US",
+"tags": "eclectic, rock",
+"is_active": true,
+"order": 3
+}
+}
+]

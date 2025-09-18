@@ -41,7 +41,7 @@ def main_menu(context):
             "label": "Погода",
             "icon_img": "images/weather_icon.png",
             "icon_emoji": "🌦️",
-            "href": reverse("weather"),
+            "href": reverse("additional:weather"),
             "auth_only": False,
         },
         {
@@ -57,7 +57,7 @@ def main_menu(context):
             "label": "Радіо",
             "icon_img": "images/radio_icon.png",
             "icon_emoji": "📻",
-            "href": "#",
+            "href": reverse("additional:radio"),
             "auth_only": False,
         },
     ]

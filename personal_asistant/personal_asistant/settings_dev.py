@@ -10,12 +10,15 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 import os
+import base64
 from pathlib import Path
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
 from dotenv import load_dotenv
 import dj_database_url
+from cryptography.hazmat.primitives import serialization
+from django.core.exceptions import ImproperlyConfigured
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -181,9 +184,36 @@ CHANNEL_LAYERS = {
     }
 }
 
+VAPID_PUBLIC_KEY_B64URL = os.getenv("VAPID_PUBLIC_KEY_B64URL", "").strip()
+PUSH_SUBJECT = os.getenv("PUSH_SUBJECT", "mailto:sergrus1974@gmail.com")
+
+_pem = (os.getenv("VAPID_PRIVATE_KEY_PEM", "") or "").strip()
+if _pem.startswith('"') and _pem.endswith('"'):
+    _pem = _pem[1:-1]
+VAPID_PRIVATE_KEY_PEM = _pem.replace("\\n", "\n").strip()
+
+if not VAPID_PRIVATE_KEY_PEM.lstrip().startswith("-----BEGIN"):
+    raise ImproperlyConfigured("VAPID_PRIVATE_KEY_PEM має починатися з '-----BEGIN'.")
+
+# Перевіряємо, що PEM валідний, і одночасно готуємо DER→base64url
+try:
+    _key_obj = serialization.load_pem_private_key(
+        VAPID_PRIVATE_KEY_PEM.encode("utf-8"), password=None
+    )
+    der = _key_obj.private_bytes(serialization.Encoding.DER, serialization.PrivateFormat.PKCS8, serialization.NoEncryption())
+    VAPID_PRIVATE_KEY_B64URL = base64.urlsafe_b64encode(der).rstrip(b"=").decode()
+    # logger.info("VAPID key OK: PEM parsed, DER prepared (len=%d).", len(der))
+except Exception as e:
+    raise ImproperlyConfigured(f"Не вдалося розпарсити VAPID_PRIVATE_KEY_PEM: {e}")
+
+
 # Database
+
+DATABASE_URL = os.getenv("DATABASE_URL")
+USE_SQLITE = os.getenv("USE_SQLITE", "1") == "1"
+
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
-if USE_SQLITE:
+if USE_SQLITE or not DATABASE_URL:
     # 2A) SQLite + volume на Fly (найстабільніше для dev)
     DATABASES = {
         "default": {
@@ -192,11 +222,11 @@ if USE_SQLITE:
         }
     }
 else:
-   DATABASES = {
-        "default": dj_database_url.config(
-            env="DATABASE_URL",
-            conn_max_age=600,  # пулінг
-            ssl_require=False,  # важливо: ми вже поставили ?sslmode=disable в URL
+    DATABASES = {
+        "default": dj_database_url.parse(
+            DATABASE_URL,
+            conn_max_age=600,
+            ssl_require=False,
         )
     }
 

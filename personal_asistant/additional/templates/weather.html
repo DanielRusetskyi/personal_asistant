@@ -120,7 +120,8 @@
     to { transform: rotate(360deg);}
   }
 </style>
-<div class="flex items-center justify-center min-h-full flex-col w-full mt-10">
+<div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-white/50 to-slate-50/25 backdrop-blur shadow-xl ring-1 ring-slate-900/10">
+<div class=" flex items-center justify-center min-h-full flex-col w-full mt-10">
 <h2 class="sun_h2">
   Погода
   <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true">
@@ -156,6 +157,7 @@
     <a href="{% url 'main' %}" class="button_weather inline-block mt-1 text-center">
       ⬅ Назад
     </a>
+</div>
 </div>
 {% endif %}
 {% endblock %}

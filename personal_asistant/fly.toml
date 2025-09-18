@@ -14,7 +14,8 @@ console_command = '/code/manage.py shell'
 PORT = '8000'
 DJANGO_SETTINGS_MODULE = "personal_asistant.settings_dev"
 REDIS_URL = "redis://default:1ikNX2u9Q4oAPumtRcDCwnx8pRdKz42a@redis-12925.c328.europe-west3-1.gce.redns.redis-cloud.com:12925"
-# USE_SQLITE = "1"
+
+USE_SQLITE = "0"
 #SQLITE_PATH = "/data/db.sqlite3"
 
 [processes]
