@@ -3,16 +3,32 @@ function readCfg(){ const el=document.getElementById('radio-config'); try{ retur
 function $(id){ return document.getElementById(id); }
 
 let actx, src, gain, analyser, rafId;
+let vizOk = false;
 
 function ensureGraph(audio){
   if (actx) return;
   actx = new (window.AudioContext || window.webkitAudioContext)();
-  src = actx.createMediaElementSource(audio);
-  gain = actx.createGain();
-  analyser = actx.createAnalyser();
-  analyser.fftSize = 256; // ~128 стовпчиків
-  src.connect(gain); gain.connect(analyser); analyser.connect(actx.destination);
+  try {
+    src = actx.createMediaElementSource(audio);
+    gain = actx.createGain();
+    analyser = actx.createAnalyser();
+    analyser.fftSize = 256;
+    src.connect(gain); gain.connect(analyser); analyser.connect(actx.destination);
+    vizOk = true;
+  } catch (e) {
+    // iOS/Safari часто кидає помилку коли немає CORS
+    console.warn('WebAudio graph failed (likely CORS)', e);
+    vizOk = false;
+  }
 }
+
+const unlock = () => {
+  if (actx && actx.state !== 'running') actx.resume().catch(()=>{});
+  window.removeEventListener('pointerdown', unlock);
+  window.removeEventListener('touchend', unlock);
+};
+window.addEventListener('pointerdown', unlock, { once:true });
+window.addEventListener('touchend', unlock, { once:true });
 
 function startViz(canvas){
   if(!analyser) return;
@@ -65,6 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let stations = [];
   let current  = null;
+  let isStopped = false;
 
   function pickSrc(s){ return s.stream; }
   function updatePlayIcon(){ play.innerHTML = audio.paused ? '<i class="bi bi-play-fill"></i>' : '<i class="bi bi-pause-fill"></i>'; }
@@ -95,8 +112,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const s = stations.find(x => x.slug === slug);
     if (!s){ audio.pause(); return; }
     current = s;
+    isStopped = false;
 
     ensureGraph(audio);
+
+    audio.crossOrigin = 'anonymous';
     audio.src = pickSrc(s);
 
     title.textContent = s.name;
@@ -123,31 +143,52 @@ document.addEventListener('DOMContentLoaded', () => {
   play.addEventListener('click', () => {
     if (!current && stations.length){ sel.value = stations[0].slug; onSelect(); return; }
     ensureGraph(audio);
+
+    if (isStopped && current) {
+    audio.crossOrigin = 'anonymous';
+    audio.src = pickSrc(current);
+    isStopped = false;
+  }
+
     if (audio.paused) audio.play().then(()=> actx?.resume?.()); else audio.pause();
   });
   stop.addEventListener('click', () => {
     audio.pause(); audio.removeAttribute('src'); audio.load();
+    isStopped = true;
     status.textContent = 'Зупинено'; updatePlayIcon(); stopViz();
   });
   mute.addEventListener('click', () => { audio.muted = !audio.muted; updateMuteIcon(); });
   vol.addEventListener('input', () => { if (gain) gain.gain.value = parseFloat(vol.value||'1'); else audio.volume = parseFloat(vol.value||'1'); });
 
   // Події аудіо
-  audio.addEventListener('playing', () => { status.textContent = 'Грає'; updatePlayIcon(); startViz(viz); });
+  audio.addEventListener('playing', () => {
+  status.textContent = 'Грає';
+  updatePlayIcon();
+  if (vizOk && analyser) startViz(viz);
+  else status.textContent = 'Грає (без візуалізації — CORS)';
+  });
   audio.addEventListener('pause',   () => { status.textContent = 'Пауза'; updatePlayIcon(); stopViz(); });
   audio.addEventListener('stalled', () =>  status.textContent = 'Буфер…');
   audio.addEventListener('error',   () =>  status.textContent = 'Помилка відтворення');
 
-  // Шорткати (ігноруємо форму)
-  window.addEventListener('keydown', (e) => {
+  // === ТІЛЬКИ ДЛЯ ДЕСКТОПУ: гарячі клавіші ===
+  const isDesktop =
+    window.matchMedia('(hover: hover) and (pointer: fine)').matches &&
+    (navigator.maxTouchPoints || 0) === 0;
+
+  function onHotkey(e){
     const tag = (e.target.tagName||'').toLowerCase();
     if (['input','select','textarea'].includes(tag)) return;
     if (e.code === 'Space'){ e.preventDefault(); play.click(); }
-    if (e.key.toLowerCase() === 's'){ e.preventDefault(); stop.click(); }
-    if (e.key.toLowerCase() === 'm'){ e.preventDefault(); mute.click(); }
-    if (e.key === 'ArrowUp'){ e.preventDefault(); vol.value = Math.min(1, (+vol.value||1) + 0.05); vol.dispatchEvent(new Event('input')); }
-    if (e.key === 'ArrowDown'){ e.preventDefault(); vol.value = Math.max(0, (+vol.value||1) - 0.05); vol.dispatchEvent(new Event('input')); }
-  });
+    else if (e.key.toLowerCase() === 's'){ e.preventDefault(); stop.click(); }
+    else if (e.key.toLowerCase() === 'm'){ e.preventDefault(); mute.click(); }
+    else if (e.key === 'ArrowUp'){ e.preventDefault(); vol.value = Math.min(1, (+vol.value||1) + 0.05); vol.dispatchEvent(new Event('input')); }
+    else if (e.key === 'ArrowDown'){ e.preventDefault(); vol.value = Math.max(0, (+vol.value||1) - 0.05); vol.dispatchEvent(new Event('input')); }
+  }
+
+  if (isDesktop) {
+    window.addEventListener('keydown', onHotkey);
+  }
 
   loadStations();
 });

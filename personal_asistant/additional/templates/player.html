@@ -37,7 +37,7 @@
             <i class="bi bi-stop-fill"></i>
           </button>
           <button id="btn-mute" class="px-3 py-2 rounded-xl bg-slate-200 hover:bg-slate-300" title="Mute">
-            <i class="bi bi-volume-mute"></i>
+            <i class="bi bi-volume-up"></i>
           </button>
         </div>
       </div>
@@ -52,9 +52,12 @@
       <canvas id="viz" class="w-full h-16 rounded-xl bg-slate-100"></canvas>
 
       <!-- Підказки -->
-      <p class="text-xs text-slate-100">
+      <p id="hotkeys-hint" class="text-xs text-slate-500 hidden md:block">
         Клавіші: <kbd>Space</kbd> — Play/Pause, <kbd>S</kbd> — Stop, <kbd>M</kbd> — Mute, <kbd>↑/↓</kbd> — гучність.
       </p>
+<!--      <p class="text-xs text-slate-100">-->
+<!--        Клавіші: <kbd>Space</kbd> — Play/Pause, <kbd>S</kbd> — Stop, <kbd>M</kbd> — Mute, <kbd>↑/↓</kbd> — гучність.-->
+<!--      </p>-->
 
       <audio id="audio" preload="none" crossorigin="anonymous" class="hidden"></audio>
     </div>
