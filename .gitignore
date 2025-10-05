@@ -75,3 +75,5 @@ dist/
 
 # Allauth email templates (if using temp files)
 *.eml
+
+*.pem
