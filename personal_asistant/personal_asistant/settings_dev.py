@@ -23,7 +23,7 @@ from django.core.exceptions import ImproperlyConfigured
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv(BASE_DIR / '.env')
-
+LOCALE_PATHS = [BASE_DIR / "locale"]
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
@@ -121,6 +121,7 @@ MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -277,8 +278,6 @@ CLOUDINARY_STORAGE = {
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'Europe/Kyiv'
 
 USE_I18N = True
@@ -312,3 +311,9 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/login/'
 CSRF_TRUSTED_ORIGINS = ['https://personal-asistant.fly.dev']
 RADIO_USE_STREAM_PROXY = False
+LANGUAGE_CODE = "en"
+LANGUAGES = (
+    ("uk", "Українська"),
+    ("pl", "Polski"),
+    ("en", "English"),
+)

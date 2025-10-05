@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block content %}
 <style>
@@ -133,21 +134,21 @@
 
 
 <form method="get">
-    <input type="text" name="city" placeholder="Введіть місто">
-    <button type="submit" class="button_weather">Показати</button>
+    <input type="text" name="city" placeholder="{% trans 'Enter city' %}">
+    <button type="submit" class="button_weather">{% trans 'Get weather' %}</button>
 </form>
 
 {% if weather.error %}
     <p class="error">{{ weather.error }}</p>
 {% else %}
     <div class="weather-card">
-        <p><strong>Місто:</strong> {{ weather.city }}</p>
-        <p><strong>Температура:</strong> {{ weather.temp }}°C</p>
-        <p><strong>Відчувається як:</strong> {{ weather.feels_like }}°C</p>
-        <p><strong>Опис:</strong> {{ weather.description }}</p>
+        <p><strong>{% trans 'City' %}:</strong> {{ weather.city }}</p>
+        <p><strong>{% trans 'Temperature' %}:</strong> {{ weather.temp }}°C</p>
+        <p><strong>{% trans 'Feels like' %}</strong> {{ weather.feels_like }}°C</p>
+        <p><strong>{% trans 'Description' %}</strong> {{ weather.description }}</p>
     </div>
     <a href="{% url 'main' %}" class="button_weather inline-block mt-1 text-center">
-      ⬅ Назад
+      ⬅ {% trans 'Back' %}
     </a>
 </div>
 </div>

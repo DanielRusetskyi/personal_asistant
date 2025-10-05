@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-05 01:20+0300\n"
+"POT-Creation-Date: 2025-10-05 21:15+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,6 +20,308 @@ msgstr ""
 "11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % "
 "100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
 "(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
+
+#: .\accounts\forms.py:18
+msgid "Enter username or email"
+msgstr "Введіть ім'я користувача або пошту"
+
+#: .\accounts\forms.py:26 .\accounts\forms.py:92
+#: .\accounts\templates\accounts\password_reset_confirm.html:38
+msgid "Enter password"
+msgstr "Введіть пароль"
+
+#: .\accounts\forms.py:48
+msgid "Your user name"
+msgstr "Ваше ім'я користувача"
+
+#: .\accounts\forms.py:53
+msgid "Your password"
+msgstr "Ваш пароль"
+
+#: .\accounts\forms.py:72 .\accounts\forms.py:129
+msgid "Your first name"
+msgstr "Ваше ім'я"
+
+#: .\accounts\forms.py:76 .\accounts\forms.py:133
+#, fuzzy
+#| msgid "Without name"
+msgid "Your last name"
+msgstr "Без назви"
+
+#: .\accounts\forms.py:80 .\accounts\forms.py:137
+#, fuzzy
+#| msgid "User"
+msgid "Username"
+msgstr "Користувач"
+
+#: .\accounts\forms.py:88 .\accounts\forms.py:145
+msgid "Your phone"
+msgstr "Ваш телефон"
+
+#: .\accounts\forms.py:96
+msgid "Repeat password"
+msgstr "Повторіть пароль"
+
+#: .\accounts\templates\accounts\change_password.html:9
+msgid "Change password"
+msgstr "Змінити пароль"
+
+#: .\accounts\templates\accounts\change_password.html:16
+msgid "Old password"
+msgstr "Старий пароль"
+
+#: .\accounts\templates\accounts\change_password.html:22
+#, fuzzy
+#| msgid "New task on"
+msgid "New password"
+msgstr "Новий пароль"
+
+#: .\accounts\templates\accounts\change_password.html:29
+msgid "Confirm new password"
+msgstr "Підтвердіть новий пароль"
+
+#: .\accounts\templates\accounts\change_password.html:36
+#: .\accounts\templates\accounts\edit_profile.html:81
+msgid "Save"
+msgstr "Зберегти"
+
+#: .\accounts\templates\accounts\change_password.html:39
+#: .\accounts\templates\accounts\edit_profile.html:84
+#: .\accounts\templates\accounts\profile.html:49
+#: .\additional\templates\weather.html:151 .\noteapp\templatetags\menu.py:127
+#: .\noteapp\templatetags\menu.py:241
+#: .\preferences\templates\preferences\language.html:36
+msgid "Back"
+msgstr "Повернутися"
+
+#: .\accounts\templates\accounts\change_password.html:67
+msgid "Weak password 😟"
+msgstr "Слабий пароль 😟"
+
+#: .\accounts\templates\accounts\change_password.html:71
+msgid "Average password 😐"
+msgstr "Середній пароль 😐"
+
+#: .\accounts\templates\accounts\change_password.html:75
+msgid "Good password 😊"
+msgstr "Добрий пароль 😊"
+
+#: .\accounts\templates\accounts\change_password.html:79
+msgid "Strong password 💪"
+msgstr "Сильний пароль 💪"
+
+#: .\accounts\templates\accounts\edit_profile.html:12
+#: .\accounts\templates\accounts\profile.html:10
+msgid "Information about the user"
+msgstr "Інформація про користувача"
+
+#: .\accounts\templates\accounts\edit_profile.html:20
+#: .\accounts\templates\accounts\profile.html:29
+msgid "User avatar"
+msgstr "Аватар користувача"
+
+#: .\accounts\templates\accounts\edit_profile.html:24
+#: .\accounts\templates\accounts\profile.html:33
+msgid "Default avatar"
+msgstr "Аватар за замовчуванням"
+
+#: .\accounts\templates\accounts\login.html:9
+msgid "Authorization"
+msgstr "Авторизація"
+
+#: .\accounts\templates\accounts\login.html:32
+#: .\noteapp\templatetags\menu.py:175
+msgid "Sign in"
+msgstr "Увійти"
+
+#: .\accounts\templates\accounts\login.html:36
+msgid "Forgot password?"
+msgstr "Забули пароль?"
+
+#: .\accounts\templates\accounts\login.html:36
+#: .\noteapp\templatetags\menu.py:183
+msgid "Sign up"
+msgstr "Реєстрація"
+
+#: .\accounts\templates\accounts\login.html:41
+msgid "Or sign in with"
+msgstr "Або увійти з"
+
+#: .\accounts\templates\accounts\password_change_done.html:10
+msgid "Password changed successfully"
+msgstr "Пароль змінено успішно"
+
+#: .\accounts\templates\accounts\password_change_done.html:13
+msgid ""
+"Your new password has been saved. You can continue working with your account."
+msgstr ""
+"Ваш новий пароль збережено. Ви можете продовжувати роботу з вашим акаунтом."
+
+#: .\accounts\templates\accounts\password_change_done.html:17
+#, fuzzy
+#| msgid "to your profile."
+msgid "Back to profile"
+msgstr "Повернутися до профілю."
+
+#: .\accounts\templates\accounts\password_reset.html:13
+msgid "Forgot Password?"
+msgstr "Забули пароль?"
+
+#: .\accounts\templates\accounts\password_reset.html:44
+msgid "Submit"
+msgstr "Відправити "
+
+#: .\accounts\templates\accounts\password_reset.html:53
+msgid "Create A New Account"
+msgstr "Створити новий обліковий запис"
+
+#: .\accounts\templates\accounts\password_reset.html:54
+msgid "Back To Login"
+msgstr "Повернутися до входу"
+
+#: .\accounts\templates\accounts\password_reset_complete.html:9
+msgid "Password reset complete"
+msgstr "Скидання пароля завершено"
+
+#: .\accounts\templates\accounts\password_reset_complete.html:10
+msgid "Your new password has been set. You can log in now."
+msgstr "Ваш новий пароль збережено. Ви можете увійти в систему."
+
+#: .\accounts\templates\accounts\password_reset_complete.html:12
+msgid "Log in"
+msgstr "Увійти"
+
+#: .\accounts\templates\accounts\password_reset_confirm.html:14
+msgid "Reset Your Password"
+msgstr "Скинути пароль"
+
+#: .\accounts\templates\accounts\password_reset_confirm.html:35
+#, fuzzy
+#| msgid "New task on"
+msgid "New Password"
+msgstr "Нове завдання на"
+
+#: .\accounts\templates\accounts\password_reset_confirm.html:47
+#, fuzzy
+#| msgid "Login confirmation"
+msgid "New Password Confirmation"
+msgstr "Підтвердження нового пароля"
+
+#: .\accounts\templates\accounts\password_reset_confirm.html:50
+msgid "Confirm password"
+msgstr "Підтвердіть пароль"
+
+#: .\accounts\templates\accounts\password_reset_confirm.html:57
+msgid "Reset Password"
+msgstr "Скинути пароль"
+
+#: .\accounts\templates\accounts\password_reset_done.html:15
+msgid "Password change request sent"
+msgstr "Запит на зміну пароля надіслано"
+
+#: .\accounts\templates\accounts\password_reset_done.html:17
+#, fuzzy
+#| msgid ""
+#| "We have just sent password reset instructions to your email address. If "
+#| "you don"
+msgid "We have just sent password reset instructions to your email address."
+msgstr ""
+"Ми щойно надіслали інструкції щодо скидання пароля на вашу адресу "
+"електронної пошти."
+
+#: .\accounts\templates\accounts\password_reset_done.html:18
+msgid ""
+"If you don't see the email in your inbox, please check your spam folder."
+msgstr ""
+"Якщо ви не бачите електронного листа у своїй поштовій скриньці, перевірте "
+"папку зі спамом."
+
+#: .\accounts\templates\accounts\password_reset_done.html:22
+msgid "Return to login"
+msgstr "Повернутися до входу"
+
+#: .\accounts\templates\accounts\profile.html:15
+msgid "User name:"
+msgstr "Ім'я користувача"
+
+#: .\accounts\templates\accounts\profile.html:16
+msgid "Email:"
+msgstr "Пошта: "
+
+#: .\accounts\templates\accounts\profile.html:18
+#: .\accounts\templates\accounts\profile.html:20
+msgid "Phone:"
+msgstr "Телефон:"
+
+#: .\accounts\templates\accounts\profile.html:20
+msgid " Missing "
+msgstr " Відсутній  "
+
+#: .\accounts\templates\accounts\profile.html:24
+msgid "Date of joining:"
+msgstr " Дата приєднання: "
+
+#: .\accounts\templates\accounts\profile.html:43
+msgid "🔧 Edit profile"
+msgstr "🔧 Редагувати профіль "
+
+#: .\accounts\templates\accounts\profile.html:46
+msgid "🔒 Change password"
+msgstr "🔒 Змінити пароль "
+
+#: .\accounts\templates\accounts\register.html:10
+#, fuzzy
+#| msgid "Description"
+msgid "Registration"
+msgstr "Реєстрація"
+
+#: .\accounts\templates\accounts\register.html:96
+msgid "Register"
+msgstr "Зареєструватися "
+
+#: .\additional\templates\player.html:12
+msgid "Internet radio"
+msgstr "Інтернет-радіо"
+
+#: .\additional\templates\player.html:19 .\additional\templates\player.html:29
+msgid "Select station..."
+msgstr "Виберіть станцію... "
+
+#: .\additional\templates\player.html:27
+#, fuzzy
+#| msgid "Description"
+msgid "Station"
+msgstr "Реєстрація"
+
+#: .\additional\templates\weather.html:137
+msgid "Enter city"
+msgstr "Введіть місто"
+
+#: .\additional\templates\weather.html:138
+msgid "Get weather"
+msgstr "Погода"
+
+#: .\additional\templates\weather.html:145
+msgid "City"
+msgstr "Місто"
+
+#: .\additional\templates\weather.html:146
+msgid "Temperature"
+msgstr "Температура"
+
+#: .\additional\templates\weather.html:147
+msgid "Feels like"
+msgstr "Відчувається як"
+
+#: .\additional\templates\weather.html:148 .\noteapp\models.py:22
+#: .\noteapp\templates\noteapp\create_note.html:21
+#: .\templates\includes\task_list.html:12
+msgid "Description"
+msgstr "Опис"
+
+#: .\noteapp\forms.py:21
+msgid "Describe the task..."
+msgstr "Опишіть завдання..."
 
 #: .\noteapp\models.py:17 .\noteapp\templates\noteapp\create_note.html:41
 msgid "🔴 High"
@@ -36,11 +338,6 @@ msgstr "⚪ Низький"
 #: .\noteapp\models.py:21
 msgid "Name"
 msgstr "І'мя"
-
-#: .\noteapp\models.py:22 .\noteapp\templates\noteapp\create_note.html:21
-#: .\templates\includes\task_list.html:12
-msgid "Description"
-msgstr "Опис"
 
 #: .\noteapp\models.py:23 .\templates\includes\noteapp_form_fields.html:92
 msgid "Done"
@@ -94,7 +391,6 @@ msgid "← Prev month"
 msgstr "← Попередній місяць"
 
 #: .\noteapp\templates\noteapp\calendar.html:66
-#: .\noteapp\templates\noteapp\notebook_by_date.html:44
 #: .\noteapp\templates\noteapp\notebook_by_date.html:82
 msgid "↩ Back"
 msgstr "↩ Повернутися"
@@ -161,12 +457,12 @@ msgid "Edit a task"
 msgstr "Редагувати завдання"
 
 #: .\noteapp\templates\noteapp\edit_note.html:16
-msgid "💾 Sava"
+#: .\noteapp\templates\noteapp\notebook_by_date.html:40
+msgid "💾 Save"
 msgstr "💾 Зберегти"
 
 #: .\noteapp\templates\noteapp\edit_note.html:21
 #: .\noteapp\templates\noteapp\settings_push.html:63
-#: .\preferences\templates\preferences\language.html:36
 msgid "⬅ Back"
 msgstr "⬅ Повернутися"
 
@@ -206,9 +502,10 @@ msgstr "Нове завдання на"
 msgid "⛔ It is not possible to create a task for a past date."
 msgstr "⛔ Неможливо створити завдання на минулу дату."
 
-#: .\noteapp\templates\noteapp\notebook_by_date.html:40
-msgid "💾 Save"
-msgstr "💾 Зберегти"
+#: .\noteapp\templates\noteapp\notebook_by_date.html:44
+#: .\templates\socialaccount\login.html:70
+msgid "Cancel"
+msgstr "Відмінити"
 
 #: .\noteapp\templates\noteapp\notebook_by_date.html:81
 msgid "➕ Add a new task"
@@ -288,7 +585,7 @@ msgstr "Завдань немає"
 msgid "There are no tasks during this period."
 msgstr "За цей період немає завдань"
 
-#: .\noteapp\templatetags\menu.py:17
+#: .\noteapp\templatetags\menu.py:17 .\templates\includes\notebook_menu.html:4
 msgid "Notebook"
 msgstr "Записник"
 
@@ -298,7 +595,7 @@ msgstr "Записник"
 msgid "Phonebook"
 msgstr "Записник"
 
-#: .\noteapp\templatetags\menu.py:33
+#: .\noteapp\templatetags\menu.py:33 .\templates\includes\settings_menu.html:5
 msgid "Settings"
 msgstr "Налаштування"
 
@@ -330,10 +627,6 @@ msgstr "Завдання"
 msgid "Reminders"
 msgstr "Нагадування"
 
-#: .\noteapp\templatetags\menu.py:127 .\noteapp\templatetags\menu.py:241
-msgid "Back"
-msgstr "Повернутися"
-
 #: .\noteapp\templatetags\menu.py:144 .\templates\base.html:47
 msgid "Search"
 msgstr "Шукати"
@@ -345,14 +638,6 @@ msgstr "Профіль"
 #: .\noteapp\templatetags\menu.py:164
 msgid "Logout"
 msgstr "Вихід"
-
-#: .\noteapp\templatetags\menu.py:175
-msgid "Sign in"
-msgstr "Увійти"
-
-#: .\noteapp\templatetags\menu.py:183
-msgid "Sign up"
-msgstr "Реєстрація"
 
 #: .\noteapp\templatetags\menu.py:206
 msgid "Push"
@@ -386,8 +671,8 @@ msgstr ""
 "браузера."
 
 #: .\preferences\templates\preferences\language.html:27
-msgid "Save"
-msgstr "Зберегти"
+msgid "Apply"
+msgstr "Застосувати "
 
 #: .\preferences\templates\preferences\language.html:31
 msgid "Current language:"
@@ -456,7 +741,3 @@ msgstr "Ви збираєтеся увійти, використовуючи о�
 #: .\templates\socialaccount\login.html:67
 msgid "Continue login"
 msgstr "Продовжити вхід"
-
-#: .\templates\socialaccount\login.html:70
-msgid "Cancel"
-msgstr "Відмінити"

@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load widget_tweaks %}
-{% load static %}
+{% load static i18n %}
 
 
 {% block content %}
@@ -9,7 +9,7 @@
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="bg-white p-4 mb-4 mx-2 rounded custom-shadow">
-                <h3 class="text-center mb-4">Інформація про користувача</h3>
+                <h3 class="text-center mb-4">{% trans 'Information about the user' %}</h3>
                     <form action="{% url 'accounts:edit_profile' %}" method="post" enctype="multipart/form-data">
                         {% csrf_token %}
                             <div class="card">
@@ -17,11 +17,11 @@
                                   <label for="id_avatar_file" style="cursor: pointer;">
                                     {% if user.avatar %}
                                       <img src="{{ user.avatar }}"
-                                           alt="Аватар користувача"
+                                           alt="{% trans 'User avatar' %}"
                                            class="w-[150px] h-[150px] object-cover rounded-full mx-auto border-4 border-blue-300 shadow-lg transition-transform duration-300 hover:scale-105">
                                     {% else %}
                                       <img src="{% static 'images/default_avatar.png' %}"
-                                           alt="Аватар за замовчуванням"
+                                           alt="{% trans 'Default avatar' %}"
                                            class="w-[150px] h-[150px] object-cover rounded-full mx-auto border-4 border-blue-300 shadow-lg transition-transform duration-300 hover:scale-105">
                                     {% endif %}
                                   </label>
@@ -78,10 +78,10 @@
 
                         <div class="text-center mt-4">
                           <button type="submit" class="btn btn-primary px-4 shadow">
-                            <i class="bi bi-check-circle"></i> Зберегти
+                            <i class="bi bi-check-circle"></i> {% trans 'Save' %}
                           </button>
                           <a href="{% url 'accounts:profile' %}" class="btn btn-outline-secondary ms-2">
-                            <i class="bi bi-arrow-left"></i> Назад
+                            <i class="bi bi-arrow-left"></i> {% trans 'Back' %}
                           </a>
                         </div>
                     </form>

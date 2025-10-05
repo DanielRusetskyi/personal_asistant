@@ -1,7 +1,7 @@
 {% extends "base.html" %}
-{% load static %}
+{% load static i18n %}
 
-{% block title %}Інтернет-радіо{% endblock %}
+{% block title %}Internet radio{% endblock %}
 
 {% block content %}
 <div class="max-w-xl mx-auto p-4">
@@ -9,14 +9,14 @@
     <div class="p-5 space-y-4">
       <div class="mb-2 text-center uppercase tracking-wide text-slate-700 dark:text-slate-100
             text-xl md:text-2xl font-bold drop-shadow-sm">
-        Інтернет-радіо
+        {% trans 'Internet radio' %}
       </div>
       <!-- Заголовок -->
       <div class="flex items-center gap-3">
         <img id="logo" src="" alt="logo" class="w-12 h-12 rounded-xl object-cover bg-slate-200 hidden" />
         <div class="min-w-0">
 
-          <div id="now-title" class="text-lg font-semibold truncate">Обрати станцію…</div>
+          <div id="now-title" class="text-lg font-semibold truncate">{% trans 'Select station...' %}</div>
           <div id="now-sub" class="text-xs text-slate-500 truncate"></div>
         </div>
       </div>
@@ -24,9 +24,9 @@
       <!-- Станція + кнопки -->
       <div class="grid sm:grid-cols-5 gap-3 items-center">
         <label class="sm:col-span-3 w-full">
-          <span class="sr-only">Станція</span>
+          <span class="sr-only">{% trans 'Station' %}</span>
           <select id="station" class="w-full rounded-xl border px-3 py-2 bg-white/80 focus:outline-none focus:ring-2 focus:ring-blue-500">
-            <option value="">Обрати станцію…</option>
+            <option value="">{% trans 'Select station...' %}</option>
           </select>
         </label>
         <div class="sm:col-span-2 flex items-center justify-end gap-2">

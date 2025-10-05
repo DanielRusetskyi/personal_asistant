@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load static %}
+{% load static i18n%}
 
 {% block content %}
 <div class="container mt-5 d-flex justify-content-center animate-drop-bounce">
@@ -7,30 +7,30 @@
         <!-- Профіль з даними користувача -->
         <div class="col-md-10">
             <div class="bg-white p-4 mb-4 mx-2 rounded custom-shadow text-center">
-                <h2 class="mb-4">Інформація про користувача</h2>
+                <h2 class="mb-4">{% trans 'Information about the user' %}</h2>
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">{{ user.first_name }} {{ user.last_name }}</h4>
                         <p class="card-text">
-                            <strong>Ім'я користувача:</strong> {{ user.username }} <br>
-                            <strong>Email:</strong> {{ user.email }} <br>
+                            <strong>{% trans 'User name:' %}</strong> {{ user.username }} <br>
+                            <strong>{% trans 'Email:' %}</strong> {{ user.email }} <br>
                             {% if user.phone %}
-                                <strong>Телефон:</strong> {{ user.phone }} <br>
+                                <strong>{% trans 'Phone:' %}</strong> {{ user.phone }} <br>
                             {% else %}
-                                <strong>Телефон:</strong> Відсутній <br>
+                                <strong>{% trans 'Phone:' %}:</strong> {% trans ' Missing ' %} <br>
                             {% endif %}
                         </p>
                         <p class="card-text">
-                            <strong>Дата приєднання:</strong> {{ user.date_joined|date:"d M Y" }}
+                            <strong>{% trans 'Date of joining:' %}</strong> {{ user.date_joined|date:"d M Y" }}
                         </p>
                         <div class="mt-4">
                             {% if user.avatar %}
                                 <img src="{{ user.avatar }}"
-                                     alt="Аватар користувача"
+                                     alt="{% trans 'User avatar' %}"
                                      class="w-[150px] h-[150px] object-cover rounded-full mx-auto border-4 border-blue-300 shadow-lg transition-transform duration-300 hover:scale-105">
                             {% else %}
                                 <img src="{% static 'images/default_avatar.png' %}"
-                                     alt="Аватар за замовчуванням"
+                                     alt="{% trans 'Default avatar' %}"
                                      class="w-[150px] h-[150px] object-cover rounded-full mx-auto border-4 border-blue-300 shadow-lg transition-transform duration-300 hover:scale-105">
                             {% endif %}
                         </div>
@@ -40,13 +40,13 @@
          <!-- Кнопки дій -->
             <div class="mt-4 d-flex flex-wrap justify-content-center gap-3">
                 <a href="{% url 'accounts:edit_profile' %}" class="btn btn-outline-primary px-4 text-nowrap">
-                    🔧 Редагувати профіль
+                    {% trans '🔧 Edit profile' %}
                 </a>
                 <a href="{% url 'accounts:change_password' %}" class="btn btn-outline-primary px-4 text-nowrap">
-                    🔒 Змінити пароль
+                    {% trans '🔒 Change password' %}
                 </a>
                 <a href="{% url 'main' %}" class="btn btn-outline-secondary px-4 text-nowrap">
-                    <i class="bi bi-arrow-left"></i> Назад
+                    <i class="bi bi-arrow-left"></i> {% trans 'Back' %}
                 </a>
             </div>
 

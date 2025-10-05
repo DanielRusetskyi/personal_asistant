@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Personal Assistant\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-05 00:03+0300\n"
+"POT-Creation-Date: 2025-10-05 21:15+0300\n"
 "PO-Revision-Date: 2025-10-05 00:20+0300\n"
 "Last-Translator: \n"
 "Language-Team: Polish\n"
@@ -14,6 +14,287 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && "
 "(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
 "n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+
+#: .\accounts\forms.py:18
+msgid "Enter username or email"
+msgstr "Wpisz nazwę użytkownika lub e-mail"
+
+#: .\accounts\forms.py:26 .\accounts\forms.py:92
+#: .\accounts\templates\accounts\password_reset_confirm.html:38
+msgid "Enter password"
+msgstr "Wpisz hasło"
+
+#: .\accounts\forms.py:48
+msgid "Your user name"
+msgstr "Twoja nazwa użytkownika"
+
+#: .\accounts\forms.py:53
+msgid "Your password"
+msgstr "Twoje hasło"
+
+#: .\accounts\forms.py:72 .\accounts\forms.py:129
+msgid "Your first name"
+msgstr "Twoje imię"
+
+#: .\accounts\forms.py:76 .\accounts\forms.py:133
+msgid "Your last name"
+msgstr "Twoje nazwisko"
+
+#: .\accounts\forms.py:80 .\accounts\forms.py:137
+#, fuzzy
+#| msgid "User"
+msgid "Username"
+msgstr "Użytkownik"
+
+#: .\accounts\forms.py:88 .\accounts\forms.py:145
+msgid "Your phone"
+msgstr "Twój telefon"
+
+#: .\accounts\forms.py:96
+msgid "Repeat password"
+msgstr "Powtórz hasło"
+
+#: .\accounts\templates\accounts\change_password.html:9
+msgid "Change password"
+msgstr "Zmień hasło"
+
+#: .\accounts\templates\accounts\change_password.html:16
+msgid "Old password"
+msgstr "Stare hasło"
+
+#: .\accounts\templates\accounts\change_password.html:22
+msgid "New password"
+msgstr "Nowe hasło"
+
+#: .\accounts\templates\accounts\change_password.html:29
+msgid "Confirm new password"
+msgstr "Potwierdź nowe hasło"
+
+#: .\accounts\templates\accounts\change_password.html:36
+#: .\accounts\templates\accounts\edit_profile.html:81
+msgid "Save"
+msgstr "Zapisz"
+
+#: .\accounts\templates\accounts\change_password.html:39
+#: .\accounts\templates\accounts\edit_profile.html:84
+#: .\accounts\templates\accounts\profile.html:49
+#: .\additional\templates\weather.html:151 .\noteapp\templatetags\menu.py:127
+#: .\noteapp\templatetags\menu.py:241
+#: .\preferences\templates\preferences\language.html:36
+msgid "Back"
+msgstr "Wstecz"
+
+#: .\accounts\templates\accounts\change_password.html:67
+msgid "Weak password 😟"
+msgstr "Słabe hasło 😟"
+
+#: .\accounts\templates\accounts\change_password.html:71
+msgid "Average password 😐"
+msgstr "Przeciętne hasło 😐"
+
+#: .\accounts\templates\accounts\change_password.html:75
+msgid "Good password 😊"
+msgstr "Dobre hasło 😊"
+
+#: .\accounts\templates\accounts\change_password.html:79
+msgid "Strong password 💪"
+msgstr "Silne hasło 💪"
+
+#: .\accounts\templates\accounts\edit_profile.html:12
+#: .\accounts\templates\accounts\profile.html:10
+msgid "Information about the user"
+msgstr "Informacje o użytkowniku"
+
+#: .\accounts\templates\accounts\edit_profile.html:20
+#: .\accounts\templates\accounts\profile.html:29
+msgid "User avatar"
+msgstr "Avatar użytkownika"
+
+#: .\accounts\templates\accounts\edit_profile.html:24
+#: .\accounts\templates\accounts\profile.html:33
+msgid "Default avatar"
+msgstr "Domyślny avatar"
+
+#: .\accounts\templates\accounts\login.html:9
+msgid "Authorization"
+msgstr "Logowanie"
+
+#: .\accounts\templates\accounts\login.html:32
+#: .\noteapp\templatetags\menu.py:175
+msgid "Sign in"
+msgstr "Zaloguj się"
+
+#: .\accounts\templates\accounts\login.html:36
+msgid "Forgot password?"
+msgstr "Zapomniałeś hasła?"
+
+#: .\accounts\templates\accounts\login.html:36
+#: .\noteapp\templatetags\menu.py:183
+msgid "Sign up"
+msgstr "Zarejestruj się"
+
+#: .\accounts\templates\accounts\login.html:41
+msgid "Or sign in with"
+msgstr "Lub zaloguj się przez"
+
+#: .\accounts\templates\accounts\password_change_done.html:10
+msgid "Password changed successfully"
+msgstr "Hasło zostało pomyślnie zmienione"
+
+#: .\accounts\templates\accounts\password_change_done.html:13
+msgid ""
+"Your new password has been saved. You can continue working with your account."
+msgstr ""
+"Twoje nowe hasło zostało zapisane. Możesz dalej korzystać ze swojego konta."
+
+#: .\accounts\templates\accounts\password_change_done.html:17
+msgid "Back to profile"
+msgstr "Wstecz do profilu"
+
+#: .\accounts\templates\accounts\password_reset.html:13
+msgid "Forgot Password?"
+msgstr "Zapomniałeś hasła?"
+
+#: .\accounts\templates\accounts\password_reset.html:44
+msgid "Submit"
+msgstr "Wyślij"
+
+#: .\accounts\templates\accounts\password_reset.html:53
+msgid "Create A New Account"
+msgstr "Utwórz nowe konto"
+
+#: .\accounts\templates\accounts\password_reset.html:54
+msgid "Back To Login"
+msgstr "Wróć do logowania"
+
+#: .\accounts\templates\accounts\password_reset_complete.html:9
+msgid "Password reset complete"
+msgstr "Reset hasła zakończony"
+
+#: .\accounts\templates\accounts\password_reset_complete.html:10
+msgid "Your new password has been set. You can log in now."
+msgstr "Ustawiono nowe hasło. Możesz się teraz zalogować."
+
+#: .\accounts\templates\accounts\password_reset_complete.html:12
+msgid "Log in"
+msgstr "Zaloguj się"
+
+#: .\accounts\templates\accounts\password_reset_confirm.html:14
+msgid "Reset Your Password"
+msgstr "Zresetuj hasło"
+
+#: .\accounts\templates\accounts\password_reset_confirm.html:35
+msgid "New Password"
+msgstr "Nowe hasło"
+
+#: .\accounts\templates\accounts\password_reset_confirm.html:47
+msgid "New Password Confirmation"
+msgstr "Potwierdzenie nowego hasła"
+
+#: .\accounts\templates\accounts\password_reset_confirm.html:50
+msgid "Confirm password"
+msgstr "Potwierdź hasło"
+
+#: .\accounts\templates\accounts\password_reset_confirm.html:57
+msgid "Reset Password"
+msgstr "Zresetuj hasło"
+
+#: .\accounts\templates\accounts\password_reset_done.html:15
+msgid "Password change request sent"
+msgstr "Wysłano prośbę o zmianę hasła"
+
+#: .\accounts\templates\accounts\password_reset_done.html:17
+msgid "We have just sent password reset instructions to your email address."
+msgstr "Właśnie wysłaliśmy instrukcje resetu hasła na Twój adres e-mail."
+
+#: .\accounts\templates\accounts\password_reset_done.html:18
+msgid ""
+"If you don't see the email in your inbox, please check your spam folder."
+msgstr ""
+"Jeśli nie widzisz wiadomości w skrzynce odbiorczej, sprawdź folder spam."
+
+#: .\accounts\templates\accounts\password_reset_done.html:22
+msgid "Return to login"
+msgstr "Wróć do logowania"
+
+#: .\accounts\templates\accounts\profile.html:15
+msgid "User name:"
+msgstr "Nazwa użytkownika: "
+
+#: .\accounts\templates\accounts\profile.html:16
+msgid "Email:"
+msgstr "E-mail:"
+
+#: .\accounts\templates\accounts\profile.html:18
+#: .\accounts\templates\accounts\profile.html:20
+msgid "Phone:"
+msgstr "Telefon: "
+
+#: .\accounts\templates\accounts\profile.html:20
+msgid " Missing "
+msgstr " Brak "
+
+#: .\accounts\templates\accounts\profile.html:24
+msgid "Date of joining:"
+msgstr "Data dołączenia:"
+
+#: .\accounts\templates\accounts\profile.html:43
+msgid "🔧 Edit profile"
+msgstr "🔧 Edytuj profil"
+
+#: .\accounts\templates\accounts\profile.html:46
+msgid "🔒 Change password"
+msgstr "🔒 Zmień hasło"
+
+#: .\accounts\templates\accounts\register.html:10
+msgid "Registration"
+msgstr "Rejestracja"
+
+#: .\accounts\templates\accounts\register.html:96
+msgid "Register"
+msgstr "Zarejestruj się"
+
+#: .\additional\templates\player.html:12
+msgid "Internet radio"
+msgstr "Radio internetowa"
+
+#: .\additional\templates\player.html:19 .\additional\templates\player.html:29
+msgid "Select station..."
+msgstr "Wybierz stacje..."
+
+#: .\additional\templates\player.html:27
+msgid "Station"
+msgstr "Stacja"
+
+#: .\additional\templates\weather.html:137
+msgid "Enter city"
+msgstr "Wpisz miasto"
+
+#: .\additional\templates\weather.html:138
+msgid "Get weather"
+msgstr "Pogoda"
+
+#: .\additional\templates\weather.html:145
+msgid "City"
+msgstr "Miasto"
+
+#: .\additional\templates\weather.html:146
+msgid "Temperature"
+msgstr "Temperatura"
+
+#: .\additional\templates\weather.html:147
+msgid "Feels like"
+msgstr "Czujesz, jak"
+
+#: .\additional\templates\weather.html:148 .\noteapp\models.py:22
+#: .\noteapp\templates\noteapp\create_note.html:21
+#: .\templates\includes\task_list.html:12
+msgid "Description"
+msgstr "Opis"
+
+#: .\noteapp\forms.py:21
+msgid "Describe the task..."
+msgstr "Opisz zadanie..."
 
 #: .\noteapp\models.py:17 .\noteapp\templates\noteapp\create_note.html:41
 msgid "🔴 High"
@@ -30,11 +311,6 @@ msgstr "⚪ Niski"
 #: .\noteapp\models.py:21
 msgid "Name"
 msgstr "Nazwa"
-
-#: .\noteapp\models.py:22 .\noteapp\templates\noteapp\create_note.html:21
-#: .\templates\includes\task_list.html:12
-msgid "Description"
-msgstr "Opis"
 
 #: .\noteapp\models.py:23 .\templates\includes\noteapp_form_fields.html:92
 msgid "Done"
@@ -88,7 +364,6 @@ msgid "← Prev month"
 msgstr "← Poprzedni miesiąc"
 
 #: .\noteapp\templates\noteapp\calendar.html:66
-#: .\noteapp\templates\noteapp\notebook_by_date.html:44
 #: .\noteapp\templates\noteapp\notebook_by_date.html:82
 msgid "↩ Back"
 msgstr "↩ Wstecz"
@@ -155,12 +430,12 @@ msgid "Edit a task"
 msgstr "Edytuj zadanie"
 
 #: .\noteapp\templates\noteapp\edit_note.html:16
-msgid "💾 Sava"
+#: .\noteapp\templates\noteapp\notebook_by_date.html:40
+msgid "💾 Save"
 msgstr "💾 Zapisz"
 
 #: .\noteapp\templates\noteapp\edit_note.html:21
 #: .\noteapp\templates\noteapp\settings_push.html:63
-#: .\preferences\templates\preferences\language.html:36
 msgid "⬅ Back"
 msgstr "⬅ Wstecz"
 
@@ -200,9 +475,10 @@ msgstr "Nowe zadanie na"
 msgid "⛔ It is not possible to create a task for a past date."
 msgstr "⛔ Nie można utworzyć zadania z datą w przeszłości."
 
-#: .\noteapp\templates\noteapp\notebook_by_date.html:40
-msgid "💾 Save"
-msgstr "💾 Zapisz"
+#: .\noteapp\templates\noteapp\notebook_by_date.html:44
+#: .\templates\socialaccount\login.html:70
+msgid "Cancel"
+msgstr "Anuluj"
 
 #: .\noteapp\templates\noteapp\notebook_by_date.html:81
 msgid "➕ Add a new task"
@@ -282,7 +558,7 @@ msgstr "Brak zadań"
 msgid "There are no tasks during this period."
 msgstr "Brak zadań w tym okresie."
 
-#: .\noteapp\templatetags\menu.py:17
+#: .\noteapp\templatetags\menu.py:17 .\templates\includes\notebook_menu.html:4
 msgid "Notebook"
 msgstr "Notatnik"
 
@@ -290,7 +566,7 @@ msgstr "Notatnik"
 msgid "Phonebook"
 msgstr "Książka telefoniczna"
 
-#: .\noteapp\templatetags\menu.py:33
+#: .\noteapp\templatetags\menu.py:33 .\templates\includes\settings_menu.html:5
 msgid "Settings"
 msgstr "Ustawienia"
 
@@ -322,10 +598,6 @@ msgstr "Zadania"
 msgid "Reminders"
 msgstr "Przypomnienia"
 
-#: .\noteapp\templatetags\menu.py:127 .\noteapp\templatetags\menu.py:241
-msgid "Back"
-msgstr "Wstecz"
-
 #: .\noteapp\templatetags\menu.py:144 .\templates\base.html:47
 msgid "Search"
 msgstr "Szukaj"
@@ -337,14 +609,6 @@ msgstr "Profil"
 #: .\noteapp\templatetags\menu.py:164
 msgid "Logout"
 msgstr "Wyloguj się"
-
-#: .\noteapp\templatetags\menu.py:175
-msgid "Sign in"
-msgstr "Zaloguj się"
-
-#: .\noteapp\templatetags\menu.py:183
-msgid "Sign up"
-msgstr "Zarejestruj się"
 
 #: .\noteapp\templatetags\menu.py:206
 msgid "Push"
@@ -373,11 +637,12 @@ msgstr "Zmiana języka interfejsu"
 
 #: .\preferences\templates\preferences\language.html:10
 msgid "Choose a language — it will be saved for your account and this browser."
-msgstr "Wybierz język — zostanie zapisany dla Twojego konta i tej przeglądarki."
+msgstr ""
+"Wybierz język — zostanie zapisany dla Twojego konta i tej przeglądarki."
 
 #: .\preferences\templates\preferences\language.html:27
-msgid "Save"
-msgstr "Zapisz"
+msgid "Apply"
+msgstr "Zastosuj"
 
 #: .\preferences\templates\preferences\language.html:31
 msgid "Current language:"
@@ -446,7 +711,3 @@ msgstr "Zamierzasz zalogować się przy użyciu konta "
 #: .\templates\socialaccount\login.html:67
 msgid "Continue login"
 msgstr "Kontynuuj logowanie"
-
-#: .\templates\socialaccount\login.html:70
-msgid "Cancel"
-msgstr "Anuluj"

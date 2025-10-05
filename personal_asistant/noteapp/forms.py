@@ -1,6 +1,6 @@
 from django import forms
 from django.conf import settings
-
+from django.utils.translation import gettext_lazy as _
 from .models import Note
 
 
@@ -11,13 +11,14 @@ class NoteForm(forms.ModelForm):
         widgets = {
             'doe_date': forms.DateInput(attrs={
                 'type': 'date',
-                'class': 'form-control'
-            }),
+                'class': 'form-control'},
+                format='%Y-%m-%d'
+            ),
             'priority': forms.RadioSelect(),
             'description': forms.Textarea(attrs={
                 'class': 'form-control',
                 'rows': 2,
-                'placeholder': 'Опишіть завдання...'
+                'placeholder': _('Describe the task...')
             }),
             'due_time': forms.TimeInput(),
             'done': forms.CheckboxInput(attrs={'class': 'form-check-input', 'type': 'checkbox'}),
