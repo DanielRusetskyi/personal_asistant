@@ -1,0 +1,462 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-10-05 01:20+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != "
+"11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % "
+"100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
+"(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
+
+#: .\noteapp\models.py:17 .\noteapp\templates\noteapp\create_note.html:41
+msgid "🔴 High"
+msgstr "🔴 Високий"
+
+#: .\noteapp\models.py:18 .\noteapp\templates\noteapp\create_note.html:42
+msgid "🟡 Medium"
+msgstr "🟡 Середній"
+
+#: .\noteapp\models.py:19 .\noteapp\templates\noteapp\create_note.html:43
+msgid "⚪ Low"
+msgstr "⚪ Низький"
+
+#: .\noteapp\models.py:21
+msgid "Name"
+msgstr "І'мя"
+
+#: .\noteapp\models.py:22 .\noteapp\templates\noteapp\create_note.html:21
+#: .\templates\includes\task_list.html:12
+msgid "Description"
+msgstr "Опис"
+
+#: .\noteapp\models.py:23 .\templates\includes\noteapp_form_fields.html:92
+msgid "Done"
+msgstr "Виконано"
+
+#: .\noteapp\models.py:24
+msgid "Created"
+msgstr "Створено"
+
+#: .\noteapp\models.py:25 .\noteapp\templates\noteapp\create_note.html:28
+#: .\templates\includes\noteapp_form_fields.html:22
+msgid "Due date"
+msgstr "Дата"
+
+#: .\noteapp\models.py:26
+msgid "Due time"
+msgstr "Час"
+
+#: .\noteapp\models.py:31 .\noteapp\templates\noteapp\create_note.html:39
+#: .\templates\includes\noteapp_form_fields.html:79
+#: .\templates\includes\task_list.html:13
+msgid "Priority"
+msgstr "Пріоритет"
+
+#: .\noteapp\models.py:33
+msgid "User"
+msgstr "Користувач"
+
+#: .\noteapp\models.py:34
+msgid "Tags"
+msgstr "Теги"
+
+#: .\noteapp\models.py:37
+msgid "Note"
+msgstr "Нотатка"
+
+#: .\noteapp\models.py:38
+msgid "Notes"
+msgstr "Нотатки"
+
+#: .\noteapp\models.py:42
+msgid "Without name"
+msgstr "Без назви"
+
+#: .\noteapp\templates\noteapp\calendar.html:19
+msgid "📅 Task calendar on"
+msgstr "📅 Календар завдань на"
+
+#: .\noteapp\templates\noteapp\calendar.html:64
+msgid "← Prev month"
+msgstr "← Попередній місяць"
+
+#: .\noteapp\templates\noteapp\calendar.html:66
+#: .\noteapp\templates\noteapp\notebook_by_date.html:44
+#: .\noteapp\templates\noteapp\notebook_by_date.html:82
+msgid "↩ Back"
+msgstr "↩ Повернутися"
+
+#: .\noteapp\templates\noteapp\calendar.html:69
+msgid "Next month →"
+msgstr "Наступний місяць →"
+
+#: .\noteapp\templates\noteapp\create_note.html:10
+msgid "📝 Create a new task"
+msgstr "📝 Створити нове завдання"
+
+#: .\noteapp\templates\noteapp\create_note.html:14
+msgid "Task name"
+msgstr "Назва завдання"
+
+#: .\noteapp\templates\noteapp\create_note.html:15
+msgid "For example, Call a doctor"
+msgstr "Наприклад, зателефонувати лікарю"
+
+#: .\noteapp\templates\noteapp\create_note.html:16
+msgid "Please specify the task name."
+msgstr "Будь ласка, вкажіть назву завдання."
+
+#: .\noteapp\templates\noteapp\create_note.html:22
+msgid "Additional details..."
+msgstr "Додаткова інформація..."
+
+#: .\noteapp\templates\noteapp\create_note.html:72
+msgid "💾 Save task"
+msgstr "💾 Зберегти завдання"
+
+#: .\noteapp\templates\noteapp\day_tasks.html:10
+msgid "Task on"
+msgstr "Завдання на"
+
+#: .\noteapp\templates\noteapp\day_tasks.html:24
+msgid "✅ Done"
+msgstr "✅ Виконано"
+
+#: .\noteapp\templates\noteapp\day_tasks.html:26
+msgid "❌ Not done"
+msgstr "❌ Не виконано"
+
+#: .\noteapp\templates\noteapp\day_tasks.html:33
+msgid "There are no tasks for this day."
+msgstr "На цей день немає завдань.ь"
+
+#: .\noteapp\templates\noteapp\day_tasks.html:45
+msgid "← Previous day"
+msgstr "← Попередній день"
+
+#: .\noteapp\templates\noteapp\day_tasks.html:56
+#: .\noteapp\templates\noteapp\notebook_by_date.html:67
+msgid "Go"
+msgstr "Вперед"
+
+#: .\noteapp\templates\noteapp\day_tasks.html:66
+msgid "Next day →"
+msgstr "Наступний день →"
+
+#: .\noteapp\templates\noteapp\edit_note.html:6
+msgid "Edit a task"
+msgstr "Редагувати завдання"
+
+#: .\noteapp\templates\noteapp\edit_note.html:16
+msgid "💾 Sava"
+msgstr "💾 Зберегти"
+
+#: .\noteapp\templates\noteapp\edit_note.html:21
+#: .\noteapp\templates\noteapp\settings_push.html:63
+#: .\preferences\templates\preferences\language.html:36
+msgid "⬅ Back"
+msgstr "⬅ Повернутися"
+
+#: .\noteapp\templates\noteapp\edit_note.html:24
+msgid "🗑️ Delete"
+msgstr "🗑️ Видалити"
+
+#: .\noteapp\templates\noteapp\note_confirm_delete.html:8
+msgid "❗ Delete confirmation"
+msgstr "❗ Підтвердження видалення"
+
+#: .\noteapp\templates\noteapp\note_confirm_delete.html:10
+msgid "Are you sure you want to"
+msgstr "Ви впевнені, що хочете"
+
+#: .\noteapp\templates\noteapp\note_confirm_delete.html:10
+msgid "delete task"
+msgstr "видалити завдання"
+
+#: .\noteapp\templates\noteapp\note_confirm_delete.html:21
+msgid "🗑️ Yes, delete"
+msgstr "🗑️ так, видалити"
+
+#: .\noteapp\templates\noteapp\note_confirm_delete.html:23
+msgid "⬅ Cancel"
+msgstr "⬅ Відмінити"
+
+#: .\noteapp\templates\noteapp\notebook.html:46
+msgid "Menu"
+msgstr "Меню"
+
+#: .\noteapp\templates\noteapp\notebook_by_date.html:14
+msgid "New task on"
+msgstr "Нове завдання на"
+
+#: .\noteapp\templates\noteapp\notebook_by_date.html:19
+msgid "⛔ It is not possible to create a task for a past date."
+msgstr "⛔ Неможливо створити завдання на минулу дату."
+
+#: .\noteapp\templates\noteapp\notebook_by_date.html:40
+msgid "💾 Save"
+msgstr "💾 Зберегти"
+
+#: .\noteapp\templates\noteapp\notebook_by_date.html:81
+msgid "➕ Add a new task"
+msgstr "➕ Додати нове завдання"
+
+#: .\noteapp\templates\noteapp\settings.html:33
+#: .\noteapp\templates\noteapp\settings.html:47
+msgid "Settings Menu"
+msgstr "Меню налаштувань"
+
+#: .\noteapp\templates\noteapp\settings_push.html:12
+msgid "Push-notifications"
+msgstr "Push-повідомлення"
+
+#: .\noteapp\templates\noteapp\settings_push.html:14
+msgid "Works over HTTPS or on"
+msgstr "Працює через HTTPS або на"
+
+#: .\noteapp\templates\noteapp\settings_push.html:14
+msgid "Permission is requested from the browser."
+msgstr "Дозвіл запитується у браузера"
+
+#: .\noteapp\templates\noteapp\settings_push.html:19
+msgid "Enabled"
+msgstr "Увімкнено"
+
+#: .\noteapp\templates\noteapp\settings_push.html:19
+msgid "Disabled"
+msgstr "Вимкнено"
+
+#: .\noteapp\templates\noteapp\settings_push.html:27
+msgid "Enable notifications"
+msgstr "Увімкнути сповіщення"
+
+#: .\noteapp\templates\noteapp\settings_push.html:31
+msgid "Disable notifications"
+msgstr "Вимкнути сповіщення"
+
+#: .\noteapp\templates\noteapp\settings_push.html:35
+msgid "Push notifications are not supported in this browser"
+msgstr "Push-повідомлення не підтримується у цьому браузері"
+
+#: .\noteapp\templates\noteapp\settings_push.html:44
+msgid "Push sound"
+msgstr "Push-звук"
+
+#: .\noteapp\templates\noteapp\settings_push.html:46
+msgid "Sound test"
+msgstr "Тестування звуку"
+
+#: .\noteapp\templates\noteapp\settings_push.html:53
+msgid "Do Not Disturb (DND)"
+msgstr "Не турбувати (DND)"
+
+#: .\noteapp\templates\noteapp\tasks_by_period.html:8
+msgid "Start date"
+msgstr "Початкова дата"
+
+#: .\noteapp\templates\noteapp\tasks_by_period.html:13
+msgid "End date"
+msgstr "Кінцева дата"
+
+#: .\noteapp\templates\noteapp\tasks_by_period.html:17
+msgid "🔍 Show"
+msgstr "🔍 Показати"
+
+#: .\noteapp\templates\noteapp\tasks_by_period.html:22
+msgid "Tasks for the period"
+msgstr "Завдання за період"
+
+#: .\noteapp\templates\noteapp\tasks_by_period.html:44
+#: .\templates\includes\task_list.html:50
+msgid "There are no tasks"
+msgstr "Завдань немає"
+
+#: .\noteapp\templates\noteapp\tasks_by_period.html:49
+msgid "There are no tasks during this period."
+msgstr "За цей період немає завдань"
+
+#: .\noteapp\templatetags\menu.py:17
+msgid "Notebook"
+msgstr "Записник"
+
+#: .\noteapp\templatetags\menu.py:25
+#, fuzzy
+#| msgid "Notebook"
+msgid "Phonebook"
+msgstr "Записник"
+
+#: .\noteapp\templatetags\menu.py:33
+msgid "Settings"
+msgstr "Налаштування"
+
+#: .\noteapp\templatetags\menu.py:42
+msgid "Weather"
+msgstr "Погода"
+
+#: .\noteapp\templatetags\menu.py:50
+msgid "Rates"
+msgstr "Курси валют"
+
+#: .\noteapp\templatetags\menu.py:58
+msgid "Radio"
+msgstr "Радіо"
+
+#: .\noteapp\templatetags\menu.py:99
+msgid "Calendar"
+msgstr "Календар"
+
+#: .\noteapp\templatetags\menu.py:106
+msgid "Today"
+msgstr "Сьогодні"
+
+#: .\noteapp\templatetags\menu.py:113
+msgid "Tasks"
+msgstr "Завдання"
+
+#: .\noteapp\templatetags\menu.py:120
+msgid "Reminders"
+msgstr "Нагадування"
+
+#: .\noteapp\templatetags\menu.py:127 .\noteapp\templatetags\menu.py:241
+msgid "Back"
+msgstr "Повернутися"
+
+#: .\noteapp\templatetags\menu.py:144 .\templates\base.html:47
+msgid "Search"
+msgstr "Шукати"
+
+#: .\noteapp\templatetags\menu.py:156
+msgid "Profile"
+msgstr "Профіль"
+
+#: .\noteapp\templatetags\menu.py:164
+msgid "Logout"
+msgstr "Вихід"
+
+#: .\noteapp\templatetags\menu.py:175
+msgid "Sign in"
+msgstr "Увійти"
+
+#: .\noteapp\templatetags\menu.py:183
+msgid "Sign up"
+msgstr "Реєстрація"
+
+#: .\noteapp\templatetags\menu.py:206
+msgid "Push"
+msgstr "Пуш"
+
+#: .\noteapp\templatetags\menu.py:213
+#: .\preferences\templates\preferences\language.html:19
+msgid "Language"
+msgstr "Мова"
+
+#: .\noteapp\templatetags\menu.py:220
+msgid "Appearance"
+msgstr "Вигляд"
+
+#: .\noteapp\templatetags\menu.py:227
+msgid "Privacy"
+msgstr "Конфіденційність"
+
+#: .\noteapp\templatetags\menu.py:234
+msgid "Account"
+msgstr "Аккаунт"
+
+#: .\preferences\templates\preferences\language.html:9
+msgid "Changing the interface language"
+msgstr "Зміна мови інтерфейсу"
+
+#: .\preferences\templates\preferences\language.html:10
+msgid "Choose a language — it will be saved for your account and this browser."
+msgstr ""
+"Виберіть мову — вона буде збережена для вашого облікового запису та цього "
+"браузера."
+
+#: .\preferences\templates\preferences\language.html:27
+msgid "Save"
+msgstr "Зберегти"
+
+#: .\preferences\templates\preferences\language.html:31
+msgid "Current language:"
+msgstr "Поточна мова:"
+
+#: .\templates\base.html:16
+msgid "Personal Assistant"
+msgstr "Персональний асистент"
+
+#: .\templates\base.html:37 .\templates\base.html:111
+msgid "Assistant"
+msgstr "Асистент"
+
+#: .\templates\base.html:44
+msgid "Search…"
+msgstr "Шукати…"
+
+#: .\templates\base.html:115
+msgid "Assistant. All rights reserved."
+msgstr "Асистент. Всі права захищені."
+
+#: .\templates\includes\noteapp_form_fields.html:11
+msgid "To dictate"
+msgstr "Надиктувати"
+
+#: .\templates\includes\noteapp_form_fields.html:38
+msgid "Create a reminder"
+msgstr "Створити нагадування"
+
+#: .\templates\includes\noteapp_form_fields.html:53
+msgid "hours"
+msgstr "год"
+
+#: .\templates\includes\noteapp_form_fields.html:64
+msgid "min"
+msgstr "хв"
+
+#: .\templates\includes\task_list.html:11
+msgid "Status"
+msgstr "Статус"
+
+#: .\templates\includes\task_list.html:59
+msgid "Save error"
+msgstr "Помилка збереження"
+
+#: .\templates\includes\task_list.html:60
+msgid "Failed to update status"
+msgstr "Не вдалося оновити статус"
+
+#: .\templates\socialaccount\login.html:7
+msgid "Login confirmation"
+msgstr "Підтвердження входу"
+
+#: .\templates\socialaccount\login.html:55
+msgid "You are about to connect a new third-party account"
+msgstr "Ви збираєтеся підключити новий додатковий обліковий запис"
+
+#: .\templates\socialaccount\login.html:55
+msgid "to your profile."
+msgstr "до вашого профілю."
+
+#: .\templates\socialaccount\login.html:59
+msgid "You are about to log in with an account "
+msgstr "Ви збираєтеся увійти, використовуючи обліковий запис "
+
+#: .\templates\socialaccount\login.html:67
+msgid "Continue login"
+msgstr "Продовжити вхід"
+
+#: .\templates\socialaccount\login.html:70
+msgid "Cancel"
+msgstr "Відмінити"

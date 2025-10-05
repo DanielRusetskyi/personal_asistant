@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load static %}
+{% load static i18n %}
 {% load tz %}
 
 {% block content %}
@@ -7,7 +7,7 @@
 
   <!-- Заголовок -->
   <h2 class="text-center mb-4 animate-day bg-light px-2 py-2 border rounded-4 shadow" id="day-title">
-      Завдання на <span class="text-primary">{{ day|date:"l, d.m.Y" }}</span>
+      {% trans 'Task on' %} <span class="text-primary">{{ day|date:"l, d.m.Y" }}</span>
   </h2>
 
   <!-- Список завдань -->
@@ -21,16 +21,16 @@
             </div>
             <div>
               {% if note.done %}
-                <span class="badge bg-success">✅ Виконано</span>
+                <span class="badge bg-success">{% trans '✅ Done' %}</span>
               {% else %}
-                <span class="badge bg-secondary">❌ Не виконано</span>
+                <span class="badge bg-secondary">{% trans '❌ Not done' %}</span>
               {% endif %}
             </div>
           </li>
         {% endfor %}
       </ul>
     {% else %}
-      <p class="text-center mb-4 animate-day bg-light px-2 py-2 border rounded-4 shadow">Завдань на цей день немає.</p>
+      <p class="text-center mb-4 animate-day bg-light px-2 py-2 border rounded-4 shadow">{% trans 'There are no tasks for this day.' %}</p>
     {% endif %}
   </div>
 
@@ -42,7 +42,7 @@
         <a href="{% url 'noteapp:day_tasks' date=prev_day %}"
            class="btn btn-calendar-hover w-100 w-sm-auto"
            data-dir="left">
-          ← Попередній день
+          {% trans '← Previous day' %}
         </a>
       </div>
 
@@ -53,7 +53,7 @@
                id="datePicker"
                class="form-control"
                value="{{ day|date:'Y-m-d' }}">
-        <button type="button" class="btn btn-primary" onclick="goToDate()">Перейти</button>
+        <button type="button" class="btn btn-primary" onclick="goToDate()">{% trans 'Go' %}</button>
       </div>
     </div>
 
@@ -63,7 +63,7 @@
         <a href="{% url 'noteapp:day_tasks' date=next_day %}"
            class="btn btn-calendar-hover w-100 w-sm-auto"
            data-dir="right">
-          Наступний день →
+          {% trans 'Next day →' %}
         </a>
       </div>
 

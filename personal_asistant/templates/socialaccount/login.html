@@ -4,7 +4,7 @@
 {% load static %}
 
 {% block head_title %}
-  {% trans "Підтвердження входу" %}
+  {% trans "Login confirmation" %}
 {% endblock head_title %}
 
 {% block content %}
@@ -51,11 +51,11 @@
 
       {% if process == "connect" %}
         <p class="text-center mb-3 text-muted">
-          Ви збираєтесь підключити новий сторонній акаунт <strong>{{ provider.name }}</strong> до вашого профілю.
+          {% trans 'You are about to connect a new third-party account' %} <strong>{{ provider.name }}</strong>{% trans 'to your profile.' %}
         </p>
       {% else %}
         <p class="text-center mb-3 text-muted">
-          Ви збираєтесь увійти за допомогою облікового запису <strong>{{ provider.name }}</strong>.
+          {% trans 'You are about to log in with an account ' %} <strong>{{ provider.name }}</strong>.
         </p>
       {% endif %}
 
@@ -63,10 +63,10 @@
         {% csrf_token %}
         <div class="d-inline-flex flex-column gap-2 mx-auto">
           <button type="submit" class="btn btn-outline-primary px-4 py-2 fw-semibold shadow-sm border-2 rounded-pill">
-            Продовжити вхід
+            {% trans 'Continue login' %}
           </button>
           <a href="{% url 'accounts:login' %}" class="btn btn-outline-secondary px-4 py-2 fw-semibold shadow-sm border-2 rounded-pill">
-            Скасувати
+            {% trans 'Cancel' %}
           </a>
         </div>
 

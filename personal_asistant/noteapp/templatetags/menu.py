@@ -1,5 +1,6 @@
 from django import template
 from django.urls import reverse
+from django.utils.translation import gettext_lazy as _
 
 register = template.Library()
 
@@ -7,13 +8,13 @@ register = template.Library()
 @register.simple_tag(takes_context=True)
 def main_menu(context):
     """
-    Повертає список пунктів головного меню з урахуванням авторизації.
+    Головне меню з урахуванням авторизації. Підписи локалізовані (_()).
     """
     user = context.get("user")
     items = [
         {
             "key": "notebook",
-            "label": "Notebook",
+            "label": _("Notebook"),
             "icon_img": "images/notebook_icon_2.png",
             "icon_emoji": "📋",
             "href": reverse("noteapp:notebook"),
@@ -21,7 +22,7 @@ def main_menu(context):
         },
         {
             "key": "phonebook",
-            "label": "Phonebook",
+            "label": _("Phonebook"),
             "icon_img": "images/phonebook_icon_3.png",
             "icon_emoji": "📞",
             "href": "#",
@@ -29,16 +30,16 @@ def main_menu(context):
         },
         {
             "key": "settings",
-            "label": "Налаштування",
+            "label": _("Settings"),
             "icon_img": "images/settings_icon.png",
             "icon_emoji": "⚙️",
-            "href": reverse("noteapp:settings"),
+            "href": reverse("preferences:settings"),
             "auth_only": True,
         },
         # public
         {
             "key": "weather",
-            "label": "Погода",
+            "label": _("Weather"),
             "icon_img": "images/weather_icon.png",
             "icon_emoji": "🌦️",
             "href": reverse("additional:weather"),
@@ -46,7 +47,7 @@ def main_menu(context):
         },
         {
             "key": "rates",
-            "label": "Курси",
+            "label": _("Rates"),
             "icon_img": "images/exchange_icon.png",
             "icon_emoji": "💱",
             "href": "#",
@@ -54,7 +55,7 @@ def main_menu(context):
         },
         {
             "key": "radio",
-            "label": "Радіо",
+            "label": _("Radio"),
             "icon_img": "images/radio_icon.png",
             "icon_emoji": "📻",
             "href": reverse("additional:radio"),
@@ -69,8 +70,7 @@ def main_menu(context):
 @register.simple_tag(takes_context=True)
 def notebook_submenu(context):
     """
-    Одне джерело правди для всіх підпунктів Notebook з вашою логікою дат.
-    Доступний і для мобільного, і для десктопу — просто рендеримо по-різному.
+    Підменю Notebook (локалізовані label).
     """
     user = context.get("user")
     if not (user and user.is_authenticated):
@@ -81,7 +81,6 @@ def notebook_submenu(context):
     month = context.get("month")
     selected_day = context.get("selected_day")
 
-    # Календар: обираємо правильний URL залежно від наявних змінних
     if date_:
         calendar_href = reverse("noteapp:calendar", kwargs={"date_": date_})
     elif year and month:
@@ -89,7 +88,6 @@ def notebook_submenu(context):
     else:
         calendar_href = reverse("noteapp:calendar_current")
 
-    # Сьогодні/обраний день
     from django.utils.timezone import now
     today = now().date().strftime("%Y-%m-%d")
     current_day = selected_day or today
@@ -98,36 +96,35 @@ def notebook_submenu(context):
     return [
         {
             "key": "calendar",
-            "label": "Календар",
+            "label": _("Calendar"),
             "icon_img": "images/calendar_icon.png",
             "icon_emoji": "📆",
             "href": calendar_href,
         },
         {
             "key": "notebook_by_date",
-            "label": "Сьогодні",
+            "label": _("Today"),
             "icon_img": "images/notebook_icon_today.png",
             "icon_emoji": "🗓️",
             "href": today_href,
         },
         {
             "key": "task_by_period",
-            "label": "Завдання",
+            "label": _("Tasks"),
             "icon_img": "images/notebook_icon_between.png",
             "icon_emoji": "📋",
             "href": reverse("noteapp:task_by_period"),
         },
         {
             "key": "reminders",
-            "label": "Нагадування",
+            "label": _("Reminders"),
             "icon_img": "images/reminder_icon.png",
             "icon_emoji": "⏰",
             "href": "#",
         },
-
         {
             "key": "back",
-            "label": "Повернутися",
+            "label": _("Back"),
             "icon_img": "images/back_icon2.png",
             "icon_emoji": "🤖",
             "href": reverse("main"),
@@ -138,21 +135,17 @@ def notebook_submenu(context):
 @register.simple_tag(takes_context=True)
 def header_menu(context):
     """
-    Елементи хедера: Пошук + акаунт (профіль/логін/реєстрація/вихід).
-    type:
-      - 'action'  -> кнопка, що тригерить модалку/скрипт (наприклад, пошук або акаунт)
-      - 'link'    -> звичайне посилання
-      - 'post'    -> треба відправити форму (logout)
+    Елементи хедера. label локалізовані.
     """
     user = context.get("user")
     items = [
         {
             "key": "search",
-            "label": "Пошук",
+            "label": _("Search"),
             "icon_img": "images/search_icon.png",
             "icon_emoji": "🔎",
             "type": "action",
-            "action": "open_search",   # для Alpine: searchOpen = true
+            "action": "open_search",
         },
     ]
 
@@ -160,7 +153,7 @@ def header_menu(context):
         items += [
             {
                 "key": "profile",
-                "label": "Профіль",
+                "label": _("Profile"),
                 "icon_img": "images/profile_icon.png",
                 "icon_emoji": "👤",
                 "type": "link",
@@ -168,7 +161,7 @@ def header_menu(context):
             },
             {
                 "key": "logout",
-                "label": "Вихід",
+                "label": _("Logout"),
                 "icon_img": "images/logout_icon.png",
                 "icon_emoji": "🚪",
                 "type": "post",
@@ -179,7 +172,7 @@ def header_menu(context):
         items += [
             {
                 "key": "login",
-                "label": "Увійти",
+                "label": _("Sign in"),
                 "icon_img": "images/login_icon.png",
                 "icon_emoji": "🔐",
                 "type": "link",
@@ -187,7 +180,7 @@ def header_menu(context):
             },
             {
                 "key": "registration",
-                "label": "Реєстрація",
+                "label": _("Sign up"),
                 "icon_img": "images/register_icon.png",
                 "icon_emoji": "📝",
                 "type": "link",
@@ -195,4 +188,60 @@ def header_menu(context):
             },
         ]
 
+    return items
+
+
+@register.simple_tag(takes_context=True)
+def settings_submenu(context):
+    """
+    Підменю налаштувань. ВАЖЛИВО: посилання на Language має вести на сторінку (GET),
+    тобто 'preferences:language', а не на POST 'language_update'.
+    """
+    user = context.get("user")
+    if not (user and user.is_authenticated):
+        return []
+    items = [
+        {
+            "key": "push_update",
+            "label": _("Push"),
+            "icon_img": "images/phonebook_icon_3.png",
+            "icon_emoji": "🔔",
+            "href": reverse("preferences:push_update"),
+        },
+        {
+            "key": "language",
+            "label": _("Language"),
+            "icon_img": "images/phonebook_icon_3.png",
+            "icon_emoji": "🌐",
+            "href": reverse("preferences:language"),  # <-- фікс сюди
+        },
+        {
+            "key": "appearance",
+            "label": _("Appearance"),
+            "icon_img": "images/phonebook_icon_3.png",
+            "icon_emoji": "🎨",
+            "href": "#privacy",
+        },
+        {
+            "key": "privacy",
+            "label": _("Privacy"),
+            "icon_img": "images/phonebook_icon_3.png",
+            "icon_emoji": "🔒",
+            "href": "#privacy",
+        },
+        {
+            "key": "account",
+            "label": _("Account"),
+            "icon_img": "images/phonebook_icon_3.png",
+            "icon_emoji": "👤",
+            "href": "#account",
+        },
+        {
+            "key": "back",
+            "label": _("Back"),
+            "icon_img": "images/back_icon2.png",
+            "icon_emoji": " ⬅ ",
+            "href": reverse("main"),
+        },
+    ]
     return items

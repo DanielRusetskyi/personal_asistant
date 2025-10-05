@@ -1,236 +1,72 @@
 {% extends "base.html" %}
-{% load static %}
+{% load menu %}
+{% load static i18n %}
+
 
 {% block content %}
-<div class="container-lg py-4">
-  <!-- Header -->
-  <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-3">
-    <div>
-      <h2 class="mb-1">Налаштування</h2>
-      <p class="text-muted mb-0">Керуй сповіщеннями та поведінкою застосунку.</p>
-    </div>
-    <a href="{{ return_url|default:'#' }}" class="btn btn-secondary text-nowrap">⬅ Назад</a>
-  </div>
+<!-- Радіальне меню по центру тільки на мобільних -->
+<div class="md:hidden absolute inset-0 z-20 flex items-center justify-center pointer-events-none">
+  <div
+    x-data="{ open: true }"
+    x-init="$refs.ring.style.setProperty('--count', $refs.ring.querySelectorAll('li[data-item]').length)"
+    class="relative flex items-center justify-center -translate-y-10 pointer-events-auto"
+  >
+    <!-- Центральний тригер -->
+      <button
+        @click="open = !open"
+        :aria-expanded="open"
+        class="relative inline-flex items-center justify-center w-28 h-28 rounded-full
+               transition-transform duration-200 hover:scale-105 active:scale-95 focus:outline-none
+               pointer-events-auto animate-scale-pulse"
+        aria-label="Відкрити меню"
+      >
+        <!-- Іконка меню -->
+        <img
+          x-show="!open"
+          x-transition:enter="transition ease-out duration-200"
+          x-transition:enter-start="opacity-0 scale-75"
+          x-transition:enter-end="opacity-100 scale-100"
+          x-transition:leave="transition ease-in duration-150"
+          x-transition:leave-start="opacity-100 scale-100"
+          x-transition:leave-end="opacity-0 scale-75"
+          src="{% static 'images/menu_icon2.png' %}"
+          alt="{% trans 'Settings Menu' %}"
+          class="absolute w-24 h-24 rounded-full"
+        />
 
-  <div class="row g-4">
-    <!-- Sidebar -->
-    <div class="col-12 col-lg-4">
-      <div class="card shadow-sm border-0 h-100">
-        <div class="card-body">
-          <nav class="list-group list-group-flush">
-            <a class="list-group-item list-group-item-action py-3 active" href="#push" data-bs-toggle="list">🔔 Push-сповіщення</a>
-            <a class="list-group-item list-group-item-action py-3" href="#appearance" data-bs-toggle="list">🎨 Вигляд</a>
-            <a class="list-group-item list-group-item-action py-3" href="#privacy" data-bs-toggle="list">🔒 Конфіденційність</a>
-            <a class="list-group-item list-group-item-action py-3" href="#account" data-bs-toggle="list">👤 Обліковий запис</a>
-          </nav>
-        </div>
-      </div>
-    </div>
+        <!-- Хрестик -->
+        <img
+          x-show="open"
+          x-transition:enter="transition ease-out duration-200"
+          x-transition:enter-start="opacity-0 scale-75"
+          x-transition:enter-end="opacity-100 scale-100"
+          x-transition:leave="transition ease-in duration-150"
+          x-transition:leave-start="opacity-100 scale-100"
+          x-transition:leave-end="opacity-0 scale-75"
+          src="{% static 'images/close_icon.png' %}"
+          alt="{% trans 'Settings Menu' %}"
+          class="absolute w-24 h-24 rounded-full"
+        />
+      </button>
 
-    <!-- Content -->
-    <div class="col-12 col-lg-8">
-      <div class="tab-content">
-        <!-- Push -->
-        <section class="tab-pane fade show active" id="push">
-          <div class="card shadow-sm border-0">
-            <div class="card-body">
-              <div class="d-flex align-items-start justify-content-between flex-wrap gap-3">
-                <div>
-                  <h5 class="card-title mb-1">Push-сповіщення</h5>
-                  <p class="text-muted mb-0">
-                    Працює через HTTPS або на <code>localhost</code>. Дозвіл запитується у браузера.
-                  </p>
-                </div>
-                <span id="push-status"
-                      class="badge {% if has_push %}text-bg-success{% else %}text-bg-secondary{% endif %}">
-                  {% if has_push %}увімкнено{% else %}вимкнено{% endif %}
-                </span>
-              </div>
+    <!-- Кільце пунктів -->
 
-              <hr class="my-4">
+      <ul x-ref="ring" :class="{ 'open': open }" class="radial-ring pointer-events-none">
+        {% settings_submenu as SET_SUB %}
 
-              <div class="d-flex flex-wrap align-items-center gap-2">
-                <!-- твої кнопки (ідентифікатори НЕ змінюю) -->
-                <button class="btn btn-primary" id="enable-push-btn" {% if has_push %}hidden{% endif %}>
-                  Увімкнути сповіщення
-                </button>
+        {% for item in SET_SUB %}
+          <li data-item style="--i:{{ forloop.counter0 }}">
+            <a href="{{ item.href }}" class="radial-item pointer-events-auto" aria-label="{{ item.label }}">
+              <img src="{% static item.icon_img %}" alt="{{ item.label }}" class="w-18 h-18 rounded-full">
+              <span class="radial-label">{{ item.label }}</span>
+            </a>
+          </li>
+        {% endfor %}
 
-                <button class="btn btn-outline-danger" id="disable-push-btn" type="button" {% if not has_push %}hidden{% endif %}>
-                  Вимкнути сповіщення
-                </button>
-
-                <!-- індикатор підтримки браузером -->
-                <span id="push-support-hint" class="text-warning ms-2" hidden>
-                  Ваш браузер не підтримує Service Worker / Push API.
-                </span>
-              </div>
-
-              <div class="mt-4">
-                <!-- майбутні параметри для push (плейсхолдери, поки без логіки) -->
-                <div class="row g-3">
-                  <div class="col-12 col-md-6">
-                    <div class="form-check form-switch">
-                      <input class="form-check-input" type="checkbox" id="push-sound">
-                      <label class="form-check-label" for="push-sound">Звук сповіщень</label>
-                      <button id="push-sound-test" class="btn btn-outline-secondary btn-sm ms-2" type="button">
-                        Тест звуку
-                      </button>
-                    </div>
-
-                  </div>
-                  <div class="col-12 col-md-6">
-                    <div class="form-check form-switch">
-                      <input class="form-check-input" type="checkbox" id="push-dnd" disabled>
-                      <label class="form-check-label" for="push-dnd">Не турбувати (DND) <span class="text-muted">(скоро)</span></label>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-          </div>
-        </section>
-
-        <!-- Appearance (плейсхолдери) -->
-        <section class="tab-pane fade" id="appearance">
-          <div class="card shadow-sm border-0">
-            <div class="card-body">
-              <h5 class="card-title mb-1">Вигляд</h5>
-              <p class="text-muted">Теми, компактність інтерфейсу та інші візуальні налаштування.</p>
-
-              <div class="row g-3">
-                <div class="col-12 col-md-6">
-                  <label class="form-label">Тема</label>
-                  <select class="form-select" id="theme-select" disabled>
-                    <option value="auto" selected>Авто</option>
-                    <option value="light">Світла</option>
-                    <option value="dark">Темна</option>
-                  </select>
-                </div>
-                <div class="col-12 col-md-6">
-                  <div class="form-check form-switch mt-4">
-                    <input class="form-check-input" type="checkbox" id="compact-ui" disabled>
-                    <label class="form-check-label" for="compact-ui">Компактний режим <span class="text-muted">(скоро)</span></label>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-          </div>
-        </section>
-
-        <!-- Privacy (плейсхолдери) -->
-        <section class="tab-pane fade" id="privacy">
-          <div class="card shadow-sm border-0">
-            <div class="card-body">
-              <h5 class="card-title mb-1">Конфіденційність</h5>
-              <p class="text-muted">Керування журналами дій, статистикою та даними.</p>
-
-              <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" id="analytics-optin" disabled>
-                <label class="form-check-label" for="analytics-optin">
-                  Дозволити анонімну аналітику <span class="text-muted">(скоро)</span>
-                </label>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- Account (плейсхолдери) -->
-        <section class="tab-pane fade" id="account">
-          <div class="card shadow-sm border-0">
-            <div class="card-body">
-              <h5 class="card-title mb-1">Обліковий запис</h5>
-              <p class="text-muted">Профіль, мова, часовий пояс та безпека.</p>
-
-              <div class="row g-3">
-                <div class="col-12 col-md-6">
-                  <label class="form-label">Мова інтерфейсу</label>
-                  <select class="form-select" id="lang-select" disabled>
-                    <option value="uk" selected>Українська</option>
-                    <option value="en">English</option>
-                  </select>
-                </div>
-                <div class="col-12 col-md-6">
-                  <label class="form-label">Часовий пояс</label>
-                  <input class="form-control" type="text" id="tz-input" placeholder="Europe/Kyiv" disabled>
-                </div>
-              </div>
-
-            </div>
-          </div>
-        </section>
-
-      </div>
-    </div>
+      </ul>
+<
   </div>
 </div>
 
-<!-- Невеликий стилінг для активного пункту в сайдбарі -->
-<style>
-  .list-group-item.active {
-    background: var(--bs-primary);
-    color: #fff;
-    border-color: var(--bs-primary);
-  }
-</style>
-
-<script>
-document.addEventListener("DOMContentLoaded", async () => {
-  const enableBtn   = document.getElementById("enable-push-btn");
-  const disableBtn  = document.getElementById("disable-push-btn");
-  const statusEl    = document.getElementById("push-status");
-  const supportHint = document.getElementById("push-support-hint");
-
-  function setStatus(on) {
-    statusEl.textContent = on ? "увімкнено" : "вимкнено";
-    statusEl.className = "badge " + (on ? "text-bg-success" : "text-bg-secondary");
-    enableBtn.hidden = !!on;
-    disableBtn.hidden = !on;
-  }
-
-  if (!("serviceWorker" in navigator) || !("PushManager" in window)) {
-    supportHint.hidden = false;
-    enableBtn.disabled = true;
-    disableBtn.hidden = true;
-    return;
-  }
-
-  try {
-    // 1) якщо SW не зареєстровано — зареєструй
-    let reg = await navigator.serviceWorker.getRegistration();
-    if (!reg) {
-      reg = await navigator.serviceWorker.register("/sw.js");
-    }
-    // 2) дочекайся активного SW
-    if (!reg.active) {
-      await navigator.serviceWorker.ready;
-    }
-    // 3) зчитай поточну підписку
-    const sub = await reg.pushManager.getSubscription();
-    setStatus(!!sub);
-  } catch (e) {
-    console.warn("SW init error:", e);
-  }
-
-  // Далі — твій push.js вже вішає обробники на #enable-push-btn / #disable-push-btn
-});
-</script>
-
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const sw = document.getElementById("push-sound");
-    const testBtn = document.getElementById("push-sound-test");
-    const on = (localStorage.getItem("push_sound") === "1");
-    sw.checked = on;
-
-    sw.addEventListener("change", () => {
-      window.setPushSound?.(sw.checked);
-      if (sw.checked) window.playPushDing?.(); // «розбудити» аудіо після кліку
-    });
-
-    testBtn.addEventListener("click", () => window.playPushDing?.());
-  });
-</script>
 
 {% endblock %}

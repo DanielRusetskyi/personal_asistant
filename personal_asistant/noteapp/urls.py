@@ -23,7 +23,9 @@ urlpatterns = [
     path("push/unsubscribe/", views_push.push_unsubscribe, name="push_unsubscribe"),
     # path("push/vapid-public.txt", views_push.vapid_public, name="vapid_public"),
     path("push/public-key/", views_push.vapid_public, name="push_public_key"),
-    path("settings/", views_settings.SettingsView.as_view(), name="settings"),
+    # path("settings/", views_settings.SettingsView.as_view(), name="settings"),
     path("push/toggle/", views_push.push_toggle, name="push_toggle"),
     path("push/status/", views_push.push_status,    name="push_status"),
+    # path("settings/push/", views_settings.SettingsPushViews.as_view(), name="settings_push"),
+    # path("settings/appearance/", views_settings.SettingsAppearanceViews.as_view(), name="settings_appearance"),
 ]

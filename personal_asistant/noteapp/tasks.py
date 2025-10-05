@@ -5,7 +5,7 @@ from django.utils import timezone
 from asgiref.sync import async_to_sync
 from channels.layers import get_channel_layer
 from .models import Note
-from accounts.models import UserSettings
+from preferences.models import UserSettings
 
 from .push import send_web_push_to_user
 

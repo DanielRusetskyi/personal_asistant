@@ -16,6 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.http import HttpResponse
+from django.conf.urls.i18n import i18n_patterns
 from django.urls import path, include
 from django.conf.urls.static import static
 from django.views.generic import TemplateView
@@ -34,13 +35,7 @@ def service_worker(request):
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', TemplateView.as_view(template_name="main.html",
-                                  extra_context={'active_menu': 'main', 'active_page': 'main'}), name='main'),
-    path('noteapp/', include('noteapp.urls', namespace='noteapp')),
-    path('account/', include('accounts.urls', namespace='account')),
-    path('accounts/', include('allauth.urls')),
-    path('additional/', include('additional.urls')),
+    path("i18n/", include("django.conf.urls.i18n")),
     path(
         "sw.js",
         TemplateView.as_view(
@@ -51,5 +46,18 @@ urlpatterns = [
     ),
 ]
 
+urlpatterns += i18n_patterns(
+    path('admin/', admin.site.urls),
+    path('', TemplateView.as_view(template_name="main.html",
+                                  extra_context={'active_menu': 'main', 'active_page': 'main'}), name='main'),
+    path('noteapp/', include('noteapp.urls', namespace='noteapp')),
+    path('account/', include('accounts.urls', namespace='account')),
+    path('accounts/', include('allauth.urls')),
+    path('additional/', include('additional.urls')),
+    path("settings/", include("preferences.urls", namespace="preferences")),
+    prefix_default_language=False,
+)
+
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+

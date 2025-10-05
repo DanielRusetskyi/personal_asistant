@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block content %}
 <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
@@ -6,25 +7,25 @@
   <div class="container mt-4">
     <div class="row justify-content-center">
       <div class="col-md-8 bg-white p-4 rounded shadow">
-        <h3 class="text-center mb-4">📝 Створення нового завдання</h3>
+        <h3 class="text-center mb-4">{% trans "📝 Create a new task" %}</h3>
 
         <!-- Назва завдання -->
         <div class="mb-3">
-          <label for="title" class="form-label">Назва завдання *</label>
-          <input type="text" class="form-control" id="title" name="title" placeholder="Наприклад, Зателефонувати лікарю" required>
-          <div class="invalid-feedback">Будь ласка, вкажіть назву завдання.</div>
+          <label for="title" class="form-label">{% trans "Task name" %} *</label>
+          <input type="text" class="form-control" id="title" name="title" placeholder="{% trans 'For example, Call a doctor' %}" required>
+          <div class="invalid-feedback">{% trans "Please specify the task name." %}</div>
         </div>
 
         <!-- Опис -->
         <div class="mb-3">
-          <label for="description" class="form-label">Опис</label>
-          <textarea class="form-control" id="description" name="description" rows="3" placeholder="Додаткові деталі..."></textarea>
+          <label for="description" class="form-label">{% trans "Description" %}</label>
+          <textarea class="form-control" id="description" name="description" rows="3" placeholder="{% trans 'Additional details...' %}"></textarea>
         </div>
 
         <!-- Дата і час -->
         <div class="row mb-3">
           <div class="col-md-6">
-            <label for="due_date" class="form-label">Дата</label>
+            <label for="due_date" class="form-label">{% trans "Due date" %}</label>
             <input type="date" class="form-control" id="due_date" name="due_date">
           </div>
           <div class="col-md-6">
@@ -35,11 +36,11 @@
 
         <!-- Пріоритет -->
         <div class="mb-3">
-          <label for="priority" class="form-label">Пріоритет</label>
+          <label for="priority" class="form-label">{% trans "Priority" %}</label>
           <select class="form-select" id="priority" name="priority">
-            <option value="high">🔴 Високий</option>
-            <option value="medium">🟡 Середній</option>
-            <option value="low">⚪ Низький</option>
+            <option value="high">{% trans "🔴 High" %}</option>
+            <option value="medium">{% trans "🟡 Medium" %}</option>
+            <option value="low">{% trans "⚪ Low" %}</option>
           </select>
         </div>
 
@@ -68,7 +69,7 @@
 
         <!-- Кнопка -->
         <div class="text-center">
-          <button type="submit" class="btn btn-primary px-5">💾 Зберегти завдання</button>
+          <button type="submit" class="btn btn-primary px-5">{% trans "💾 Save task" %}</button>
         </div>
 
       </div>

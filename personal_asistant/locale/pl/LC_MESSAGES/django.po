@@ -1,0 +1,452 @@
+# Polish translations for Personal Assistant
+msgid ""
+msgstr ""
+"Project-Id-Version: Personal Assistant\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-10-05 00:03+0300\n"
+"PO-Revision-Date: 2025-10-05 00:20+0300\n"
+"Last-Translator: \n"
+"Language-Team: Polish\n"
+"Language: pl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && "
+"(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
+"n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+
+#: .\noteapp\models.py:17 .\noteapp\templates\noteapp\create_note.html:41
+msgid "🔴 High"
+msgstr "🔴 Wysoki"
+
+#: .\noteapp\models.py:18 .\noteapp\templates\noteapp\create_note.html:42
+msgid "🟡 Medium"
+msgstr "🟡 Średni"
+
+#: .\noteapp\models.py:19 .\noteapp\templates\noteapp\create_note.html:43
+msgid "⚪ Low"
+msgstr "⚪ Niski"
+
+#: .\noteapp\models.py:21
+msgid "Name"
+msgstr "Nazwa"
+
+#: .\noteapp\models.py:22 .\noteapp\templates\noteapp\create_note.html:21
+#: .\templates\includes\task_list.html:12
+msgid "Description"
+msgstr "Opis"
+
+#: .\noteapp\models.py:23 .\templates\includes\noteapp_form_fields.html:92
+msgid "Done"
+msgstr "Zrobione"
+
+#: .\noteapp\models.py:24
+msgid "Created"
+msgstr "Utworzono"
+
+#: .\noteapp\models.py:25 .\noteapp\templates\noteapp\create_note.html:28
+#: .\templates\includes\noteapp_form_fields.html:22
+msgid "Due date"
+msgstr "Data wykonania"
+
+#: .\noteapp\models.py:26
+msgid "Due time"
+msgstr "Czas wykonania"
+
+#: .\noteapp\models.py:31 .\noteapp\templates\noteapp\create_note.html:39
+#: .\templates\includes\noteapp_form_fields.html:79
+#: .\templates\includes\task_list.html:13
+msgid "Priority"
+msgstr "Priorytet"
+
+#: .\noteapp\models.py:33
+msgid "User"
+msgstr "Użytkownik"
+
+#: .\noteapp\models.py:34
+msgid "Tags"
+msgstr "Tagi"
+
+#: .\noteapp\models.py:37
+msgid "Note"
+msgstr "Notatka"
+
+#: .\noteapp\models.py:38
+msgid "Notes"
+msgstr "Notatki"
+
+#: .\noteapp\models.py:42
+msgid "Without name"
+msgstr "Bez nazwy"
+
+#: .\noteapp\templates\noteapp\calendar.html:19
+msgid "📅 Task calendar on"
+msgstr "📅 Kalendarz zadań na"
+
+#: .\noteapp\templates\noteapp\calendar.html:64
+msgid "← Prev month"
+msgstr "← Poprzedni miesiąc"
+
+#: .\noteapp\templates\noteapp\calendar.html:66
+#: .\noteapp\templates\noteapp\notebook_by_date.html:44
+#: .\noteapp\templates\noteapp\notebook_by_date.html:82
+msgid "↩ Back"
+msgstr "↩ Wstecz"
+
+#: .\noteapp\templates\noteapp\calendar.html:69
+msgid "Next month →"
+msgstr "Następny miesiąc →"
+
+#: .\noteapp\templates\noteapp\create_note.html:10
+msgid "📝 Create a new task"
+msgstr "📝 Utwórz nowe zadanie"
+
+#: .\noteapp\templates\noteapp\create_note.html:14
+msgid "Task name"
+msgstr "Nazwa zadania"
+
+#: .\noteapp\templates\noteapp\create_note.html:15
+msgid "For example, Call a doctor"
+msgstr "Na przykład: Zadzwoń do lekarza"
+
+#: .\noteapp\templates\noteapp\create_note.html:16
+msgid "Please specify the task name."
+msgstr "Podaj nazwę zadania."
+
+#: .\noteapp\templates\noteapp\create_note.html:22
+msgid "Additional details..."
+msgstr "Dodatkowe informacje…"
+
+#: .\noteapp\templates\noteapp\create_note.html:72
+msgid "💾 Save task"
+msgstr "💾 Zapisz zadanie"
+
+#: .\noteapp\templates\noteapp\day_tasks.html:10
+msgid "Task on"
+msgstr "Zadanie na"
+
+#: .\noteapp\templates\noteapp\day_tasks.html:24
+msgid "✅ Done"
+msgstr "✅ Zrobione"
+
+#: .\noteapp\templates\noteapp\day_tasks.html:26
+msgid "❌ Not done"
+msgstr "❌ Niezrobione"
+
+#: .\noteapp\templates\noteapp\day_tasks.html:33
+msgid "There are no tasks for this day."
+msgstr "Brak zadań na ten dzień."
+
+#: .\noteapp\templates\noteapp\day_tasks.html:45
+msgid "← Previous day"
+msgstr "← Poprzedni dzień"
+
+#: .\noteapp\templates\noteapp\day_tasks.html:56
+#: .\noteapp\templates\noteapp\notebook_by_date.html:67
+msgid "Go"
+msgstr "Idź"
+
+#: .\noteapp\templates\noteapp\day_tasks.html:66
+msgid "Next day →"
+msgstr "Następny dzień →"
+
+#: .\noteapp\templates\noteapp\edit_note.html:6
+msgid "Edit a task"
+msgstr "Edytuj zadanie"
+
+#: .\noteapp\templates\noteapp\edit_note.html:16
+msgid "💾 Sava"
+msgstr "💾 Zapisz"
+
+#: .\noteapp\templates\noteapp\edit_note.html:21
+#: .\noteapp\templates\noteapp\settings_push.html:63
+#: .\preferences\templates\preferences\language.html:36
+msgid "⬅ Back"
+msgstr "⬅ Wstecz"
+
+#: .\noteapp\templates\noteapp\edit_note.html:24
+msgid "🗑️ Delete"
+msgstr "🗑️ Usuń"
+
+#: .\noteapp\templates\noteapp\note_confirm_delete.html:8
+msgid "❗ Delete confirmation"
+msgstr "❗ Potwierdzenie usunięcia"
+
+#: .\noteapp\templates\noteapp\note_confirm_delete.html:10
+msgid "Are you sure you want to"
+msgstr "Czy na pewno chcesz"
+
+#: .\noteapp\templates\noteapp\note_confirm_delete.html:10
+msgid "delete task"
+msgstr "usunąć zadanie"
+
+#: .\noteapp\templates\noteapp\note_confirm_delete.html:21
+msgid "🗑️ Yes, delete"
+msgstr "🗑️ Tak, usuń"
+
+#: .\noteapp\templates\noteapp\note_confirm_delete.html:23
+msgid "⬅ Cancel"
+msgstr "⬅ Anuluj"
+
+#: .\noteapp\templates\noteapp\notebook.html:46
+msgid "Menu"
+msgstr "Menu"
+
+#: .\noteapp\templates\noteapp\notebook_by_date.html:14
+msgid "New task on"
+msgstr "Nowe zadanie na"
+
+#: .\noteapp\templates\noteapp\notebook_by_date.html:19
+msgid "⛔ It is not possible to create a task for a past date."
+msgstr "⛔ Nie można utworzyć zadania z datą w przeszłości."
+
+#: .\noteapp\templates\noteapp\notebook_by_date.html:40
+msgid "💾 Save"
+msgstr "💾 Zapisz"
+
+#: .\noteapp\templates\noteapp\notebook_by_date.html:81
+msgid "➕ Add a new task"
+msgstr "➕ Dodaj nowe zadanie"
+
+#: .\noteapp\templates\noteapp\settings.html:33
+#: .\noteapp\templates\noteapp\settings.html:47
+msgid "Settings Menu"
+msgstr "Menu ustawień"
+
+#: .\noteapp\templates\noteapp\settings_push.html:12
+msgid "Push-notifications"
+msgstr "Powiadomienia push"
+
+#: .\noteapp\templates\noteapp\settings_push.html:14
+msgid "Works over HTTPS or on"
+msgstr "Działa przez HTTPS lub na"
+
+#: .\noteapp\templates\noteapp\settings_push.html:14
+msgid "Permission is requested from the browser."
+msgstr "Uprawnienie jest wymagane przez przeglądarkę."
+
+#: .\noteapp\templates\noteapp\settings_push.html:19
+msgid "Enabled"
+msgstr "Włączone"
+
+#: .\noteapp\templates\noteapp\settings_push.html:19
+msgid "Disabled"
+msgstr "Wyłączone"
+
+#: .\noteapp\templates\noteapp\settings_push.html:27
+msgid "Enable notifications"
+msgstr "Włącz powiadomienia"
+
+#: .\noteapp\templates\noteapp\settings_push.html:31
+msgid "Disable notifications"
+msgstr "Wyłącz powiadomienia"
+
+#: .\noteapp\templates\noteapp\settings_push.html:35
+msgid "Push notifications are not supported in this browser"
+msgstr "Powiadomienia push nie są obsługiwane w tej przeglądarce"
+
+#: .\noteapp\templates\noteapp\settings_push.html:44
+msgid "Push sound"
+msgstr "Dźwięk powiadomień"
+
+#: .\noteapp\templates\noteapp\settings_push.html:46
+msgid "Sound test"
+msgstr "Test dźwięku"
+
+#: .\noteapp\templates\noteapp\settings_push.html:53
+msgid "Do Not Disturb (DND)"
+msgstr "Nie przeszkadzać (DND)"
+
+#: .\noteapp\templates\noteapp\tasks_by_period.html:8
+msgid "Start date"
+msgstr "Data początkowa"
+
+#: .\noteapp\templates\noteapp\tasks_by_period.html:13
+msgid "End date"
+msgstr "Data końcowa"
+
+#: .\noteapp\templates\noteapp\tasks_by_period.html:17
+msgid "🔍 Show"
+msgstr "🔍 Pokaż"
+
+#: .\noteapp\templates\noteapp\tasks_by_period.html:22
+msgid "Tasks for the period"
+msgstr "Zadania w okresie"
+
+#: .\noteapp\templates\noteapp\tasks_by_period.html:44
+#: .\templates\includes\task_list.html:50
+msgid "There are no tasks"
+msgstr "Brak zadań"
+
+#: .\noteapp\templates\noteapp\tasks_by_period.html:49
+msgid "There are no tasks during this period."
+msgstr "Brak zadań w tym okresie."
+
+#: .\noteapp\templatetags\menu.py:17
+msgid "Notebook"
+msgstr "Notatnik"
+
+#: .\noteapp\templatetags\menu.py:25
+msgid "Phonebook"
+msgstr "Książka telefoniczna"
+
+#: .\noteapp\templatetags\menu.py:33
+msgid "Settings"
+msgstr "Ustawienia"
+
+#: .\noteapp\templatetags\menu.py:42
+msgid "Weather"
+msgstr "Pogoda"
+
+#: .\noteapp\templatetags\menu.py:50
+msgid "Rates"
+msgstr "Kursy"
+
+#: .\noteapp\templatetags\menu.py:58
+msgid "Radio"
+msgstr "Radio"
+
+#: .\noteapp\templatetags\menu.py:99
+msgid "Calendar"
+msgstr "Kalendarz"
+
+#: .\noteapp\templatetags\menu.py:106
+msgid "Today"
+msgstr "Dzisiaj"
+
+#: .\noteapp\templatetags\menu.py:113
+msgid "Tasks"
+msgstr "Zadania"
+
+#: .\noteapp\templatetags\menu.py:120
+msgid "Reminders"
+msgstr "Przypomnienia"
+
+#: .\noteapp\templatetags\menu.py:127 .\noteapp\templatetags\menu.py:241
+msgid "Back"
+msgstr "Wstecz"
+
+#: .\noteapp\templatetags\menu.py:144 .\templates\base.html:47
+msgid "Search"
+msgstr "Szukaj"
+
+#: .\noteapp\templatetags\menu.py:156
+msgid "Profile"
+msgstr "Profil"
+
+#: .\noteapp\templatetags\menu.py:164
+msgid "Logout"
+msgstr "Wyloguj się"
+
+#: .\noteapp\templatetags\menu.py:175
+msgid "Sign in"
+msgstr "Zaloguj się"
+
+#: .\noteapp\templatetags\menu.py:183
+msgid "Sign up"
+msgstr "Zarejestruj się"
+
+#: .\noteapp\templatetags\menu.py:206
+msgid "Push"
+msgstr "Push"
+
+#: .\noteapp\templatetags\menu.py:213
+#: .\preferences\templates\preferences\language.html:19
+msgid "Language"
+msgstr "Język"
+
+#: .\noteapp\templatetags\menu.py:220
+msgid "Appearance"
+msgstr "Wygląd"
+
+#: .\noteapp\templatetags\menu.py:227
+msgid "Privacy"
+msgstr "Prywatność"
+
+#: .\noteapp\templatetags\menu.py:234
+msgid "Account"
+msgstr "Konto"
+
+#: .\preferences\templates\preferences\language.html:9
+msgid "Changing the interface language"
+msgstr "Zmiana języka interfejsu"
+
+#: .\preferences\templates\preferences\language.html:10
+msgid "Choose a language — it will be saved for your account and this browser."
+msgstr "Wybierz język — zostanie zapisany dla Twojego konta i tej przeglądarki."
+
+#: .\preferences\templates\preferences\language.html:27
+msgid "Save"
+msgstr "Zapisz"
+
+#: .\preferences\templates\preferences\language.html:31
+msgid "Current language:"
+msgstr "Bieżący język:"
+
+#: .\templates\base.html:16
+msgid "Personal Assistant"
+msgstr "Asystent osobisty"
+
+#: .\templates\base.html:37 .\templates\base.html:111
+msgid "Assistant"
+msgstr "Asystent"
+
+#: .\templates\base.html:44
+msgid "Search…"
+msgstr "Szukaj…"
+
+#: .\templates\base.html:115
+msgid "Assistant. All rights reserved."
+msgstr "Asystent. Wszelkie prawa zastrzeżone."
+
+#: .\templates\includes\noteapp_form_fields.html:11
+msgid "To dictate"
+msgstr "Dyktuj"
+
+#: .\templates\includes\noteapp_form_fields.html:38
+msgid "Create a reminder"
+msgstr "Utwórz przypomnienie"
+
+#: .\templates\includes\noteapp_form_fields.html:53
+msgid "hours"
+msgstr "godz."
+
+#: .\templates\includes\noteapp_form_fields.html:64
+msgid "min"
+msgstr "min"
+
+#: .\templates\includes\task_list.html:11
+msgid "Status"
+msgstr "Status"
+
+#: .\templates\includes\task_list.html:59
+msgid "Save error"
+msgstr "Błąd zapisu"
+
+#: .\templates\includes\task_list.html:60
+msgid "Failed to update status"
+msgstr "Nie udało się zaktualizować statusu"
+
+#: .\templates\socialaccount\login.html:7
+msgid "Login confirmation"
+msgstr "Potwierdzenie logowania"
+
+#: .\templates\socialaccount\login.html:55
+msgid "You are about to connect a new third-party account"
+msgstr "Zamierzasz połączyć nowe konto zewnętrzne"
+
+#: .\templates\socialaccount\login.html:55
+msgid "to your profile."
+msgstr "z Twoim profilem."
+
+#: .\templates\socialaccount\login.html:59
+msgid "You are about to log in with an account "
+msgstr "Zamierzasz zalogować się przy użyciu konta "
+
+#: .\templates\socialaccount\login.html:67
+msgid "Continue login"
+msgstr "Kontynuuj logowanie"
+
+#: .\templates\socialaccount\login.html:70
+msgid "Cancel"
+msgstr "Anuluj"

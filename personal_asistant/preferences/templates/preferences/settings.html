@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% load menu %}
+{% load static %}
+
+{% block content %}
+<!-- Радіальне меню по центру тільки на мобільних -->
+<div class="md:hidden absolute inset-0 z-20 flex items-center justify-center pointer-events-none">
+  <div
+    x-data="{ open: true }"
+    x-init="$refs.ring.style.setProperty('--count', $refs.ring.querySelectorAll('li[data-item]').length)"
+    class="relative flex items-center justify-center -translate-y-10 pointer-events-auto"
+  >
+    <!-- Центральний тригер -->
+      <button
+        @click="open = !open"
+        :aria-expanded="open"
+        class="relative inline-flex items-center justify-center w-28 h-28 rounded-full
+               transition-transform duration-200 hover:scale-105 active:scale-95 focus:outline-none
+               pointer-events-auto animate-scale-pulse"
+        aria-label="Відкрити меню"
+      >
+        <!-- Іконка меню -->
+        <img
+          x-show="!open"
+          x-transition:enter="transition ease-out duration-200"
+          x-transition:enter-start="opacity-0 scale-75"
+          x-transition:enter-end="opacity-100 scale-100"
+          x-transition:leave="transition ease-in duration-150"
+          x-transition:leave-start="opacity-100 scale-100"
+          x-transition:leave-end="opacity-0 scale-75"
+          src="{% static 'images/menu_icon2.png' %}"
+          alt="Settings Menu"
+          class="absolute w-24 h-24 rounded-full"
+        />
+
+        <!-- Хрестик -->
+        <img
+          x-show="open"
+          x-transition:enter="transition ease-out duration-200"
+          x-transition:enter-start="opacity-0 scale-75"
+          x-transition:enter-end="opacity-100 scale-100"
+          x-transition:leave="transition ease-in duration-150"
+          x-transition:leave-start="opacity-100 scale-100"
+          x-transition:leave-end="opacity-0 scale-75"
+          src="{% static 'images/close_icon.png' %}"
+          alt="Settings Menu"
+          class="absolute w-24 h-24 rounded-full"
+        />
+      </button>
+
+    <!-- Кільце пунктів -->
+<!--    <nav class="list-group list-group-flush">-->
+      <ul x-ref="ring" :class="{ 'open': open }" class="radial-ring pointer-events-none">
+        {% settings_submenu as SET_SUB %}
+
+        {% for item in SET_SUB %}
+          <li data-item style="--i:{{ forloop.counter0 }}">
+            <a href="{{ item.href }}" class="radial-item pointer-events-auto" aria-label="{{ item.label }}">
+              <img src="{% static item.icon_img %}" alt="{{ item.label }}" class="w-18 h-18 rounded-full">
+              <span class="radial-label">{{ item.label }}</span>
+            </a>
+          </li>
+        {% endfor %}
+
+      </ul>
+<!--    </nav>-->
+  </div>
+</div>
+
+{% endblock %}

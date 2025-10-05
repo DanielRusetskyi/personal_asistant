@@ -1,9 +1,9 @@
 {% extends "base.html" %}
-{% load widget_tweaks %}
+{% load widget_tweaks i18n %}
 {% block content %}
-<div class="container mt-5">
+<div class="container mt-1">
   <div class="card p-4">
-    <h3 class="mb-3 text-center" >Редагувати завдання</h3>
+    <h3 class="mb-3 text-center" >{% trans 'Edit a task' %}</h3>
 
     <form method="post" action="">
       {% csrf_token %}
@@ -13,14 +13,14 @@
 
       <!-- Кнопки -->
       <div class="d-flex flex-wrap gap-2 mt-3">
-        <button type="submit" class="btn btn-success text-nowrap">💾 Зберегти</button>
+        <button type="submit" class="btn btn-success text-nowrap">{% trans '💾 Sava' %}</button>
         {% comment %}
-        <a href="{% url 'noteapp:notebook_by_date' date=form.instance.doe_date %}?page={{ request.GET.page }}" class="btn btn-secondary text-nowrap">⬅ Назад</a>
+        <a href="{% url 'noteapp:notebook_by_date' date=form.instance.doe_date %}?page={{ request.GET.page }}" class="btn btn-secondary text-nowrap">{% trans '⬅ Back' %}</a>
         {% endcomment %}
-        <a href="{{ return_url|default:'#' }}" class="btn btn-secondary text-nowrap">⬅ Назад</a>
+        <a href="{{ return_url|default:'#' }}" class="btn btn-secondary text-nowrap">{% trans '⬅ Back' %}</a>
         {% if form.instance.pk %}
           <a href="{% url 'noteapp:note_delete' form.instance.pk %}?page={{ request.GET.page }}" class="btn btn-outline-danger ms-auto text-nowrap">
-            🗑️ Видалити
+            {% trans '🗑️ Delete' %}
           </a>
         {% endif %}
       </div>

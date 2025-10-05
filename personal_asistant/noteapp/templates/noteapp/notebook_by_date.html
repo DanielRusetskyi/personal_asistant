@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load widget_tweaks %}
-{% load static %}
+{% load static i18n %}
 
 {% block content %}
 <div class="container mt-2">
@@ -11,12 +11,12 @@
   <div class="card shadow-sm border-4 rounded-4 animate-drop-bounce d-none" id="note-form-card">
     <div class="card-body">
       <h5 class="card-title text-center">
-        Нове завдання на {{ form.initial.doe_date|date:"d.m.Y" }}
+        {% trans 'New task on' %} {{ form.initial.doe_date|date:"d.m.Y" }}
       </h5>
 
       {% if form_disabled %}
         <div class="alert alert-warning text-center mb-3">
-          ⛔ Неможливо створити завдання на дату що минула.
+          {% trans '⛔ It is not possible to create a task for a past date.' %}
         </div>
       {% endif %}
 
@@ -37,11 +37,11 @@
         <div class="d-flex flex-column flex-md-row gap-2 justify-content-center justify-content-md-end mt-3">
           <button type="submit" class="btn btn-primary text-nowrap"
                   {% if form_disabled %}disabled{% endif %}>
-            💾 Зберегти
+            {% trans '💾 Save' %}
           </button>
 
           <!-- Кнопка "Назад" -->
-          <button type="button" class="btn btn-outline-secondary text-nowrap" id="hide-form-btn">↩ Назад</button>
+          <button type="button" class="btn btn-outline-secondary text-nowrap" id="hide-form-btn">{% trans '↩ Back' %}</button>
         </div>
       </form>
     </div>
@@ -64,7 +64,7 @@
                id="datePicker"
                class="form-control"
                value="{{ day|date:'Y-m-d' }}">
-        <button type="button" class="btn btn-primary" onclick="goToDate()">Перейти</button>
+        <button type="button" class="btn btn-primary" onclick="goToDate()">{% trans 'Go' %}</button>
       </div>
 
 
@@ -78,8 +78,8 @@
   </div>
 
   <div class="text-center mb-3">
-    <button class="btn btn-primary mt-3" id="show-form-btn">➕ Додати завдання</button>
-    <a class="btn btn-secondary mt-3" href="{% url 'noteapp:calendar_by_date' day|date:'Y-m-d' %}">↩ Назад</a>
+    <button class="btn btn-primary mt-3" id="show-form-btn">{% trans '➕ Add a new task' %}</button>
+    <a class="btn btn-secondary mt-3" href="{% url 'noteapp:calendar_by_date' day|date:'Y-m-d' %}">{% trans '↩ Back' %}</a>
   </div>
 
 </div>

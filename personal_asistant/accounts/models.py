@@ -29,6 +29,7 @@ class CustomUser(AbstractUser):
                 public_id=f"avatars/user_{self.id}",
                 overwrite=True,
                 folder=None,
+                invalidate=True,
                 use_filename=True,
                 unique_filename=False,
                 resource_type="image"
@@ -41,11 +42,3 @@ class CustomUser(AbstractUser):
     def __str__(self):
         return self.username
 
-
-class UserSettings(models.Model):
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, unique=True)
-    push_enabled = models.BooleanField(default=False)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    def __str__(self):
-        return f"UserSettings(user={self.user.name}, push_enabled={self.push_enabled})"

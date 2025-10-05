@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import never_cache
 from django.conf import settings
 from .models import PushSubscription
-from accounts.models import UserSettings
+from preferences.models import UserSettings
 
 logger = logging.getLogger(__name__)
 

@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load static %}
+{% load static i18n %}
 {% load menu %}
 
 {% block content %}
@@ -43,7 +43,7 @@
           x-transition:leave-start="opacity-100 scale-100"
           x-transition:leave-end="opacity-0 scale-75"
           src="{% static 'images/close_icon.png' %}"
-          alt="Menu"
+          alt="{% trans 'Menu' %}"
           class="absolute w-24 h-24 rounded-full"
         />
       </button>

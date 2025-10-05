@@ -1,4 +1,5 @@
 from django.contrib.messages.views import SuccessMessageMixin
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView, PasswordResetView
 from django.urls import reverse_lazy
@@ -55,11 +56,16 @@ class UserEditView(LoginRequiredMixin, UpdateView):
         return self.request.user
 
     def form_valid(self, form):
-        response = super().form_valid(form)
-        avatar_file = self.request.FILES.get('avatar_file')
+        self.object = form.save()
+        avatar_file = form.cleaned_data.get('avatar_file')
         if avatar_file:
             self.object.upload_image(avatar_file)
-        return response
+        return HttpResponseRedirect(self.get_success_url())
+        # response = super().form_valid(form)
+        # avatar_file = self.request.FILES.get('avatar_file')
+        # if avatar_file:
+        #     self.object.upload_image(avatar_file)
+        # return response
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

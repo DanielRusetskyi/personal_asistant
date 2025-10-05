@@ -29,6 +29,7 @@ from django.core.exceptions import ImproperlyConfigured
 BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv(BASE_DIR / '.env')
 
+LOCALE_PATHS = [BASE_DIR / "locale"]
 LOG_DIR = BASE_DIR / "logs"
 LOG_DIR.mkdir(exist_ok=True)
 
@@ -177,6 +178,7 @@ INSTALLED_APPS = [
     'noteapp',
     'accounts.apps.AccountConfig',
     'additional',
+    'preferences',
 
 ]
 
@@ -185,6 +187,7 @@ MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -211,8 +214,11 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
+SOCIALACCOUNT_AUTO_SIGNUP = True
+ACCOUNT_EMAIL_VERIFICATION = "optional"
+
 SITE_ID = 1
-ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+# ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_SIGNUP_FIELDS = ['email*', 'username*', 'password1*', 'password2*']
 ACCOUNT_LOGIN_METHODS = {"username", "email"}
 
@@ -343,7 +349,7 @@ CLOUDINARY_STORAGE = {
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+# LANGUAGE_CODE = 'en-us'
 
 # TIME_ZONE = 'UTC'
 
@@ -379,4 +385,11 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/login/'
 CSRF_TRUSTED_ORIGINS = ['https://personal-asistant.fly.dev']
 RADIO_USE_STREAM_PROXY = False
+LANGUAGE_CODE = "en"
+LANGUAGES = (
+    ("uk", "Українська"),
+    ("pl", "Polski"),
+    ("en", "English"),
+)
+
 

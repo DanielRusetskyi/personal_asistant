@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+{% load static i18n %}
+
+{% block content %}
+<div class="flex items-center justify-center min-h-full flex-col w-full mt-10">
+
+  <section id="push">
+    <div class="card shadow-sm border-0">
+      <div class="card-body">
+        <div class="d-flex align-items-start justify-content-between flex-wrap gap-3">
+          <div>
+            <h5 class="card-title mb-1">{% trans 'Push-notifications' %}</h5>
+            <p class="text-muted mb-0">
+              {% trans 'Works over HTTPS or on' %} <code>localhost</code>. {% trans 'Permission is requested from the browser.' %}
+            </p>
+          </div>
+          <span id="push-status"
+                class="badge {% if has_push %}text-bg-success{% else %}text-bg-secondary{% endif %}">
+            {% if has_push %}{% trans 'Enabled' %}{% else %}{% trans 'Disabled' %}{% endif %}
+          </span>
+        </div>
+
+        <hr class="my-4">
+
+        <div class="d-flex flex-wrap align-items-center gap-2">
+          <button class="btn btn-primary" id="enable-push-btn" {% if has_push %}hidden{% endif %}>
+            {% trans 'Enable notifications' %}
+          </button>
+
+          <button class="btn btn-outline-danger" id="disable-push-btn" type="button" {% if not has_push %}hidden{% endif %}>
+            {% trans 'Disable notifications' %}
+          </button>
+
+          <span id="push-support-hint" class="text-warning ms-2" hidden>
+            {% trans 'Push notifications are not supported in this browser' %}
+          </span>
+        </div>
+
+        <div class="mt-4">
+          <div class="row g-3">
+            <div class="col-12 col-md-6">
+              <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" id="push-sound">
+                <label class="form-check-label" for="push-sound">{% trans 'Push sound' %}</label>
+                <button id="push-sound-test" class="btn btn-outline-secondary btn-sm ms-2" type="button">
+                  {% trans 'Sound test' %}
+                </button>
+              </div>
+            </div>
+            <div class="col-12 col-md-6">
+              <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" id="push-dnd" disabled>
+                <label class="form-check-label" for="push-dnd">{% trans 'Do Not Disturb (DND)' %} <span class="text-muted">(скоро)</span></label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <a href="{% url 'main' %}" class="button_weather inline-block mt-1 text-center">{% trans '⬅ Back' %}</a>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const enableBtn   = document.getElementById("enable-push-btn");
+  const disableBtn  = document.getElementById("disable-push-btn");
+  const statusEl    = document.getElementById("push-status");
+  const supportHint = document.getElementById("push-support-hint");
+
+  function setStatus(on) {
+    statusEl.textContent = on ? "увімкнено" : "вимкнено";
+    statusEl.className = "badge " + (on ? "text-bg-success" : "text-bg-secondary");
+    if (enableBtn) enableBtn.hidden = !!on;
+    if (disableBtn) disableBtn.hidden = !on;
+  }
+
+  async function initPushOnce() {
+    if (!("serviceWorker" in navigator) || !("PushManager" in window)) {
+      supportHint.hidden = false;
+      if (enableBtn) enableBtn.disabled = true;
+      if (disableBtn) disableBtn.hidden = true;
+      return;
+    }
+    try {
+      let reg = await navigator.serviceWorker.getRegistration();
+      if (!reg) reg = await navigator.serviceWorker.register("/sw.js");
+      if (!reg.active) await navigator.serviceWorker.ready;
+
+      const sub = await reg.pushManager.getSubscription();
+      setStatus(!!sub);
+    } catch (e) {
+      console.warn("SW init error:", e);
+    }
+  }
+
+  // Окрема сторінка: ініціалізуємо одразу
+  initPushOnce();
+});
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const sw = document.getElementById("push-sound");
+  const testBtn = document.getElementById("push-sound-test");
+  const on = (localStorage.getItem("push_sound") === "1");
+  if (sw) sw.checked = on;
+
+  sw?.addEventListener("change", () => {
+    window.setPushSound?.(sw.checked);
+    if (sw.checked) window.playPushDing?.();
+  });
+
+  testBtn?.addEventListener("click", () => window.playPushDing?.());
+});
+</script>
+{% endblock %}

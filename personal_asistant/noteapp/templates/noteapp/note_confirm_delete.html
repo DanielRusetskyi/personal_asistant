@@ -1,14 +1,15 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
 {% block content %}
 <div class="container mt-5">
   <div class="card shadow-sm border-danger">
     <div class="card-body text-center">
-      <h3 class="card-title text-danger">❗ Підтвердження видалення</h3>
+      <h3 class="card-title text-danger">{% trans '❗ Delete confirmation' %}</h3>
       <p class="card-text my-3">
-        Ви впевнені, що хочете <strong>видалити завдання</strong>:
+        {% trans 'Are you sure you want to' %} <strong>{% trans 'delete task' %}</strong>:
         <br>
-        <em>"{{ object.description|default:'(без опису)' }}"</em>?
+        <em>"{{ object.description|default:'({% trans 'no description' %})' }}"</em>?
       </p>
 
       <form method="post">
@@ -17,9 +18,9 @@
         <input type="hidden" name="return_url" value="{{ return_url }}">
 
         <div class="d-flex flex-column flex-md-row justify-content-center gap-2 mt-4">
-          <button type="submit" class="btn btn-danger text-nowrap">🗑️ Так, видалити</button>
+          <button type="submit" class="btn btn-danger text-nowrap">{% trans '🗑️ Yes, delete' %}</button>
           <a href="{{ return_url|default:'#' }}" class="btn btn-outline-secondary text-nowrap">
-            ⬅ Скасувати
+            {% trans '⬅ Cancel' %}
           </a>
         </div>
       </form>

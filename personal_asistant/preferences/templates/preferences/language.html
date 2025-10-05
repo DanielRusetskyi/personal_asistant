@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+<div class="container py-5">
+  <div class="mx-auto text-center" style="max-width:520px;">
+    <div class="card shadow-sm border-0">
+      <div class="card-body">
+        <h4 class="mb-2">{% trans "Changing the interface language" %}</h4>
+        <p class="text-muted">{% trans "Choose a language — it will be saved for your account and this browser." %}</p>
+
+        {% get_current_language as LANGUAGE_CODE %}
+        {% get_available_languages as LANGUAGES %}
+        {% get_language_info_list for LANGUAGES as languages %}
+
+        <form action="{% url 'preferences:language_update' %}" method="post" class="d-flex gap-2 align-items-center">
+          {% csrf_token %}
+          <input type="hidden" name="next" value="{{ next }}">
+          <label for="id_language" class="form-label mb-0 me-2">{% trans "Language" %}</label>
+          <select name="language" id="id_language" class="form-select">
+            {% for lang in languages %}
+              <option value="{{ lang.code }}" {% if lang.code == LANGUAGE_CODE %}selected{% endif %}>
+                {{ lang.name_local }} ({{ lang.code }})
+              </option>
+            {% endfor %}
+          </select>
+          <button type="submit" class="btn btn-primary">{% trans "Save" %}</button>
+        </form>
+
+        <small class="text-muted d-block mt-3">
+          {% trans "Current language:" %} <strong>{{ LANGUAGE_CODE }}</strong>
+        </small>
+      </div>
+    </div>
+
+    <a href="{% url 'preferences:settings' %}" class="button_weather inline-block mt-1 text-center">⬅ {% trans "Back" %}</a>
+  </div>
+</div>
+
+<!--<script>-->
+<!--  // (Опційно) автозбереження при зміні селектора-->
+<!--  document.getElementById('id_language')?.addEventListener('change', function () {-->
+<!--    this.form.requestSubmit();-->
+<!--  });-->
+<!--</script>-->
+{% endblock %}
