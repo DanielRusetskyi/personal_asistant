@@ -1,5 +1,5 @@
 from django.urls import path
-from . import views, views_push, views_settings
+from . import views, views_push
 from django.http import HttpResponse
 from django.conf import settings
 

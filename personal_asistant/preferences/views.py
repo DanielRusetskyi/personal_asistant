@@ -1,17 +1,16 @@
 from django.conf import settings
-from urllib.parse import urlsplit, urlunsplit
 from django.views.generic import TemplateView, View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse, HttpResponseBadRequest, HttpResponseRedirect
-from django.urls import reverse, resolve, Resolver404
-from django.utils.translation import override
+from django.urls import reverse
 from django.middleware.csrf import get_token
 from preferences.services import (
     get_or_create_user_settings,
     set_language as set_lang,
     set_theme,
     set_compact,
-    set_push_enabled
+    set_push_enabled,
+    _relocalize_url,
 )
 from noteapp.models import PushSubscription
 
@@ -42,6 +41,40 @@ class LanguagePageView(LoginRequiredMixin, TemplateView):
         return ctx
 
 
+# class UpdateLanguageView(LoginRequiredMixin, View):
+#     def get(self, request):
+#         return HttpResponseRedirect(reverse("preferences:language"))
+#
+#     def post(self, request):
+#         lang = (request.POST.get("language") or "").lower()
+#         allowed = {code for code, _ in settings.LANGUAGES}
+#
+#         # куди вертатися (бажано GET-сторінка)
+#         nxt = request.POST.get("next") or request.META.get("HTTP_REFERER") or reverse("preferences:language")
+#         if lang not in allowed:
+#             return HttpResponseRedirect(nxt)
+#
+#         set_lang(request.user, lang)
+#         parts = urlsplit(nxt)
+#         path_only = parts.path
+#         try:
+#             match = resolve(path_only)
+#             with override(lang):
+#                 new_path = reverse(match.view_name, args=match.args, kwargs=match.kwargs)
+#             # зберегти query/fragment
+#             nxt = urlunsplit((parts.scheme, parts.netloc, new_path, parts.query, parts.fragment))
+#         except Resolver404:
+#             print("Resolver404")
+#             # якщо шлях не розвʼязався — запасний варіант
+#             with override(lang):
+#                 nxt = reverse("preferences:language")
+#
+#         resp = HttpResponseRedirect(nxt)
+#         resp.set_cookie("django_language", lang, max_age=365*24*60*60)
+#         get_token(request)
+#         return resp
+
+
 class UpdateLanguageView(LoginRequiredMixin, View):
     def get(self, request):
         return HttpResponseRedirect(reverse("preferences:language"))
@@ -49,32 +82,24 @@ class UpdateLanguageView(LoginRequiredMixin, View):
     def post(self, request):
         lang = (request.POST.get("language") or "").lower()
         allowed = {code for code, _ in settings.LANGUAGES}
-
-        # куди вертатися (бажано GET-сторінка)
-        nxt = request.POST.get("next") or request.META.get("HTTP_REFERER") or reverse("preferences:language")
         if lang not in allowed:
-            return HttpResponseRedirect(nxt)
+            # повертаємось куди прийшли
+            return HttpResponseRedirect(request.POST.get("next") or request.META.get("HTTP_REFERER") or "/")
 
+        # 1) зберегти у профілі та активувати мову (твоя функція робить activate всередині)
         set_lang(request.user, lang)
 
-        parts = urlsplit(nxt)
-        path_only = parts.path
-        try:
-            match = resolve(path_only)
-            with override(lang):
-                new_path = reverse(match.view_name, args=match.args, kwargs=match.kwargs)
-            # зберегти query/fragment
-            nxt = urlunsplit((parts.scheme, parts.netloc, new_path, parts.query, parts.fragment))
-        except Resolver404:
-            # якщо шлях не розвʼязався — запасний варіант
-            with override(lang):
-                nxt = reverse("preferences:language")
+        # 2) куди вертатись (поточна сторінка)
+        nxt = request.POST.get("next") or request.META.get("HTTP_REFERER") or "/"
 
-        resp = HttpResponseRedirect(nxt)
-        resp.set_cookie("django_language", lang, max_age=365*24*60*60)
-        get_token(request)
+        # 3) Перебудувати URL під нову мову
+        redirect_to = _relocalize_url(nxt, lang)
+
+        # 4) cookie мови
+        resp = HttpResponseRedirect(redirect_to)
+        resp.set_cookie(settings.LANGUAGE_COOKIE_NAME, lang, max_age=365*24*60*60)
+        get_token(request)  # щоб у наступних формах був CSRF
         return resp
-
 
 class UpdateThemeView(LoginRequiredMixin, View):
     def post(self, request):

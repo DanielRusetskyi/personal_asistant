@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Personal Assistant\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-05 21:15+0300\n"
+"POT-Creation-Date: 2025-10-09 22:32+0300\n"
 "PO-Revision-Date: 2025-10-05 00:20+0300\n"
 "Last-Translator: \n"
 "Language-Team: Polish\n"
@@ -41,14 +41,15 @@ msgid "Your last name"
 msgstr "Twoje nazwisko"
 
 #: .\accounts\forms.py:80 .\accounts\forms.py:137
-#, fuzzy
-#| msgid "User"
 msgid "Username"
 msgstr "Użytkownik"
 
 #: .\accounts\forms.py:88 .\accounts\forms.py:145
 msgid "Your phone"
 msgstr "Twój telefon"
+
+msgid "Weather"
+msgstr "Pogoda"
 
 #: .\accounts\forms.py:96
 msgid "Repeat password"
@@ -81,6 +82,7 @@ msgstr "Zapisz"
 #: .\additional\templates\weather.html:151 .\noteapp\templatetags\menu.py:127
 #: .\noteapp\templatetags\menu.py:241
 #: .\preferences\templates\preferences\language.html:36
+#: .\preferences\templates\preferences\update_push.html:63
 msgid "Back"
 msgstr "Wstecz"
 
@@ -265,6 +267,7 @@ msgstr "Wybierz stacje..."
 #: .\additional\templates\player.html:27
 msgid "Station"
 msgstr "Stacja"
+
 
 #: .\additional\templates\weather.html:137
 msgid "Enter city"
@@ -490,30 +493,39 @@ msgid "Settings Menu"
 msgstr "Menu ustawień"
 
 #: .\noteapp\templates\noteapp\settings_push.html:12
+#: .\preferences\templates\preferences\update_push.html:12
 msgid "Push-notifications"
 msgstr "Powiadomienia push"
 
 #: .\noteapp\templates\noteapp\settings_push.html:14
+#: .\preferences\templates\preferences\update_push.html:14
 msgid "Works over HTTPS or on"
 msgstr "Działa przez HTTPS lub na"
 
 #: .\noteapp\templates\noteapp\settings_push.html:14
+#: .\preferences\templates\preferences\update_push.html:14
 msgid "Permission is requested from the browser."
 msgstr "Uprawnienie jest wymagane przez przeglądarkę."
 
 #: .\noteapp\templates\noteapp\settings_push.html:19
-msgid "Enabled"
+#: .\noteapp\templates\noteapp\settings_push.html:74
+#: .\preferences\templates\preferences\update_push.html:19
+msgid "enabled"
 msgstr "Włączone"
 
 #: .\noteapp\templates\noteapp\settings_push.html:19
-msgid "Disabled"
+#: .\noteapp\templates\noteapp\settings_push.html:74
+#: .\preferences\templates\preferences\update_push.html:19
+msgid "disabled"
 msgstr "Wyłączone"
 
 #: .\noteapp\templates\noteapp\settings_push.html:27
+#: .\preferences\templates\preferences\update_push.html:27
 msgid "Enable notifications"
 msgstr "Włącz powiadomienia"
 
 #: .\noteapp\templates\noteapp\settings_push.html:31
+#: .\preferences\templates\preferences\update_push.html:31
 msgid "Disable notifications"
 msgstr "Wyłącz powiadomienia"
 
@@ -522,6 +534,7 @@ msgid "Push notifications are not supported in this browser"
 msgstr "Powiadomienia push nie są obsługiwane w tej przeglądarce"
 
 #: .\noteapp\templates\noteapp\settings_push.html:44
+#: .\preferences\templates\preferences\update_push.html:44
 msgid "Push sound"
 msgstr "Dźwięk powiadomień"
 
@@ -569,10 +582,6 @@ msgstr "Książka telefoniczna"
 #: .\noteapp\templatetags\menu.py:33 .\templates\includes\settings_menu.html:5
 msgid "Settings"
 msgstr "Ustawienia"
-
-#: .\noteapp\templatetags\menu.py:42
-msgid "Weather"
-msgstr "Pogoda"
 
 #: .\noteapp\templatetags\menu.py:50
 msgid "Rates"
@@ -648,11 +657,27 @@ msgstr "Zastosuj"
 msgid "Current language:"
 msgstr "Bieżący język:"
 
+#: .\preferences\templates\preferences\update_push.html:35
+msgid "Your browser does not support Service Worker / Push API."
+msgstr "Twoja przeglądarka nie obsługuje Service Worker/Push API."
+
+#: .\preferences\templates\preferences\update_push.html:46
+msgid "Test sound"
+msgstr "Testuj dźwięk"
+
+#: .\preferences\templates\preferences\update_push.html:53
+msgid "Do not disturb"
+msgstr "Nie przeszkadzać (DND)"
+
+#: .\preferences\templates\preferences\update_push.html:53
+msgid "soon"
+msgstr "wkrótce"
+
 #: .\templates\base.html:16
 msgid "Personal Assistant"
 msgstr "Asystent osobisty"
 
-#: .\templates\base.html:37 .\templates\base.html:111
+#: .\templates\base.html:37 .\templates\base.html:140
 msgid "Assistant"
 msgstr "Asystent"
 
@@ -660,7 +685,7 @@ msgstr "Asystent"
 msgid "Search…"
 msgstr "Szukaj…"
 
-#: .\templates\base.html:115
+#: .\templates\base.html:144
 msgid "Assistant. All rights reserved."
 msgstr "Asystent. Wszelkie prawa zastrzeżone."
 
@@ -711,3 +736,9 @@ msgstr "Zamierzasz zalogować się przy użyciu konta "
 #: .\templates\socialaccount\login.html:67
 msgid "Continue login"
 msgstr "Kontynuuj logowanie"
+
+#~ msgid "Enabled"
+#~ msgstr "Włączone"
+
+#~ msgid "Disabled"
+#~ msgstr "Wyłączone"

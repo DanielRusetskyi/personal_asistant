@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-05 21:15+0300\n"
+"POT-Creation-Date: 2025-10-09 22:32+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -82,6 +82,7 @@ msgstr ""
 #: .\additional\templates\weather.html:151 .\noteapp\templatetags\menu.py:127
 #: .\noteapp\templatetags\menu.py:241
 #: .\preferences\templates\preferences\language.html:36
+#: .\preferences\templates\preferences\update_push.html:63
 msgid "Back"
 msgstr ""
 
@@ -263,6 +264,10 @@ msgstr ""
 
 #: .\additional\templates\player.html:27
 msgid "Station"
+msgstr ""
+
+#: .\additional\templates\weather.html:119 .\noteapp\templatetags\menu.py:42
+msgid "Weather"
 msgstr ""
 
 #: .\additional\templates\weather.html:137
@@ -489,30 +494,39 @@ msgid "Settings Menu"
 msgstr ""
 
 #: .\noteapp\templates\noteapp\settings_push.html:12
+#: .\preferences\templates\preferences\update_push.html:12
 msgid "Push-notifications"
 msgstr ""
 
 #: .\noteapp\templates\noteapp\settings_push.html:14
+#: .\preferences\templates\preferences\update_push.html:14
 msgid "Works over HTTPS or on"
 msgstr ""
 
 #: .\noteapp\templates\noteapp\settings_push.html:14
+#: .\preferences\templates\preferences\update_push.html:14
 msgid "Permission is requested from the browser."
 msgstr ""
 
 #: .\noteapp\templates\noteapp\settings_push.html:19
-msgid "Enabled"
+#: .\noteapp\templates\noteapp\settings_push.html:74
+#: .\preferences\templates\preferences\update_push.html:19
+msgid "enabled"
 msgstr ""
 
 #: .\noteapp\templates\noteapp\settings_push.html:19
-msgid "Disabled"
+#: .\noteapp\templates\noteapp\settings_push.html:74
+#: .\preferences\templates\preferences\update_push.html:19
+msgid "disabled"
 msgstr ""
 
 #: .\noteapp\templates\noteapp\settings_push.html:27
+#: .\preferences\templates\preferences\update_push.html:27
 msgid "Enable notifications"
 msgstr ""
 
 #: .\noteapp\templates\noteapp\settings_push.html:31
+#: .\preferences\templates\preferences\update_push.html:31
 msgid "Disable notifications"
 msgstr ""
 
@@ -521,6 +535,7 @@ msgid "Push notifications are not supported in this browser"
 msgstr ""
 
 #: .\noteapp\templates\noteapp\settings_push.html:44
+#: .\preferences\templates\preferences\update_push.html:44
 msgid "Push sound"
 msgstr ""
 
@@ -567,10 +582,6 @@ msgstr ""
 
 #: .\noteapp\templatetags\menu.py:33 .\templates\includes\settings_menu.html:5
 msgid "Settings"
-msgstr ""
-
-#: .\noteapp\templatetags\menu.py:42
-msgid "Weather"
 msgstr ""
 
 #: .\noteapp\templatetags\menu.py:50
@@ -646,11 +657,27 @@ msgstr ""
 msgid "Current language:"
 msgstr ""
 
+#: .\preferences\templates\preferences\update_push.html:35
+msgid "Your browser does not support Service Worker / Push API."
+msgstr ""
+
+#: .\preferences\templates\preferences\update_push.html:46
+msgid "Test sound"
+msgstr ""
+
+#: .\preferences\templates\preferences\update_push.html:53
+msgid "Do not disturb"
+msgstr ""
+
+#: .\preferences\templates\preferences\update_push.html:53
+msgid "soon"
+msgstr ""
+
 #: .\templates\base.html:16
 msgid "Personal Assistant"
 msgstr ""
 
-#: .\templates\base.html:37 .\templates\base.html:111
+#: .\templates\base.html:37 .\templates\base.html:140
 msgid "Assistant"
 msgstr ""
 
@@ -658,7 +685,7 @@ msgstr ""
 msgid "Search…"
 msgstr ""
 
-#: .\templates\base.html:115
+#: .\templates\base.html:144
 msgid "Assistant. All rights reserved."
 msgstr ""
 
@@ -709,3 +736,4 @@ msgstr ""
 #: .\templates\socialaccount\login.html:67
 msgid "Continue login"
 msgstr ""
+

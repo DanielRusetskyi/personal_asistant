@@ -16,7 +16,7 @@
           </div>
           <span id="push-status"
                 class="badge {% if has_push %}text-bg-success{% else %}text-bg-secondary{% endif %}">
-            {% if has_push %}{% trans 'Enabled' %}{% else %}{% trans 'Disabled' %}{% endif %}
+            {% if has_push %}{% trans 'enabled' %}{% else %}{% trans 'disabled' %}{% endif %}
           </span>
         </div>
 
@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const supportHint = document.getElementById("push-support-hint");
 
   function setStatus(on) {
-    statusEl.textContent = on ? "увімкнено" : "вимкнено";
+    statusEl.textContent = on ? "{% trans 'enabled' %}" : "{% trans 'disabled' %}";
     statusEl.className = "badge " + (on ? "text-bg-success" : "text-bg-secondary");
     if (enableBtn) enableBtn.hidden = !!on;
     if (disableBtn) disableBtn.hidden = !on;

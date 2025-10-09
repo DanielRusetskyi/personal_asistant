@@ -15,7 +15,7 @@
 
         <form action="{% url 'preferences:language_update' %}" method="post" class="d-flex gap-2 align-items-center">
           {% csrf_token %}
-          <input type="hidden" name="next" value="{{ next }}">
+          <input type="hidden" name="next" value="{{ request.get_full_path }}">
           <label for="id_language" class="form-label mb-0 me-2">{% trans "Language" %}</label>
           <select name="language" id="id_language" class="form-select">
             {% for lang in languages %}

@@ -333,6 +333,7 @@ to {
 @media (max-width: 768px) {
   .bg-notebook, .bg-default { aspect-ratio: 4 / 7; }
   .bg-default { background-image: url("/static/images/bg_mobile2.jpg"); }
+  .bg-notebook { background-image: url("/static/images/bg_mobile2.jpg"); }
 }
 
 /* десктопна пропорція */
