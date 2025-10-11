@@ -2,12 +2,13 @@
 {% load static i18n %}
 
 {% block content %}
-<div class="flex items-center justify-center min-h-full flex-col w-full mt-10">
+<div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-white/50 to-slate-50/25 backdrop-blur shadow-xl ring-1 ring-slate-900/10">
+  <div class="flex items-center justify-center min-h-full flex-col w-full mt-10 text-center">
 
   <section id="push">
-    <div class="card shadow-sm border-0">
-      <div class="card-body  text-center">
-        <div class="d-flex align-items-start justify-content-between flex-wrap gap-3 text-center">
+<!--    <div class="card shadow-sm border-0">-->
+<!--      <div class="card-body  text-center">-->
+<!--        <div class="d-flex align-items-start justify-content-between flex-wrap gap-3 text-center">-->
           <div>
             <h5 class="card-title mb-1">{% trans "Push-notifications" %}</h5>
             <p class="text-muted mb-0">
@@ -15,14 +16,16 @@
             </p>
           </div>
           <span id="push-status"
-                class="badge {% if has_push %}text-bg-success{% else %}text-bg-secondary{% endif %}">
-            {% if has_push %}{% trans 'enabled' %}{% else %}{% trans 'disabled' %}{% endif %}
+                class="badge {% if has_push %}text-bg-success{% else %}text-bg-secondary{% endif %}"
+                data-enabled-label="{% trans 'Enabled' %}"
+                data-disabled-label="{% trans 'Disabled' %}">
+            {% if has_push %}{% trans 'Enabled' %}{% else %}{% trans 'Disabled' %}{% endif %}
           </span>
-        </div>
+<!--        </div>-->
 
         <hr class="my-4">
 
-        <div class="d-flex flex-wrap align-items-center gap-2">
+        <div class="d-flex flex-wrap align-items-center gap-2 justify-content-center">
           <button class="btn btn-primary" id="enable-push-btn" {% if has_push %}hidden{% endif %}>
             {% trans 'Enable notifications' %}
           </button>
@@ -56,50 +59,51 @@
           </div>
         </div>
 
-      </div>
-    </div>
+<!--      </div>-->
+<!--    </div>-->
   </section>
 
   <a href="{% url 'preferences:settings' %}" class="button_weather inline-block mt-1 text-center">⬅ {% trans "Back" %}</a>
 </div>
+</div>
 
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  const enableBtn   = document.getElementById("enable-push-btn");
-  const disableBtn  = document.getElementById("disable-push-btn");
-  const statusEl    = document.getElementById("push-status");
-  const supportHint = document.getElementById("push-support-hint");
+<!--<script>-->
+<!--document.addEventListener("DOMContentLoaded", () => {-->
+<!--  const enableBtn   = document.getElementById("enable-push-btn");-->
+<!--  const disableBtn  = document.getElementById("disable-push-btn");-->
+<!--  const statusEl    = document.getElementById("push-status");-->
+<!--  const supportHint = document.getElementById("push-support-hint");-->
 
-  function setStatus(on) {
-    statusEl.textContent = on ? "увімкнено" : "вимкнено";
-    statusEl.className = "badge " + (on ? "text-bg-success" : "text-bg-secondary");
-    if (enableBtn) enableBtn.hidden = !!on;
-    if (disableBtn) disableBtn.hidden = !on;
-  }
+<!--  function setStatus(on) {-->
+<!--    statusEl.textContent = on ? {% trans "enabled" %} : {% trans "disabled" %};-->
+<!--    statusEl.className = "badge " + (on ? "text-bg-success" : "text-bg-secondary");-->
+<!--    if (enableBtn) enableBtn.hidden = !!on;-->
+<!--    if (disableBtn) disableBtn.hidden = !on;-->
+<!--  }-->
 
-  async function initPushOnce() {
-    if (!("serviceWorker" in navigator) || !("PushManager" in window)) {
-      supportHint.hidden = false;
-      if (enableBtn) enableBtn.disabled = true;
-      if (disableBtn) disableBtn.hidden = true;
-      return;
-    }
-    try {
-      let reg = await navigator.serviceWorker.getRegistration();
-      if (!reg) reg = await navigator.serviceWorker.register("/sw.js");
-      if (!reg.active) await navigator.serviceWorker.ready;
+<!--  async function initPushOnce() {-->
+<!--    if (!("serviceWorker" in navigator) || !("PushManager" in window)) {-->
+<!--      supportHint.hidden = false;-->
+<!--      if (enableBtn) enableBtn.disabled = true;-->
+<!--      if (disableBtn) disableBtn.hidden = true;-->
+<!--      return;-->
+<!--    }-->
+<!--    try {-->
+<!--      let reg = await navigator.serviceWorker.getRegistration();-->
+<!--      if (!reg) reg = await navigator.serviceWorker.register("/sw.js");-->
+<!--      if (!reg.active) await navigator.serviceWorker.ready;-->
 
-      const sub = await reg.pushManager.getSubscription();
-      setStatus(!!sub);
-    } catch (e) {
-      console.warn("SW init error:", e);
-    }
-  }
+<!--      const sub = await reg.pushManager.getSubscription();-->
+<!--      setStatus(!!sub);-->
+<!--    } catch (e) {-->
+<!--      console.warn("SW init error:", e);-->
+<!--    }-->
+<!--  }-->
 
-  // Окрема сторінка: ініціалізуємо одразу
-  initPushOnce();
-});
-</script>
+<!--  // Окрема сторінка: ініціалізуємо одразу-->
+<!--  initPushOnce();-->
+<!--});-->
+<!--</script>-->
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {

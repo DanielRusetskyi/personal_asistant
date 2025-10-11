@@ -13,25 +13,47 @@
 {% endif %}
 
 {% block content %}
-<div class="container mt-2">
-    <h1 class="text-center mb-4">
+<div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-white/50 to-slate-50/25 backdrop-blur shadow-xl ring-1 ring-slate-900/10 text-center animate-drop-bounce">
+    <h1 class="text-center mt-4">
       <span class="d-inline-block bg-light px-2 py-2 border rounded-4 shadow">
         {% trans "📅 Task calendar on" %} {{ current_date|date:"F Y" }}
       </span>
     </h1>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <a href="{% url 'noteapp:calendar' year=prev_year month=prev_month %}"
+           class="btn btn-calendar-hover">
+            {% trans "← Prev month" %}
+        </a>
 
+        <a href="{% url 'noteapp:calendar' year=next_year month=next_month %}"
+           class="btn btn-calendar-hover">
+           {% trans "Next month →" %}
+        </a>
+    </div>
+
+    <style>
+      .table-translucent th,
+      .table-translucent td {
+        background-color: rgba(255,255,255,0.85); /* 75% непрозорості */
+        /* опційно: легке “скло” */
+        backdrop-filter: blur(2px);
+      }
+      .table-translucent thead th {
+        background-color: rgba(248,249,250,0.85); /* ~table-light */
+      }
+    </style>
 
     <div class="table-responsive">
-        <table class="table table-bordered text-center align-middle shadow-sm">
+        <table class="table table-bordered text-center align-middle shadow-sm table-translucent">
             <thead class="table-light">
                 <tr>
-                    <th>Пн</th>
-                    <th>Вт</th>
-                    <th>Ср</th>
-                    <th>Чт</th>
-                    <th>Пт</th>
-                    <th class="text-primary">Сб</th>
-                    <th class="text-danger">Нд</th>
+                    <th>{% trans "Mon" %}</th>
+                    <th>{% trans "Tue" %}</th>
+                    <th>{% trans "Wed" %}</th>
+                    <th>{% trans "Thu" %}</th>
+                    <th>{% trans "Fri" %}</th>
+                    <th class="text-primary">{% trans "Sat" %}</th>
+                    <th class="text-danger">{% trans "Sun" %}</th>
                 </tr>
             </thead>
             <tbody>
@@ -58,16 +80,16 @@
             </tbody>
         </table>
     </div>
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <a href="{% url 'noteapp:calendar' year=prev_year month=prev_month %}"
-           class="btn btn-calendar-hover">
-            {% trans "← Prev month" %}
-        </a>
-        <a class="btn btn-secondary" href="{% url 'noteapp:notebook' %}">{% trans "↩ Back" %}</a>
-        <a href="{% url 'noteapp:calendar' year=next_year month=next_month %}"
-           class="btn btn-calendar-hover">
-           {% trans "Next month →" %}
-        </a>
-    </div>
+<!--    <div class="d-flex justify-content-between align-items-center mb-3">-->
+<!--        <a href="{% url 'noteapp:calendar' year=prev_year month=prev_month %}"-->
+<!--           class="btn btn-calendar-hover">-->
+<!--            {% trans "← Prev month" %}-->
+<!--        </a>-->
+        <a class="button_weather inline-block mt-1 text-center" href="{% url 'noteapp:notebook' %}">{% trans "↩ Back" %}</a>
+<!--        <a href="{% url 'noteapp:calendar' year=next_year month=next_month %}"-->
+<!--           class="btn btn-calendar-hover">-->
+<!--           {% trans "Next month →" %}-->
+<!--        </a>-->
+<!--    </div>-->
 </div>
 {% endblock %}

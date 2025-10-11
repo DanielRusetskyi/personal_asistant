@@ -124,16 +124,19 @@
   }
 
   function setStatus(on) {
-    const statusEl  = document.getElementById("push-status");
-    const enableBtn = document.getElementById("enable-push-btn");
-    const disableBtn= document.getElementById("disable-push-btn");
-    if (statusEl) {
-      statusEl.textContent = on ? "увімкнено" : "вимкнено";
-      statusEl.className = "badge " + (on ? "text-bg-success" : "text-bg-secondary");
-    }
-    if (enableBtn)  enableBtn.hidden  = !!on;
-    if (disableBtn) disableBtn.hidden = !on;
+  const statusEl  = document.getElementById("push-status");
+  const enableBtn = document.getElementById("enable-push-btn");
+  const disableBtn= document.getElementById("disable-push-btn");
+
+  if (statusEl) {
+    const enabledLabel  = statusEl.dataset.enabledLabel  || "Enabled";
+    const disabledLabel = statusEl.dataset.disabledLabel || "Disabled";
+    statusEl.textContent = on ? enabledLabel : disabledLabel;
+    statusEl.className = "badge " + (on ? "text-bg-success" : "text-bg-secondary");
   }
+  if (enableBtn)  enableBtn.hidden  = !!on;
+  if (disableBtn) disableBtn.hidden = !on;
+}
 
   // ---- flows ----
   async function enablePushFlow() {

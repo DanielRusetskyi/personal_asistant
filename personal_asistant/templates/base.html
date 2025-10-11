@@ -51,7 +51,19 @@
               <!-- Кнопка -->
               <button @click="open=!open"
                       class="bg-white border rounded-lg px-3 py-1 hover:bg-gray-50 flex items-center gap-2">
-                🌐
+                {% with lang=LANGUAGE_CODE|lower %}
+                  {% if lang|slice:":2" == "pl" %}
+                    <img src="{% static 'flags/pl.svg' %}" alt="" class="inline-block w-5 h-5 rounded" aria-hidden="true">
+                  {% elif lang|slice:":2" == "uk" %}
+                    <img src="{% static 'flags/ua.svg' %}" alt="" class="inline-block w-5 h-5 rounded" aria-hidden="true">
+                  {% elif lang|slice:":2" == "en" %}
+                    {# виберіть GB або US під вашу аудиторію #}
+                    <img src="{% static 'flags/us.svg' %}" alt="" class="inline-block w-5 h-5 rounded" aria-hidden="true">
+                  {% else %}
+                    <img src="{% static 'flags/globe.svg' %}" alt="" class="inline-block w-5 h-5" aria-hidden="true">
+                  {% endif %}
+                {% endwith %}
+
                 <span class="uppercase">{{ LANGUAGE_CODE }}</span>
                 <i class="bi" :class="open ? 'bi-chevron-up' : 'bi-chevron-down'"></i>
               </button>
@@ -68,7 +80,37 @@
                     <input type="hidden" name="language" value="{{ lang.code }}">
                     <button type="submit"
                             class="w-100 text-start px-2 py-1 rounded hover:bg-gray-100 flex items-center justify-between">
-                      <span>{{ lang.name_local }}</span>
+                      <span class="inline-flex items-center gap-2">
+                        {% if lang.code == "pl" %}
+                          <img
+                            src="{% static 'flags/pl.svg' %}"
+                            alt=""
+                            class="inline-block w-5 h-5 rounded"
+                            aria-hidden="true">
+                        {% elif lang.code == "uk" %}
+                          <img
+                            src="{% static 'flags/ua.svg' %}"
+                            alt=""
+                            class="inline-block w-5 h-5 rounded"
+                            aria-hidden="true">
+                        {% elif lang.code == "en" %}
+                          {# виберіть який саме прапор: GB або US #}
+                          <img
+                            src="{% static 'flags/us.svg' %}"
+                            alt=""
+                            class="inline-block w-5 h-5 rounded"
+                            aria-hidden="true">
+                        {% else %}
+                          {# запасний глобус, якщо немає нашого прапора #}
+                          <img
+                            src="{% static 'flags/globe.svg' %}"
+                            alt=""
+                            class="inline-block w-5 h-5"
+                            aria-hidden="true">
+                        {% endif %}
+
+                        <span class="whitespace-nowrap">{{ lang.name_local|capfirst }}</span>
+                      </span>
                       {% if lang.code == LANGUAGE_CODE %}
                         <i class="bi bi-check2 text-success"></i>
                       {% endif %}

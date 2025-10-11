@@ -2,10 +2,11 @@
 {% load i18n %}
 
 {% block content %}
-<div class="container py-5">
-  <div class="mx-auto text-center" style="max-width:520px;">
-    <div class="card shadow-sm border-0">
-      <div class="card-body">
+<div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-white/50 to-slate-50/25 backdrop-blur shadow-xl ring-1 ring-slate-900/10">
+<!--<div class="container py-5">-->
+  <div class="flex items-center justify-center min-h-full flex-col w-full mt-10 text-center">
+<!--    <div class="card shadow-sm border-0">-->
+<!--      <div class="card-body">-->
         <h4 class="mb-2">{% trans "Changing the interface language" %}</h4>
         <p class="text-muted">{% trans "Choose a language — it will be saved for your account and this browser." %}</p>
 
@@ -20,7 +21,7 @@
           <select name="language" id="id_language" class="form-select">
             {% for lang in languages %}
               <option value="{{ lang.code }}" {% if lang.code == LANGUAGE_CODE %}selected{% endif %}>
-                {{ lang.name_local }} ({{ lang.code }})
+                {{ lang.name_local|capfirst }} ({{ lang.code }})
               </option>
             {% endfor %}
           </select>
@@ -30,8 +31,8 @@
         <small class="text-muted d-block mt-3">
           {% trans "Current language:" %} <strong>{{ LANGUAGE_CODE }}</strong>
         </small>
-      </div>
-    </div>
+<!--      </div>-->
+<!--    </div>-->
 
     <a href="{% url 'preferences:settings' %}" class="button_weather inline-block mt-1 text-center">⬅ {% trans "Back" %}</a>
   </div>

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-09 22:32+0300\n"
+"POT-Creation-Date: 2025-10-11 18:07+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -90,8 +90,8 @@ msgstr "Зберегти"
 #: .\accounts\templates\accounts\profile.html:49
 #: .\additional\templates\weather.html:151 .\noteapp\templatetags\menu.py:127
 #: .\noteapp\templatetags\menu.py:241
-#: .\preferences\templates\preferences\language.html:36
-#: .\preferences\templates\preferences\update_push.html:63
+#: .\preferences\templates\preferences\language.html:37
+#: .\preferences\templates\preferences\update_push.html:66
 msgid "Back"
 msgstr "Повернутися"
 
@@ -387,6 +387,34 @@ msgstr "Без назви"
 msgid "📅 Task calendar on"
 msgstr "📅 Календар завдань на"
 
+#: .\noteapp\templates\noteapp\calendar.html:28
+msgid "Mon"
+msgstr "Пн"
+
+#: .\noteapp\templates\noteapp\calendar.html:29
+msgid "Tue"
+msgstr "Вт"
+
+#: .\noteapp\templates\noteapp\calendar.html:30
+msgid "Wed"
+msgstr "Ср"
+
+#: .\noteapp\templates\noteapp\calendar.html:31
+msgid "Thu"
+msgstr "Чт"
+
+#: .\noteapp\templates\noteapp\calendar.html:32
+msgid "Fri"
+msgstr "Пт"
+
+#: .\noteapp\templates\noteapp\calendar.html:33
+msgid "Sat"
+msgstr "Сб"
+
+#: .\noteapp\templates\noteapp\calendar.html:34
+msgid "Sun"
+msgstr "Нд"
+
 #: .\noteapp\templates\noteapp\calendar.html:64
 msgid "← Prev month"
 msgstr "← Попередній місяць"
@@ -518,39 +546,39 @@ msgid "Settings Menu"
 msgstr "Меню налаштувань"
 
 #: .\noteapp\templates\noteapp\settings_push.html:12
-#: .\preferences\templates\preferences\update_push.html:12
+#: .\preferences\templates\preferences\update_push.html:13
 msgid "Push-notifications"
 msgstr "Push-повідомлення"
 
 #: .\noteapp\templates\noteapp\settings_push.html:14
-#: .\preferences\templates\preferences\update_push.html:14
+#: .\preferences\templates\preferences\update_push.html:15
 msgid "Works over HTTPS or on"
 msgstr "Працює через HTTPS або на"
 
 #: .\noteapp\templates\noteapp\settings_push.html:14
-#: .\preferences\templates\preferences\update_push.html:14
+#: .\preferences\templates\preferences\update_push.html:15
 msgid "Permission is requested from the browser."
 msgstr "Дозвіл запитується у браузера"
 
 #: .\noteapp\templates\noteapp\settings_push.html:19
 #: .\noteapp\templates\noteapp\settings_push.html:74
-#: .\preferences\templates\preferences\update_push.html:19
+#: .\preferences\templates\preferences\update_push.html:78
 msgid "enabled"
 msgstr "увімкнено"
 
 #: .\noteapp\templates\noteapp\settings_push.html:19
 #: .\noteapp\templates\noteapp\settings_push.html:74
-#: .\preferences\templates\preferences\update_push.html:19
+#: .\preferences\templates\preferences\update_push.html:78
 msgid "disabled"
 msgstr "вимкнено"
 
 #: .\noteapp\templates\noteapp\settings_push.html:27
-#: .\preferences\templates\preferences\update_push.html:27
+#: .\preferences\templates\preferences\update_push.html:30
 msgid "Enable notifications"
 msgstr "Увімкнути сповіщення"
 
 #: .\noteapp\templates\noteapp\settings_push.html:31
-#: .\preferences\templates\preferences\update_push.html:31
+#: .\preferences\templates\preferences\update_push.html:34
 msgid "Disable notifications"
 msgstr "Вимкнути сповіщення"
 
@@ -559,7 +587,7 @@ msgid "Push notifications are not supported in this browser"
 msgstr "Push-повідомлення не підтримується у цьому браузері"
 
 #: .\noteapp\templates\noteapp\settings_push.html:44
-#: .\preferences\templates\preferences\update_push.html:44
+#: .\preferences\templates\preferences\update_push.html:47
 msgid "Push sound"
 msgstr "Push-звук"
 
@@ -651,7 +679,7 @@ msgid "Push"
 msgstr "Пуш"
 
 #: .\noteapp\templatetags\menu.py:213
-#: .\preferences\templates\preferences\language.html:19
+#: .\preferences\templates\preferences\language.html:20
 msgid "Language"
 msgstr "Мова"
 
@@ -667,37 +695,47 @@ msgstr "Конфіденційність"
 msgid "Account"
 msgstr "Аккаунт"
 
-#: .\preferences\templates\preferences\language.html:9
+#: .\preferences\templates\preferences\language.html:10
 msgid "Changing the interface language"
 msgstr "Зміна мови інтерфейсу"
 
-#: .\preferences\templates\preferences\language.html:10
+#: .\preferences\templates\preferences\language.html:11
 msgid "Choose a language — it will be saved for your account and this browser."
 msgstr ""
 "Виберіть мову — вона буде збережена для вашого облікового запису та цього "
 "браузера."
 
-#: .\preferences\templates\preferences\language.html:27
+#: .\preferences\templates\preferences\language.html:28
 msgid "Apply"
 msgstr "Застосувати "
 
-#: .\preferences\templates\preferences\language.html:31
+#: .\preferences\templates\preferences\language.html:32
 msgid "Current language:"
 msgstr "Поточна мова:"
 
-#: .\preferences\templates\preferences\update_push.html:35
+#: .\preferences\templates\preferences\update_push.html:20
+#: .\preferences\templates\preferences\update_push.html:22
+msgid "Enabled"
+msgstr "Увімкнено"
+
+#: .\preferences\templates\preferences\update_push.html:21
+#: .\preferences\templates\preferences\update_push.html:22
+msgid "Disabled"
+msgstr "Вимкнено"
+
+#: .\preferences\templates\preferences\update_push.html:38
 msgid "Your browser does not support Service Worker / Push API."
 msgstr ""
 
-#: .\preferences\templates\preferences\update_push.html:46
+#: .\preferences\templates\preferences\update_push.html:49
 msgid "Test sound"
 msgstr "Тест-звуку"
 
-#: .\preferences\templates\preferences\update_push.html:53
+#: .\preferences\templates\preferences\update_push.html:56
 msgid "Do not disturb"
 msgstr "Не турбувати (DND)"
 
-#: .\preferences\templates\preferences\update_push.html:53
+#: .\preferences\templates\preferences\update_push.html:56
 msgid "soon"
 msgstr "скоро"
 
@@ -705,7 +743,7 @@ msgstr "скоро"
 msgid "Personal Assistant"
 msgstr "Персональний асистент"
 
-#: .\templates\base.html:37 .\templates\base.html:140
+#: .\templates\base.html:37 .\templates\base.html:182
 msgid "Assistant"
 msgstr "Асистент"
 
@@ -713,7 +751,7 @@ msgstr "Асистент"
 msgid "Search…"
 msgstr "Шукати…"
 
-#: .\templates\base.html:144
+#: .\templates\base.html:186
 msgid "Assistant. All rights reserved."
 msgstr "Асистент. Всі права захищені."
 
@@ -764,10 +802,3 @@ msgstr "Ви збираєтеся увійти, використовуючи о�
 #: .\templates\socialaccount\login.html:67
 msgid "Continue login"
 msgstr "Продовжити вхід"
-
-
-#~ msgid "Enabled"
-#~ msgstr "Увімкнено"
-
-#~ msgid "Disabled"
-#~ msgstr "Вимкнено"

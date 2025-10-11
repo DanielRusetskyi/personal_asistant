@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Personal Assistant\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-09 22:32+0300\n"
+"POT-Creation-Date: 2025-10-11 18:08+0300\n"
 "PO-Revision-Date: 2025-10-05 00:20+0300\n"
 "Last-Translator: \n"
 "Language-Team: Polish\n"
@@ -48,9 +48,6 @@ msgstr "Użytkownik"
 msgid "Your phone"
 msgstr "Twój telefon"
 
-msgid "Weather"
-msgstr "Pogoda"
-
 #: .\accounts\forms.py:96
 msgid "Repeat password"
 msgstr "Powtórz hasło"
@@ -81,8 +78,8 @@ msgstr "Zapisz"
 #: .\accounts\templates\accounts\profile.html:49
 #: .\additional\templates\weather.html:151 .\noteapp\templatetags\menu.py:127
 #: .\noteapp\templatetags\menu.py:241
-#: .\preferences\templates\preferences\language.html:36
-#: .\preferences\templates\preferences\update_push.html:63
+#: .\preferences\templates\preferences\language.html:37
+#: .\preferences\templates\preferences\update_push.html:66
 msgid "Back"
 msgstr "Wstecz"
 
@@ -268,6 +265,9 @@ msgstr "Wybierz stacje..."
 msgid "Station"
 msgstr "Stacja"
 
+#: .\additional\templates\weather.html:119 .\noteapp\templatetags\menu.py:42
+msgid "Weather"
+msgstr "Pogoda"
 
 #: .\additional\templates\weather.html:137
 msgid "Enter city"
@@ -361,6 +361,34 @@ msgstr "Bez nazwy"
 #: .\noteapp\templates\noteapp\calendar.html:19
 msgid "📅 Task calendar on"
 msgstr "📅 Kalendarz zadań na"
+
+#: .\noteapp\templates\noteapp\calendar.html:28
+msgid "Mon"
+msgstr "Pn"
+
+#: .\noteapp\templates\noteapp\calendar.html:29
+msgid "Tue"
+msgstr "Wt"
+
+#: .\noteapp\templates\noteapp\calendar.html:30
+msgid "Wed"
+msgstr "Śr"
+
+#: .\noteapp\templates\noteapp\calendar.html:31
+msgid "Thu"
+msgstr "Cz"
+
+#: .\noteapp\templates\noteapp\calendar.html:32
+msgid "Fri"
+msgstr "Pt"
+
+#: .\noteapp\templates\noteapp\calendar.html:33
+msgid "Sat"
+msgstr "So"
+
+#: .\noteapp\templates\noteapp\calendar.html:34
+msgid "Sun"
+msgstr "Nd"
 
 #: .\noteapp\templates\noteapp\calendar.html:64
 msgid "← Prev month"
@@ -493,39 +521,39 @@ msgid "Settings Menu"
 msgstr "Menu ustawień"
 
 #: .\noteapp\templates\noteapp\settings_push.html:12
-#: .\preferences\templates\preferences\update_push.html:12
+#: .\preferences\templates\preferences\update_push.html:13
 msgid "Push-notifications"
 msgstr "Powiadomienia push"
 
 #: .\noteapp\templates\noteapp\settings_push.html:14
-#: .\preferences\templates\preferences\update_push.html:14
+#: .\preferences\templates\preferences\update_push.html:15
 msgid "Works over HTTPS or on"
 msgstr "Działa przez HTTPS lub na"
 
 #: .\noteapp\templates\noteapp\settings_push.html:14
-#: .\preferences\templates\preferences\update_push.html:14
+#: .\preferences\templates\preferences\update_push.html:15
 msgid "Permission is requested from the browser."
 msgstr "Uprawnienie jest wymagane przez przeglądarkę."
 
 #: .\noteapp\templates\noteapp\settings_push.html:19
 #: .\noteapp\templates\noteapp\settings_push.html:74
-#: .\preferences\templates\preferences\update_push.html:19
+#: .\preferences\templates\preferences\update_push.html:78
 msgid "enabled"
 msgstr "Włączone"
 
 #: .\noteapp\templates\noteapp\settings_push.html:19
 #: .\noteapp\templates\noteapp\settings_push.html:74
-#: .\preferences\templates\preferences\update_push.html:19
+#: .\preferences\templates\preferences\update_push.html:78
 msgid "disabled"
 msgstr "Wyłączone"
 
 #: .\noteapp\templates\noteapp\settings_push.html:27
-#: .\preferences\templates\preferences\update_push.html:27
+#: .\preferences\templates\preferences\update_push.html:30
 msgid "Enable notifications"
 msgstr "Włącz powiadomienia"
 
 #: .\noteapp\templates\noteapp\settings_push.html:31
-#: .\preferences\templates\preferences\update_push.html:31
+#: .\preferences\templates\preferences\update_push.html:34
 msgid "Disable notifications"
 msgstr "Wyłącz powiadomienia"
 
@@ -534,7 +562,7 @@ msgid "Push notifications are not supported in this browser"
 msgstr "Powiadomienia push nie są obsługiwane w tej przeglądarce"
 
 #: .\noteapp\templates\noteapp\settings_push.html:44
-#: .\preferences\templates\preferences\update_push.html:44
+#: .\preferences\templates\preferences\update_push.html:47
 msgid "Push sound"
 msgstr "Dźwięk powiadomień"
 
@@ -624,7 +652,7 @@ msgid "Push"
 msgstr "Push"
 
 #: .\noteapp\templatetags\menu.py:213
-#: .\preferences\templates\preferences\language.html:19
+#: .\preferences\templates\preferences\language.html:20
 msgid "Language"
 msgstr "Język"
 
@@ -640,36 +668,46 @@ msgstr "Prywatność"
 msgid "Account"
 msgstr "Konto"
 
-#: .\preferences\templates\preferences\language.html:9
+#: .\preferences\templates\preferences\language.html:10
 msgid "Changing the interface language"
 msgstr "Zmiana języka interfejsu"
 
-#: .\preferences\templates\preferences\language.html:10
+#: .\preferences\templates\preferences\language.html:11
 msgid "Choose a language — it will be saved for your account and this browser."
 msgstr ""
 "Wybierz język — zostanie zapisany dla Twojego konta i tej przeglądarki."
 
-#: .\preferences\templates\preferences\language.html:27
+#: .\preferences\templates\preferences\language.html:28
 msgid "Apply"
 msgstr "Zastosuj"
 
-#: .\preferences\templates\preferences\language.html:31
+#: .\preferences\templates\preferences\language.html:32
 msgid "Current language:"
 msgstr "Bieżący język:"
 
-#: .\preferences\templates\preferences\update_push.html:35
+#: .\preferences\templates\preferences\update_push.html:20
+#: .\preferences\templates\preferences\update_push.html:22
+msgid "Enabled"
+msgstr "Włączone"
+
+#: .\preferences\templates\preferences\update_push.html:21
+#: .\preferences\templates\preferences\update_push.html:22
+msgid "Disabled"
+msgstr "Wyłączone"
+
+#: .\preferences\templates\preferences\update_push.html:38
 msgid "Your browser does not support Service Worker / Push API."
 msgstr "Twoja przeglądarka nie obsługuje Service Worker/Push API."
 
-#: .\preferences\templates\preferences\update_push.html:46
+#: .\preferences\templates\preferences\update_push.html:49
 msgid "Test sound"
 msgstr "Testuj dźwięk"
 
-#: .\preferences\templates\preferences\update_push.html:53
+#: .\preferences\templates\preferences\update_push.html:56
 msgid "Do not disturb"
 msgstr "Nie przeszkadzać (DND)"
 
-#: .\preferences\templates\preferences\update_push.html:53
+#: .\preferences\templates\preferences\update_push.html:56
 msgid "soon"
 msgstr "wkrótce"
 
@@ -677,7 +715,7 @@ msgstr "wkrótce"
 msgid "Personal Assistant"
 msgstr "Asystent osobisty"
 
-#: .\templates\base.html:37 .\templates\base.html:140
+#: .\templates\base.html:37 .\templates\base.html:182
 msgid "Assistant"
 msgstr "Asystent"
 
@@ -685,7 +723,7 @@ msgstr "Asystent"
 msgid "Search…"
 msgstr "Szukaj…"
 
-#: .\templates\base.html:144
+#: .\templates\base.html:186
 msgid "Assistant. All rights reserved."
 msgstr "Asystent. Wszelkie prawa zastrzeżone."
 
@@ -736,9 +774,3 @@ msgstr "Zamierzasz zalogować się przy użyciu konta "
 #: .\templates\socialaccount\login.html:67
 msgid "Continue login"
 msgstr "Kontynuuj logowanie"
-
-#~ msgid "Enabled"
-#~ msgstr "Włączone"
-
-#~ msgid "Disabled"
-#~ msgstr "Wyłączone"
