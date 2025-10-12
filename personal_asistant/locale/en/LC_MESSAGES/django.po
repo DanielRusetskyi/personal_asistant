@@ -842,4 +842,3 @@ msgstr ""
 #: .\templates\socialaccount\login.html:67
 msgid "Continue login"
 msgstr ""
-

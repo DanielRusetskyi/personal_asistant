@@ -293,15 +293,15 @@ msgstr "Реєстрація"
 
 #: .\additional\templates\rates.html:17
 msgid "Currency rates (PrivatBank)"
-msgstr ""
+msgstr "Курси валют (PrivatBank)"
 
 #: .\additional\templates\rates.html:21
 msgid "Updated"
-msgstr ""
+msgstr "Оновлено"
 
 #: .\additional\templates\rates.html:34
 msgid "Date"
-msgstr ""
+msgstr "Дата"
 
 #: .\additional\templates\rates.html:38 .\noteapp\templatetags\menu.py:106
 msgid "Today"
@@ -309,57 +309,55 @@ msgstr "Сьогодні"
 
 #: .\additional\templates\rates.html:41
 msgid "Choose a date to see historical rates."
-msgstr ""
+msgstr "Виберіть дату для перегляду історії курсів валют."
 
 #: .\additional\templates\rates.html:46
 msgid "Currencies"
-msgstr ""
+msgstr "Курси валют"
 
 #: .\additional\templates\rates.html:53
 msgid "Select all"
-msgstr ""
+msgstr "Вибрати все"
 
 #: .\additional\templates\rates.html:56
 msgid "Clear"
-msgstr ""
+msgstr "Очистити"
 
 #: .\additional\templates\rates.html:60
 msgid "Click currencies to toggle selection."
-msgstr ""
+msgstr "Натисніть валюти, щоб перемкнути вибір."
 
 #: .\additional\templates\rates.html:66
 msgid "Reload"
-msgstr ""
+msgstr "Перезавантажити"
 
 #: .\additional\templates\rates.html:81
 msgid "Currency"
-msgstr ""
+msgstr "Валюта "
 
 #: .\additional\templates\rates.html:82
 msgid "Base"
-msgstr ""
+msgstr "База "
 
 #: .\additional\templates\rates.html:83
 msgid "Buy"
-msgstr ""
+msgstr "Купівля "
 
 #: .\additional\templates\rates.html:84
 msgid "Sell"
-msgstr ""
+msgstr "Продаж "
 
 #: .\additional\templates\rates.html:94
 msgid "Loading..."
-msgstr ""
+msgstr "Завантаження..."
 
 #: .\additional\templates\rates.html:97
 msgid "No data"
-msgstr ""
+msgstr "Немає даних"
 
 #: .\additional\templates\rates.html:236
-#, fuzzy
-#| msgid "Failed to update status"
 msgid "Failed to load rates"
-msgstr "Не вдалося оновити статус"
+msgstr "Не вдалося оновити історію курсів валют"
 
 #: .\additional\templates\weather.html:119 .\noteapp\templatetags\menu.py:42
 msgid "Weather"
@@ -872,4 +870,3 @@ msgstr "Ви збираєтеся увійти, використовуючи о�
 #: .\templates\socialaccount\login.html:67
 msgid "Continue login"
 msgstr "Продовжити вхід"
-

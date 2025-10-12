@@ -268,15 +268,15 @@ msgstr "Stacja"
 
 #: .\additional\templates\rates.html:17
 msgid "Currency rates (PrivatBank)"
-msgstr ""
+msgstr "Kursy walut (PrivatBank)"
 
 #: .\additional\templates\rates.html:21
 msgid "Updated"
-msgstr ""
+msgstr "Aktualizacja"
 
 #: .\additional\templates\rates.html:34
 msgid "Date"
-msgstr ""
+msgstr "Data"
 
 #: .\additional\templates\rates.html:38 .\noteapp\templatetags\menu.py:106
 msgid "Today"
@@ -284,57 +284,55 @@ msgstr "Dzisiaj"
 
 #: .\additional\templates\rates.html:41
 msgid "Choose a date to see historical rates."
-msgstr ""
+msgstr "Wybierz date, aby zobaczyc historieczne kursy walut."
 
 #: .\additional\templates\rates.html:46
 msgid "Currencies"
-msgstr ""
+msgstr "Waluty"
 
 #: .\additional\templates\rates.html:53
 msgid "Select all"
-msgstr ""
+msgstr "Zaznacz wszystkie"
 
 #: .\additional\templates\rates.html:56
 msgid "Clear"
-msgstr ""
+msgstr "Wyczysc"
 
 #: .\additional\templates\rates.html:60
 msgid "Click currencies to toggle selection."
-msgstr ""
+msgstr "Kliknij waluty, aby zmienić wybór."
 
 #: .\additional\templates\rates.html:66
 msgid "Reload"
-msgstr ""
+msgstr "Przeładuj"
 
 #: .\additional\templates\rates.html:81
 msgid "Currency"
-msgstr ""
+msgstr "Waluta"
 
 #: .\additional\templates\rates.html:82
 msgid "Base"
-msgstr ""
+msgstr "Podstawowa"
 
 #: .\additional\templates\rates.html:83
 msgid "Buy"
-msgstr ""
+msgstr "Kup"
 
 #: .\additional\templates\rates.html:84
 msgid "Sell"
-msgstr ""
+msgstr "Sprzedaj"
 
 #: .\additional\templates\rates.html:94
 msgid "Loading..."
-msgstr ""
+msgstr "Ładowanie..."
 
 #: .\additional\templates\rates.html:97
 msgid "No data"
-msgstr ""
+msgstr "Brak danych"
 
 #: .\additional\templates\rates.html:236
-#, fuzzy
-#| msgid "Failed to update status"
 msgid "Failed to load rates"
-msgstr "Nie udało się zaktualizować statusu"
+msgstr "Nie udało się zaktualizować kursów"
 
 #: .\additional\templates\weather.html:119 .\noteapp\templatetags\menu.py:42
 msgid "Weather"
@@ -844,4 +842,3 @@ msgstr "Zamierzasz zalogować się przy użyciu konta "
 #: .\templates\socialaccount\login.html:67
 msgid "Continue login"
 msgstr "Kontynuuj logowanie"
-

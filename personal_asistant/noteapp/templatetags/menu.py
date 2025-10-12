@@ -23,7 +23,7 @@ def main_menu(context):
         {
             "key": "phonebook",
             "label": _("Phonebook"),
-            "icon_img": "images/phonebook_icon_3.png",
+            "icon_img": "images/phonebook_icon_3.webp",
             "icon_emoji": "📞",
             "href": "#",
             "auth_only": True,
@@ -31,7 +31,7 @@ def main_menu(context):
         {
             "key": "settings",
             "label": _("Settings"),
-            "icon_img": "images/settings_icon.png",
+            "icon_img": "images/settings_icon.webp",
             "icon_emoji": "⚙️",
             "href": reverse("preferences:settings"),
             "auth_only": True,
@@ -40,7 +40,7 @@ def main_menu(context):
         {
             "key": "weather",
             "label": _("Weather"),
-            "icon_img": "images/weather_icon.png",
+            "icon_img": "images/weather_icon.webp",
             "icon_emoji": "🌦️",
             "href": reverse("additional:weather"),
             "auth_only": False,
@@ -56,7 +56,7 @@ def main_menu(context):
         {
             "key": "radio",
             "label": _("Radio"),
-            "icon_img": "images/radio_icon.png",
+            "icon_img": "images/radio_icon.webp",
             "icon_emoji": "📻",
             "href": reverse("additional:radio"),
             "auth_only": False,
@@ -118,7 +118,7 @@ def notebook_submenu(context):
         {
             "key": "reminders",
             "label": _("Reminders"),
-            "icon_img": "images/reminder_icon.png",
+            "icon_img": "images/reminder_icon.webp",
             "icon_emoji": "⏰",
             "href": "#",
         },
@@ -142,7 +142,7 @@ def header_menu(context):
         {
             "key": "search",
             "label": _("Search"),
-            "icon_img": "images/search_icon.png",
+            "icon_img": "images/search_icon.webp",
             "icon_emoji": "🔎",
             "type": "action",
             "action": "open_search",
@@ -154,7 +154,7 @@ def header_menu(context):
             {
                 "key": "profile",
                 "label": _("Profile"),
-                "icon_img": "images/profile_icon.png",
+                "icon_img": "images/profile_icon.webp",
                 "icon_emoji": "👤",
                 "type": "link",
                 "href": reverse("accounts:profile"),
@@ -181,7 +181,7 @@ def header_menu(context):
             {
                 "key": "registration",
                 "label": _("Sign up"),
-                "icon_img": "images/register_icon.png",
+                "icon_img": "images/register_icon.webp",
                 "icon_emoji": "📝",
                 "type": "link",
                 "href": reverse("accounts:registration"),
@@ -204,7 +204,7 @@ def settings_submenu(context):
         {
             "key": "push_update",
             "label": _("Push"),
-            "icon_img": "images/phonebook_icon_3.png",
+            "icon_img": "images/phonebook_icon_3.webp",
             "icon_emoji": "🔔",
             "href": reverse("preferences:push_update"),
         },
