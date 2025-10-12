@@ -239,7 +239,7 @@ def settings_submenu(context):
         {
             "key": "back",
             "label": _("Back"),
-            "icon_img": "images/back_icon2.png",
+            "icon_img": "images/back_icon3.png",
             "icon_emoji": " ⬅ ",
             "href": reverse("main"),
         },

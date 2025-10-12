@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-11 18:07+0300\n"
+"POT-Creation-Date: 2025-10-12 11:26+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -79,6 +79,7 @@ msgstr ""
 #: .\accounts\templates\accounts\change_password.html:39
 #: .\accounts\templates\accounts\edit_profile.html:84
 #: .\accounts\templates\accounts\profile.html:49
+#: .\additional\templates\rates.html:103
 #: .\additional\templates\weather.html:151 .\noteapp\templatetags\menu.py:127
 #: .\noteapp\templatetags\menu.py:241
 #: .\preferences\templates\preferences\language.html:37
@@ -266,6 +267,74 @@ msgstr ""
 msgid "Station"
 msgstr ""
 
+#: .\additional\templates\rates.html:17
+msgid "Currency rates (PrivatBank)"
+msgstr ""
+
+#: .\additional\templates\rates.html:21
+msgid "Updated"
+msgstr ""
+
+#: .\additional\templates\rates.html:34
+msgid "Date"
+msgstr ""
+
+#: .\additional\templates\rates.html:38 .\noteapp\templatetags\menu.py:106
+msgid "Today"
+msgstr ""
+
+#: .\additional\templates\rates.html:41
+msgid "Choose a date to see historical rates."
+msgstr ""
+
+#: .\additional\templates\rates.html:46
+msgid "Currencies"
+msgstr ""
+
+#: .\additional\templates\rates.html:53
+msgid "Select all"
+msgstr ""
+
+#: .\additional\templates\rates.html:56
+msgid "Clear"
+msgstr ""
+
+#: .\additional\templates\rates.html:60
+msgid "Click currencies to toggle selection."
+msgstr ""
+
+#: .\additional\templates\rates.html:66
+msgid "Reload"
+msgstr ""
+
+#: .\additional\templates\rates.html:81
+msgid "Currency"
+msgstr ""
+
+#: .\additional\templates\rates.html:82
+msgid "Base"
+msgstr ""
+
+#: .\additional\templates\rates.html:83
+msgid "Buy"
+msgstr ""
+
+#: .\additional\templates\rates.html:84
+msgid "Sell"
+msgstr ""
+
+#: .\additional\templates\rates.html:94
+msgid "Loading..."
+msgstr ""
+
+#: .\additional\templates\rates.html:97
+msgid "No data"
+msgstr ""
+
+#: .\additional\templates\rates.html:236
+msgid "Failed to load rates"
+msgstr ""
+
 #: .\additional\templates\weather.html:119 .\noteapp\templatetags\menu.py:42
 msgid "Weather"
 msgstr ""
@@ -363,45 +432,47 @@ msgstr ""
 msgid "📅 Task calendar on"
 msgstr ""
 
-#: .\noteapp\templates\noteapp\calendar.html:28
-msgid "Mon"
-msgstr ""
-
-#: .\noteapp\templates\noteapp\calendar.html:29
-msgid "Tue"
-msgstr ""
-
-#: .\noteapp\templates\noteapp\calendar.html:30
-msgid "Wed"
-msgstr ""
-
-#: .\noteapp\templates\noteapp\calendar.html:31
-msgid "Thu"
-msgstr ""
-
-#: .\noteapp\templates\noteapp\calendar.html:32
-msgid "Fri"
-msgstr ""
-
-#: .\noteapp\templates\noteapp\calendar.html:33
-msgid "Sat"
-msgstr ""
-
-#: .\noteapp\templates\noteapp\calendar.html:34
-msgid "Sun"
-msgstr ""
-
-#: .\noteapp\templates\noteapp\calendar.html:64
+#: .\noteapp\templates\noteapp\calendar.html:25
+#: .\noteapp\templates\noteapp\calendar.html:86
 msgid "← Prev month"
 msgstr ""
 
-#: .\noteapp\templates\noteapp\calendar.html:66
-#: .\noteapp\templates\noteapp\notebook_by_date.html:82
-msgid "↩ Back"
+#: .\noteapp\templates\noteapp\calendar.html:30
+#: .\noteapp\templates\noteapp\calendar.html:91
+msgid "Next month →"
 msgstr ""
 
-#: .\noteapp\templates\noteapp\calendar.html:69
-msgid "Next month →"
+#: .\noteapp\templates\noteapp\calendar.html:50
+msgid "Mon"
+msgstr ""
+
+#: .\noteapp\templates\noteapp\calendar.html:51
+msgid "Tue"
+msgstr ""
+
+#: .\noteapp\templates\noteapp\calendar.html:52
+msgid "Wed"
+msgstr ""
+
+#: .\noteapp\templates\noteapp\calendar.html:53
+msgid "Thu"
+msgstr ""
+
+#: .\noteapp\templates\noteapp\calendar.html:54
+msgid "Fri"
+msgstr ""
+
+#: .\noteapp\templates\noteapp\calendar.html:55
+msgid "Sat"
+msgstr ""
+
+#: .\noteapp\templates\noteapp\calendar.html:56
+msgid "Sun"
+msgstr ""
+
+#: .\noteapp\templates\noteapp\calendar.html:88
+#: .\noteapp\templates\noteapp\notebook_by_date.html:82
+msgid "↩ Back"
 msgstr ""
 
 #: .\noteapp\templates\noteapp\create_note.html:10
@@ -495,7 +566,8 @@ msgstr ""
 msgid "⬅ Cancel"
 msgstr ""
 
-#: .\noteapp\templates\noteapp\notebook.html:46
+#: .\noteapp\templates\noteapp\notebook.html:46 .\templates\main.html:33
+#: .\templates\main.html:47
 msgid "Menu"
 msgstr ""
 
@@ -624,10 +696,6 @@ msgstr ""
 msgid "Calendar"
 msgstr ""
 
-#: .\noteapp\templatetags\menu.py:106
-msgid "Today"
-msgstr ""
-
 #: .\noteapp\templatetags\menu.py:113
 msgid "Tasks"
 msgstr ""
@@ -715,7 +783,7 @@ msgstr ""
 msgid "Personal Assistant"
 msgstr ""
 
-#: .\templates\base.html:37 .\templates\base.html:182
+#: .\templates\base.html:37 .\templates\base.html:181
 msgid "Assistant"
 msgstr ""
 
@@ -723,7 +791,7 @@ msgstr ""
 msgid "Search…"
 msgstr ""
 
-#: .\templates\base.html:186
+#: .\templates\base.html:185
 msgid "Assistant. All rights reserved."
 msgstr ""
 
@@ -774,3 +842,4 @@ msgstr ""
 #: .\templates\socialaccount\login.html:67
 msgid "Continue login"
 msgstr ""
+

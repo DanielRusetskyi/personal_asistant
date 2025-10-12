@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-11 18:07+0300\n"
+"POT-Creation-Date: 2025-10-12 11:26+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -88,6 +88,7 @@ msgstr "Зберегти"
 #: .\accounts\templates\accounts\change_password.html:39
 #: .\accounts\templates\accounts\edit_profile.html:84
 #: .\accounts\templates\accounts\profile.html:49
+#: .\additional\templates\rates.html:103
 #: .\additional\templates\weather.html:151 .\noteapp\templatetags\menu.py:127
 #: .\noteapp\templatetags\menu.py:241
 #: .\preferences\templates\preferences\language.html:37
@@ -290,6 +291,76 @@ msgstr "Виберіть станцію... "
 msgid "Station"
 msgstr "Реєстрація"
 
+#: .\additional\templates\rates.html:17
+msgid "Currency rates (PrivatBank)"
+msgstr ""
+
+#: .\additional\templates\rates.html:21
+msgid "Updated"
+msgstr ""
+
+#: .\additional\templates\rates.html:34
+msgid "Date"
+msgstr ""
+
+#: .\additional\templates\rates.html:38 .\noteapp\templatetags\menu.py:106
+msgid "Today"
+msgstr "Сьогодні"
+
+#: .\additional\templates\rates.html:41
+msgid "Choose a date to see historical rates."
+msgstr ""
+
+#: .\additional\templates\rates.html:46
+msgid "Currencies"
+msgstr ""
+
+#: .\additional\templates\rates.html:53
+msgid "Select all"
+msgstr ""
+
+#: .\additional\templates\rates.html:56
+msgid "Clear"
+msgstr ""
+
+#: .\additional\templates\rates.html:60
+msgid "Click currencies to toggle selection."
+msgstr ""
+
+#: .\additional\templates\rates.html:66
+msgid "Reload"
+msgstr ""
+
+#: .\additional\templates\rates.html:81
+msgid "Currency"
+msgstr ""
+
+#: .\additional\templates\rates.html:82
+msgid "Base"
+msgstr ""
+
+#: .\additional\templates\rates.html:83
+msgid "Buy"
+msgstr ""
+
+#: .\additional\templates\rates.html:84
+msgid "Sell"
+msgstr ""
+
+#: .\additional\templates\rates.html:94
+msgid "Loading..."
+msgstr ""
+
+#: .\additional\templates\rates.html:97
+msgid "No data"
+msgstr ""
+
+#: .\additional\templates\rates.html:236
+#, fuzzy
+#| msgid "Failed to update status"
+msgid "Failed to load rates"
+msgstr "Не вдалося оновити статус"
+
 #: .\additional\templates\weather.html:119 .\noteapp\templatetags\menu.py:42
 msgid "Weather"
 msgstr "Погода"
@@ -387,46 +458,48 @@ msgstr "Без назви"
 msgid "📅 Task calendar on"
 msgstr "📅 Календар завдань на"
 
-#: .\noteapp\templates\noteapp\calendar.html:28
-msgid "Mon"
-msgstr "Пн"
-
-#: .\noteapp\templates\noteapp\calendar.html:29
-msgid "Tue"
-msgstr "Вт"
-
-#: .\noteapp\templates\noteapp\calendar.html:30
-msgid "Wed"
-msgstr "Ср"
-
-#: .\noteapp\templates\noteapp\calendar.html:31
-msgid "Thu"
-msgstr "Чт"
-
-#: .\noteapp\templates\noteapp\calendar.html:32
-msgid "Fri"
-msgstr "Пт"
-
-#: .\noteapp\templates\noteapp\calendar.html:33
-msgid "Sat"
-msgstr "Сб"
-
-#: .\noteapp\templates\noteapp\calendar.html:34
-msgid "Sun"
-msgstr "Нд"
-
-#: .\noteapp\templates\noteapp\calendar.html:64
+#: .\noteapp\templates\noteapp\calendar.html:25
+#: .\noteapp\templates\noteapp\calendar.html:86
 msgid "← Prev month"
 msgstr "← Попередній місяць"
 
-#: .\noteapp\templates\noteapp\calendar.html:66
+#: .\noteapp\templates\noteapp\calendar.html:30
+#: .\noteapp\templates\noteapp\calendar.html:91
+msgid "Next month →"
+msgstr "Наступний місяць →"
+
+#: .\noteapp\templates\noteapp\calendar.html:50
+msgid "Mon"
+msgstr "Пн"
+
+#: .\noteapp\templates\noteapp\calendar.html:51
+msgid "Tue"
+msgstr "Вт"
+
+#: .\noteapp\templates\noteapp\calendar.html:52
+msgid "Wed"
+msgstr "Ср"
+
+#: .\noteapp\templates\noteapp\calendar.html:53
+msgid "Thu"
+msgstr "Чт"
+
+#: .\noteapp\templates\noteapp\calendar.html:54
+msgid "Fri"
+msgstr "Пт"
+
+#: .\noteapp\templates\noteapp\calendar.html:55
+msgid "Sat"
+msgstr "Сб"
+
+#: .\noteapp\templates\noteapp\calendar.html:56
+msgid "Sun"
+msgstr "Нд"
+
+#: .\noteapp\templates\noteapp\calendar.html:88
 #: .\noteapp\templates\noteapp\notebook_by_date.html:82
 msgid "↩ Back"
 msgstr "↩ Повернутися"
-
-#: .\noteapp\templates\noteapp\calendar.html:69
-msgid "Next month →"
-msgstr "Наступний місяць →"
 
 #: .\noteapp\templates\noteapp\create_note.html:10
 msgid "📝 Create a new task"
@@ -519,7 +592,8 @@ msgstr "🗑️ так, видалити"
 msgid "⬅ Cancel"
 msgstr "⬅ Відмінити"
 
-#: .\noteapp\templates\noteapp\notebook.html:46
+#: .\noteapp\templates\noteapp\notebook.html:46 .\templates\main.html:33
+#: .\templates\main.html:47
 msgid "Menu"
 msgstr "Меню"
 
@@ -650,10 +724,6 @@ msgstr "Радіо"
 msgid "Calendar"
 msgstr "Календар"
 
-#: .\noteapp\templatetags\menu.py:106
-msgid "Today"
-msgstr "Сьогодні"
-
 #: .\noteapp\templatetags\menu.py:113
 msgid "Tasks"
 msgstr "Завдання"
@@ -743,7 +813,7 @@ msgstr "скоро"
 msgid "Personal Assistant"
 msgstr "Персональний асистент"
 
-#: .\templates\base.html:37 .\templates\base.html:182
+#: .\templates\base.html:37 .\templates\base.html:181
 msgid "Assistant"
 msgstr "Асистент"
 
@@ -751,7 +821,7 @@ msgstr "Асистент"
 msgid "Search…"
 msgstr "Шукати…"
 
-#: .\templates\base.html:186
+#: .\templates\base.html:185
 msgid "Assistant. All rights reserved."
 msgstr "Асистент. Всі права захищені."
 
@@ -802,3 +872,4 @@ msgstr "Ви збираєтеся увійти, використовуючи о�
 #: .\templates\socialaccount\login.html:67
 msgid "Continue login"
 msgstr "Продовжити вхід"
+

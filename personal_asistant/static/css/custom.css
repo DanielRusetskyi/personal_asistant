@@ -422,13 +422,16 @@ to {
 }
 
 /* Текст під іконкою */
+
+
 .radial-label {
   font-size: .75rem;
   line-height: 1;
-  color: #374151;
   position: absolute;
   top: calc(100% + 0.25rem);
   white-space: nowrap;
+  color: #e5e7eb;          /* light gray (Tailwind gray-200) */
+  text-shadow: 0 1px 2px rgba(0,0,0,.35); /* підвищує читабельність */
 }
 
 /* Сяйво */
