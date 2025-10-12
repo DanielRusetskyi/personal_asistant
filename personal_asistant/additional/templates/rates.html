@@ -1,0 +1,256 @@
+{% extends "base.html" %}
+{% load static i18n %}
+
+{% block content %}
+<div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-white/50 to-slate-50/25 backdrop-blur shadow-xl ring-1 ring-slate-900/10">
+
+
+    <div class="text-center mt-1 mb-1">
+      <div class="d-inline-flex align-items-center gap-2">
+        <img
+          src="{% static 'images/Privat-Bank-logo-vector-01.svg' %}"
+          alt="PrivatBank"
+          class="img-fluid"
+          style="height:50px;width:auto"
+          onerror="this.onerror=null;this.src='{% static 'images/privatbank_logo.png' %}';"
+        />
+        <h3 class="mb-0">{% trans "Currency rates (PrivatBank)" %}</h3>
+      </div>
+
+<!--      <div class="text-muted small mt-1">-->
+<!--        <span class="me-1">{% trans "Updated" %}:</span>-->
+<!--        <span id="rates-updated">—</span>-->
+<!--      </div>-->
+    </div>
+
+    <div class="card shadow-sm border-0">
+      <div class="card-body">
+
+        <!-- Фільтри -->
+        <div class="row gx-3 gy-3 align-items-start">  <!-- gy для вертикальних відступів, start щоб не тягнулося по висоті -->
+
+          <!-- Дата -->
+          <div class="col-12 col-lg-4">
+            <label for="rates-date" class="form-label mb-1">{% trans "Date" %}</label>
+            <div class="d-flex gap-2">
+              <input id="rates-date" type="date" class="form-control">
+              <button id="today-btn" class="btn btn-outline-secondary" type="button">
+                {% trans "Today" %}
+              </button>
+            </div>
+            <div class="form-text">{% trans "Choose a date to see historical rates." %}</div>
+          </div>
+
+          <!-- Валюти -->
+          <div class="col-12 col-lg-5">
+            <label class="form-label mb-1">{% trans "Currencies" %}</label>
+
+            <!-- сюди JS намалює піллі-валюти -->
+            <div id="symbols-box" class="d-flex flex-wrap gap-2"></div>
+
+            <div class="d-flex gap-2 mt-2">
+              <button id="ccy-all" class="btn btn-sm btn-outline-secondary" type="button">
+                {% trans "Select all" %}
+              </button>
+              <button id="ccy-clear" class="btn btn-sm btn-outline-secondary" type="button">
+                {% trans "Clear" %}
+              </button>
+            </div>
+
+            <div class="form-text">{% trans "Click currencies to toggle selection." %}</div>
+          </div>
+
+          <!-- Кнопка перезавантаження -->
+          <div class="col-12 col-lg-3 d-flex align-items-end">
+            <button id="reload-btn" class="btn btn-primary ms-auto w-100">
+              <i class="bi bi-arrow-clockwise"></i> {% trans "Reload" %}
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+
+      <!-- Таблиця -->
+    <div class="table-responsive">
+      <table class="table table-bordered align-middle text-center shadow-sm" id="rates-table" style="opacity:.96;">
+        <thead class="table-light">
+          <tr>
+            <th class="text-start">{% trans "Currency" %}</th>
+            <th>{% trans "Base" %}</th>
+            <th>{% trans "Buy" %}</th>
+            <th>{% trans "Sell" %}</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+      <!-- Стани -->
+      <div id="loading" class="text-center py-4">
+        <div class="spinner-border" role="status"></div>
+        <div class="mt-2 text-muted">{% trans "Loading..." %}</div>
+      </div>
+      <div id="error" class="alert alert-danger d-none"></div>
+      <div id="empty" class="alert alert-secondary d-none">{% trans "No data" %}</div>
+
+
+
+
+  <div class="text-center mt-3">
+    <a href="{% url 'main' %}" class="button_weather inline-block mt-1 text-center">⬅ {% trans "Back" %}</a>
+  </div>
+
+</div>
+
+<script>
+(function () {
+  const BASE_API_URL  = "{% url 'additional:pb_rates_api' %}";
+  const CURR_API_URL  = "{% url 'additional:pb_currencies_api' %}";
+
+  const $date      = document.getElementById("rates-date");
+  const $reload    = document.getElementById("reload-btn");
+  const $todayBtn  = document.getElementById("today-btn");
+  const $tableBody = document.querySelector("#rates-table tbody");
+  const $loading   = document.getElementById("loading");
+  const $error     = document.getElementById("error");
+  const $empty     = document.getElementById("empty");
+<!--  const $updated   = document.getElementById("rates-updated");-->
+
+  const $symbolsBox = document.getElementById("symbols-box");
+  const $btnAll     = document.getElementById("ccy-all");
+  const $btnClear   = document.getElementById("ccy-clear");
+
+  function todayISO() {
+    const d = new Date();
+    const m = String(d.getMonth()+1).padStart(2,"0");
+    const day = String(d.getDate()).padStart(2,"0");
+    return `${d.getFullYear()}-${m}-${day}`;
+  }
+  if (!$date.value) $date.value = todayISO();
+
+  function show(el){ el.classList.remove("d-none"); }
+  function hide(el){ el.classList.add("d-none"); }
+
+  // зчитуємо обрані валюти з активних піллів
+  function selectedSymbolsCSV() {
+    const vals = Array.from($symbolsBox.querySelectorAll('[data-code].active'))
+      .map(el => el.dataset.code);
+    return vals.join(",");
+  }
+
+  function buildQuery(base, params) {
+    const q = new URLSearchParams();
+    Object.entries(params).forEach(([k,v]) => { if (v) q.set(k, v); });
+    return q.toString() ? `${base}?${q.toString()}` : base;
+  }
+
+  // будуємо піллі валют
+  async function loadCurrencies() {
+    const dateParam = $date.value ? $date.value.replaceAll("-", "") : "";
+    const url = buildQuery(CURR_API_URL, { date: dateParam });
+    const r = await fetch(url, { cache: "no-store" });
+    if (!r.ok) throw new Error("Currencies HTTP " + r.status);
+    const codes = await r.json(); // масив кодів, напр. ["USD","EUR","PLN", ...]
+
+    // збережемо поточний вибір
+    const prev = new Set(
+      Array.from($symbolsBox.querySelectorAll('[data-code].active')).map(x => x.dataset.code)
+    );
+
+    $symbolsBox.innerHTML = "";
+
+    codes.forEach(code => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "btn btn-sm btn-outline-secondary";
+      btn.dataset.code = code;
+      btn.textContent = code;
+
+      // позначити активними попередньо вибрані
+      if (prev.has(code)) btn.classList.add("active");
+
+      $symbolsBox.appendChild(btn);
+    });
+
+    // якщо ще нічого не вибрано — увімкнемо популярні
+    if (!prev.size) {
+      ["USD","EUR","PLN"].forEach(code => {
+        const el = $symbolsBox.querySelector(`[data-code="${code}"]`);
+        if (el) el.classList.add("active");
+      });
+    }
+  }
+
+  // кліком по піллі — перемикаємо активність
+  $symbolsBox.addEventListener("click", (e) => {
+    const btn = e.target.closest("[data-code]");
+    if (!btn) return;
+    btn.classList.toggle("active");
+    loadRates(); // одразу підгружаємо таблицю під новий вибір
+  });
+
+  // «Обрати все» / «Очистити»
+  $btnAll.addEventListener("click", () => {
+    $symbolsBox.querySelectorAll("[data-code]").forEach(el => el.classList.add("active"));
+    loadRates();
+  });
+  $btnClear.addEventListener("click", () => {
+    $symbolsBox.querySelectorAll("[data-code]").forEach(el => el.classList.remove("active"));
+    loadRates();
+  });
+
+  function renderRows(rows) {
+    $tableBody.innerHTML = "";
+    rows.forEach(x => {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td class="text-start fw-semibold">${x.ccy || ""}</td>
+        <td>${x.base_ccy || ""}</td>
+        <td>${x.buy  != null ? Number(x.buy).toFixed(4)  : "—"}</td>
+        <td>${x.sale != null ? Number(x.sale).toFixed(4) : "—"}</td>
+      `;
+      $tableBody.appendChild(tr);
+    });
+    if (!rows.length) show($empty); else hide($empty);
+  }
+
+  async function loadRates() {
+    hide($error); hide($empty); show($loading);
+    try {
+      const dateParam = $date.value ? $date.value.replaceAll("-", "") : "";
+      const url = buildQuery(BASE_API_URL, {
+        date: dateParam,
+        curr: selectedSymbolsCSV(), // <-- тепер із піллів
+      });
+      const r = await fetch(url, { cache: "no-store" });
+      if (!r.ok) throw new Error("Rates HTTP " + r.status);
+      const data = await r.json();
+      renderRows(data);
+<!--      $updated.textContent = $date.value-->
+<!--        ? new Date($date.value).toLocaleDateString()-->
+<!--        : new Date().toLocaleDateString();-->
+    } catch (e) {
+      $error.textContent = "{{ _('Failed to load rates')|default:'Failed to load rates' }}: " + (e.message || e);
+      show($error);
+    } finally { hide($loading); }
+  }
+
+  // Події
+<!--  $reload.addEventListener("click", loadRates);-->
+  $todayBtn.addEventListener("click", () => { $date.value = todayISO(); loadRates(); });
+
+  // старт
+  document.addEventListener("DOMContentLoaded", async () => {
+    try { await loadCurrencies(); } catch (_) {}
+    loadRates();
+  });
+
+  // дата/кнопка перезавантаження
+  $date.addEventListener("change", async () => { await loadCurrencies(); loadRates(); });
+  $reload.addEventListener("click", loadRates);
+})();
+</script>
+{% endblock %}

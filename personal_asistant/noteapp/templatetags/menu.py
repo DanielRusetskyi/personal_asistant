@@ -50,7 +50,7 @@ def main_menu(context):
             "label": _("Rates"),
             "icon_img": "images/exchange_icon.png",
             "icon_emoji": "💱",
-            "href": "#",
+            "href": reverse("additional:rates_page"),
             "auth_only": False,
         },
         {

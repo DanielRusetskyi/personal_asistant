@@ -541,3 +541,30 @@ from { transform: rotate(0deg);}
 to { transform: rotate(360deg);}
 }
 
+/* гарантуємо нормальне перенесення і відступи в блоці валют */
+#symbols-box {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+  min-width: 0; /* щоб flex-контейнер міг стискатись і не їхав у сусідів */
+}
+
+/* якщо робиш “піллі” як <button>/<span> */
+.ccy-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: .25rem .5rem;
+  border: 1px solid rgba(0,0,0,.1);
+  border-radius: .5rem;
+  background: #f8f9fa;
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;   /* одна плашка не ламається на два рядки */
+}
+
+.ccy-pill.active {
+  background: #0d6efd;
+  color: #fff;
+  border-color: #0d6efd;
+}
+
