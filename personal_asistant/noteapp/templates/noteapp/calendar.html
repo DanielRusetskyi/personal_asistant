@@ -2,7 +2,7 @@
 {% load static i18n %}
 
 {% if messages %}
-  <div class="container mt-2">
+  <div class="container mt-4">
     {% for message in messages %}
       <div class="alert alert-warning alert-dismissible fade show" role="alert">
         {{ message }}
@@ -13,7 +13,7 @@
 {% endif %}
 
 {% block content %}
-<div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-white/50 to-slate-50/25 backdrop-blur shadow-xl ring-1 ring-slate-900/10 text-center animate-drop-bounce">
+<div class="relative overflow-hidden mt-4 rounded-2xl bg-gradient-to-br from-white/50 to-slate-50/25 backdrop-blur shadow-xl ring-1 ring-slate-900/10 text-center animate-drop-bounce">
     <h1 class="text-center mt-4">
       <span class="d-inline-block bg-light px-2 py-2 border rounded-4 shadow">
         {% trans "📅 Task calendar on" %} {{ current_date|date:"F Y" }}

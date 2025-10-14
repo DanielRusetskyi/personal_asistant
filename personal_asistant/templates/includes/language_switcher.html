@@ -1,0 +1,40 @@
+{% load static i18n %}
+
+<button
+  @click="open=!open" @keydown.escape.window="open=false"
+  class="bg-blue-600 border border-gray-200 text-white rounded-lg px-3 py-1 shadow hover:bg-blue-700 flex items-center gap-2"
+  aria-haspopup="menu" :aria-expanded="open.toString()"
+>
+  <img
+    src="{% static 'flags/' %}{% if LANGUAGE_CODE == 'uk' %}ua{% elif LANGUAGE_CODE == 'pl' %}pl{% elif LANGUAGE_CODE == 'en' %}us{% else %}globe{% endif %}.svg"
+    alt="{% trans 'Language' %}" width="18" height="18" class="rounded-sm"
+  />
+  <span class="uppercase">{{ LANGUAGE_CODE }}</span>
+  <i class="bi" :class="open ? 'bi-chevron-up' : 'bi-chevron-down'"></i>
+</button>
+
+<div x-cloak x-show="open" @click.outside="open=false"
+     class="absolute right-0 mt-2 w-26 bg-gray-300 border border-gray-400 rounded-lg shadow-lg p-2 z-50">
+  {% get_available_languages as LANGUAGES %}
+  {% get_language_info_list for LANGUAGES as languages %}
+  {% for lang in languages %}
+    <form action="{% url 'preferences:language_update' %}" method="post" class="mb-1 last:mb-0">
+      {% csrf_token %}
+      <input type="hidden" name="next" value="{{ request.get_full_path }}">
+      <input type="hidden" name="language" value="{{ lang.code }}">
+      <button type="submit"
+              class="w-full text-left px-2 py-1 rounded hover:bg-gray-200 flex items-center justify-between gap-2">
+        <span class="inline-flex items-center gap-2">
+          <img
+            src="{% static 'flags/' %}{% if lang.code == 'uk' %}ua{% elif lang.code == 'pl' %}pl{% elif lang.code == 'en' %}us{% else %}globe{% endif %}.svg"
+            alt="{{ lang.name_local }}" width="18" height="18" class="rounded-sm"
+          />
+          <span>{{ lang.code|capfirst }}</span>
+        </span>
+        {% if lang.code == LANGUAGE_CODE %}
+          <i class="bi bi-check2 text-success"></i>
+        {% endif %}
+      </button>
+    </form>
+  {% endfor %}
+</div>

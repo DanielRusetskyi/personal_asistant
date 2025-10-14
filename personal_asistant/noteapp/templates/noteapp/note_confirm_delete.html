@@ -9,7 +9,7 @@
       <p class="card-text my-3">
         {% trans 'Are you sure you want to' %} <strong>{% trans 'delete task' %}</strong>:
         <br>
-        <em>"{{ object.description|default:'({% trans 'no description' %})' }}"</em>?
+        <em>"{{ object.description|default:'no description' }}"</em>?
       </p>
 
       <form method="post">
