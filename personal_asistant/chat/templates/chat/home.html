@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block content %}
+<div class="container py-4">
+  <h3 class="mb-3">{% trans "Chat" %}</h3>
+  <div class="row g-3">
+    <div class="col-md-4">
+      <a href="{% url 'chat:lobby_list' %}" class="card text-center text-decoration-none shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Lobby</h5>
+          <p class="text-muted mb-0">{% trans "Public rooms for everyone" %}</p>
+        </div>
+      </a>
+    </div>
+    <div class="col-md-4">
+      <a href="{% url 'chat:dm_list' %}" class="card text-center text-decoration-none shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">1:1</h5>
+          <p class="text-muted mb-0">{% trans "Direct messages" %}</p>
+        </div>
+      </a>
+    </div>
+    <div class="col-md-4">
+      <a href="{% url 'chat:group_list' %}" class="card text-center text-decoration-none shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">{% trans "Groups" %}</h5>
+          <p class="text-muted mb-0">{% trans "Private or public groups" %}</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}

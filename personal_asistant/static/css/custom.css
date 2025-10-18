@@ -361,7 +361,7 @@ to {
 /* Контейнер кільця */
 .radial-ring {
   --count: 5;
-  --radius: clamp(10rem, 28vmin, 20rem); /* трохи збільшений радіус */
+  --radius: clamp(12rem, 34vmin, 24rem); /* трохи збільшений радіус */
   position: absolute;
   inset: 0;
   pointer-events: none;

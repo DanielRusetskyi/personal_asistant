@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block content %}
+<div class="container py-3">
+  <h4 class="mb-3">{{ thread.title|default:_("Conversation") }}</h4>
+  <form method="post" action="{% url 'chat:leave' thread.id %}" class="d-inline">
+  {% csrf_token %}
+  <button class="btn btn-outline-secondary btn-sm">{% trans "Leave chat" %}</button>
+</form>
+
+{% if request.user.is_staff %}
+<form method="post" action="{% url 'chat:archive' thread.id %}" class="d-inline ms-2">
+  {% csrf_token %}
+  <button class="btn btn-outline-warning btn-sm">{% trans "Archive chat" %}</button>
+</form>
+
+<form method="post" action="{% url 'chat:delete' thread.id %}" class="d-inline ms-2"
+      onsubmit="return confirm('{% trans 'Delete chat for everyone?' %}')">
+  {% csrf_token %}
+  <button class="btn btn-outline-danger btn-sm">{% trans "Delete chat" %}</button>
+</form>
+{% endif %}
+
+
+  <div id="chat-box" class="border rounded p-3 mb-3" style="height: 55vh; overflow:auto; background:#fff;">
+    {% for m in messages %}
+      <div class="mb-2">
+        <strong>{{ m.user.username }}</strong>
+        <small class="text-muted">{{ m.created|date:"Y-m-d H:i" }}</small><br>
+        <span>{{ m.content }}</span>
+      </div>
+    {% endfor %}
+  </div>
+
+  <form id="chat-form" class="d-flex gap-2">
+    <input id="chat-input" class="form-control" placeholder="{% trans 'Write a message…' %}">
+    <button class="btn btn-primary" type="submit">{% trans "Send" %}</button>
+  </form>
+</div>
+
+<script>
+(function(){
+  const box   = document.getElementById("chat-box");
+  const form  = document.getElementById("chat-form");
+  const input = document.getElementById("chat-input");
+
+  function scrollBottom(){ box.scrollTop = box.scrollHeight; }
+  scrollBottom();
+
+  const scheme = location.protocol === "https:" ? "wss" : "ws";
+  const ws = new WebSocket(`${scheme}://${location.host}/ws/chat/{{ thread.id }}/`);
+
+  ws.addEventListener("message", (e) => {
+    try {
+      const d = JSON.parse(e.data);
+      const row = document.createElement("div");
+      row.className = "mb-2";
+      row.innerHTML = `<strong>${d.user_name}</strong>
+        <small class="text-muted">${new Date(d.created).toLocaleString()}</small><br/>
+        <span></span>`;
+      row.querySelector("span").textContent = d.content;
+      box.appendChild(row);
+      scrollBottom();
+    } catch(_) {}
+  });
+
+  form.addEventListener("submit", (ev) => {
+  ev.preventDefault();
+  const content = (input.value || "").trim();   // <-- content
+  if (!content) return;
+  ws.send(JSON.stringify({ content }));         // <-- content
+  input.value = "";
+});
+
+  window.addEventListener("beforeunload", ()=> ws.close());
+})();
+</script>
+{% endblock %}

@@ -179,6 +179,7 @@ INSTALLED_APPS = [
     'accounts.apps.AccountConfig',
     'additional',
     'preferences',
+    'chat',
 
 ]
 

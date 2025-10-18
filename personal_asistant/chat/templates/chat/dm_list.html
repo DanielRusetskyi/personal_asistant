@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block content %}
+<div class="container py-3">
+  <h3 class="mb-3">{% trans "Direct messages" %}</h3>
+
+  <form class="row g-2 mb-3" method="get">
+    <div class="col-auto">
+      <input type="search" class="form-control" name="q" value="{{ q }}" placeholder="{% trans 'Search users' %}">
+    </div>
+    <div class="col-auto">
+      <button class="btn btn-primary">{% trans "Find" %}</button>
+    </div>
+  </form>
+
+  <ul class="list-group">
+    {% for u in users %}
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <div>
+          <strong>{{ u.username }}</strong>
+          {% if u.first_name or u.last_name %}<span class="text-muted"> — {{ u.first_name }} {{ u.last_name }}</span>{% endif %}
+        </div>
+        <a class="btn btn-sm btn-outline-primary" href="{% url 'chat:dm_start' u.id %}">
+          {% trans "Message" %}
+        </a>
+      </li>
+    {% empty %}
+      <li class="list-group-item text-muted">{% trans "No users found" %}</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}

@@ -1,6 +1,6 @@
 // static/noteapp/js/push.js
 (function () {
-  const DEBUG = true; // => false у проді
+  const DEBUG = false; // => false у проді
   const ENDPOINTS = window.PUSH_ENDPOINTS || {};
   const LS_DISABLED = "push_disabled"; // "1" означає локально вимкнено
 

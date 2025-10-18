@@ -55,6 +55,7 @@ urlpatterns += i18n_patterns(
     path('accounts/', include('allauth.urls')),
     path('additional/', include('additional.urls')),
     path("settings/", include("preferences.urls", namespace="preferences")),
+    path("chat/", include("chat.urls", namespace="chat")),
     prefix_default_language=False,
 )
 
