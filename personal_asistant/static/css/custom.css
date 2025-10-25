@@ -361,7 +361,9 @@ to {
 /* Контейнер кільця */
 .radial-ring {
   --count: 5;
-  --radius: clamp(12rem, 34vmin, 24rem); /* трохи збільшений радіус */
+  --radius: clamp(10rem, 28vmin, 20rem); /* трохи збільшений радіус */
+  --step: 45deg;           /* кут між сусідніми пунктами */
+  --max-arc: 330deg;
   position: absolute;
   inset: 0;
   pointer-events: none;
@@ -386,7 +388,8 @@ to {
 /* Відкритий стан */
 .radial-ring.open li[data-item] {
   --start-angle: 270deg; /* Початок дуги (тут вгору) */
-  --arc: 270deg;         /* Довжина дуги (півколо) */
+  /*--arc: 270deg;         /* Довжина дуги (півколо) */
+  --arc: clamp(0deg, calc((var(--count) - 1) * var(--step)), var(--max-arc));
 
   opacity: 1;
   pointer-events: auto;
@@ -403,8 +406,8 @@ to {
   align-items: center;
   justify-content: center;
   opacity: 0.95;
-  width: 5rem;
-  height: 5rem;
+  width: 4rem;
+  height: 4rem;
   border-radius: 9999px;
   background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(6px);
@@ -417,7 +420,7 @@ to {
 }
 
 .radial-item:hover {
-  transform: scale(1.06);
+  transform: scale(1.2);
   box-shadow: 0 12px 26px rgba(0,0,0,.16);
 }
 
@@ -433,6 +436,7 @@ to {
   color: #e5e7eb;          /* light gray (Tailwind gray-200) */
   text-shadow: 0 1px 2px rgba(0,0,0,.35); /* підвищує читабельність */
 }
+
 
 /* Сяйво */
 @keyframes pulse-glow {
@@ -465,6 +469,7 @@ to {
 .animate-scale-pulse {
   animation: scale-pulse 1.5s infinite ease-in-out;
 }
+
 
 .button_weather {
         padding: 10px 15px;
@@ -570,4 +575,42 @@ to { transform: rotate(360deg);}
   color: #fff;
   border-color: #0d6efd;
 }
+
+
+/* Сяйливий пульсуючий заголовок */
+.glow-title {
+  color: #e6f6ff;
+  display: inline-block;            /* щоб тіні рахувались компактно */
+  font-weight: 500;
+  letter-spacing: .3px;
+  text-shadow:
+    0 0 6px rgba(0, 191, 255, .55),
+    0 0 14px rgba(0, 191, 255, .35),
+    0 2px 4px rgba(0, 0, 0, .25);
+  animation: glow-pulse 2.2s ease-in-out infinite;
+}
+
+/* Анімація сяйва */
+@keyframes glow-pulse {
+  0%, 100% {
+    text-shadow:
+      0 0 6px rgba(0, 191, 255, .55),
+      0 0 14px rgba(0, 191, 255, .35),
+      0 2px 4px rgba(0, 0, 0, .25);
+    transform: translateZ(0) scale(1);
+  }
+  50% {
+    text-shadow:
+      0 0 10px rgba(0, 191, 255, .85),
+      0 0 24px rgba(0, 191, 255, .55),
+      0 4px 8px rgba(0, 0, 0, .25);
+    transform: translateZ(0) scale(1.1);
+  }
+}
+
+/* Повага до користувачів з reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .glow-title { animation: none; }
+}
+
 

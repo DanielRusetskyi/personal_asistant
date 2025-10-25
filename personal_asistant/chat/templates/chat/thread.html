@@ -1,26 +1,30 @@
 {% extends "base.html" %}
 {% load i18n %}
 {% block content %}
+<div class="relative overflow-hidden mt-4 rounded-2xl bg-gradient-to-br from-white/50 to-slate-50/25 backdrop-blur shadow-xl ring-1 ring-slate-900/10 mx-auto w-75">
 <div class="container py-3">
-  <h4 class="mb-3">{{ thread.title|default:_("Conversation") }}</h4>
-  <form method="post" action="{% url 'chat:leave' thread.id %}" class="d-inline">
-  {% csrf_token %}
-  <button class="btn btn-outline-secondary btn-sm">{% trans "Leave chat" %}</button>
-</form>
+  <div class="position-relative mb-3" style="min-height:2.5rem;">
+  <!-- ЦЕНТР -->
+  <h4 class="position-absolute top-50 start-50 translate-middle m-0 text-center w-100">
+    {{ thread.title|default:_("Conversation") }}
+  </h4>
 
-{% if request.user.is_staff %}
-<form method="post" action="{% url 'chat:archive' thread.id %}" class="d-inline ms-2">
-  {% csrf_token %}
-  <button class="btn btn-outline-warning btn-sm">{% trans "Archive chat" %}</button>
-</form>
-
-<form method="post" action="{% url 'chat:delete' thread.id %}" class="d-inline ms-2"
-      onsubmit="return confirm('{% trans 'Delete chat for everyone?' %}')">
-  {% csrf_token %}
-  <button class="btn btn-outline-danger btn-sm">{% trans "Delete chat" %}</button>
-</form>
-{% endif %}
-
+  <!-- ПРАВОРУЧ (кнопки) -->
+  <div class="position-absolute top-50 end-0 translate-middle-y d-flex gap-2">
+    {% if thread.type == "group" and thread.owner_id == request.user.id %}
+      <a class="bg-blue-600 text-white px-3 py-1 rounded-lg hover:bg-blue-700" href="{% url 'chat:group_manage' thread.id %}">
+        {% trans "Manage" %}
+      </a>
+    {% elif thread.type == "group" and thread.owner_id != request.user.id %}
+      <form method="post" action="{% url 'chat:group_leave' thread.id %}" class="m-0">
+        {% csrf_token %}
+        <button class="btn btn-sm btn-outline-danger" type="submit">
+          {% trans "Leave" %}
+        </button>
+      </form>
+    {% endif %}
+  </div>
+</div>
 
   <div id="chat-box" class="border rounded p-3 mb-3" style="height: 55vh; overflow:auto; background:#fff;">
     {% for m in messages %}
@@ -36,6 +40,13 @@
     <input id="chat-input" class="form-control" placeholder="{% trans 'Write a message…' %}">
     <button class="btn btn-primary" type="submit">{% trans "Send" %}</button>
   </form>
+
+</div>
+    <div class="text-center mt-2">
+      <a href="{% url 'chat:home' %}" class="button_weather d-inline-block">
+        ⬅ {% trans 'Back' %}
+      </a>
+    </div>
 </div>
 
 <script>

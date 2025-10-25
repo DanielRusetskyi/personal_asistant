@@ -1,10 +1,12 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import Http404
+from django.http import Http404, HttpResponseForbidden
 from django.contrib.auth import get_user_model
 from django.utils import timezone
+from django.db import transaction
 from django.views.decorators.http import require_POST
 
+from .forms import GroupCreateForm, GroupMembersForm
 from .models import Thread, ThreadMember, Message
 from .services import get_or_create_lobby, get_or_create_dm, create_group
 from django.db.models import Count, Q
@@ -42,14 +44,6 @@ def lobby_room(request, slug):
     return render(request, "chat/thread.html", {"thread": thread, "messages": messages})
 
 
-# --- Direct (1:1) ---
-# @login_required
-# def dm_list(request):
-#     threads = (Thread.objects
-#                .filter(type=Thread.TYPE_DM, members__user=request.user)
-#                .distinct())
-#     return render(request, "chat/dm_list.html", {"threads": threads})
-
 @login_required
 def dm_list(request):
     q = (request.GET.get("q") or "").strip()
@@ -58,7 +52,6 @@ def dm_list(request):
         users = users.filter(Q(username__icontains=q) | Q(first_name__icontains=q) | Q(last_name__icontains=q) | Q(email__icontains=q))
     users = users.order_by("username")[:100]  # просте обмеження
     return render(request, "chat/dm_list.html", {"users": users, "q": q})
-
 
 
 @login_required
@@ -103,13 +96,98 @@ def group_list(request):
 
 
 @login_required
+@transaction.atomic
 def group_create(request):
     if request.method == "POST":
-        title = (request.POST.get("title") or "").strip() or "New group"
-        is_public = bool(request.POST.get("is_public"))
-        t = create_group(request.user, title, is_public)
-        return redirect("chat:group_thread", thread_id=t.id)
-    return render(request, "chat/group_create.html")
+        f1 = GroupCreateForm(request.POST)
+        f2 = GroupMembersForm(request.POST, user=request.user)
+        if f1.is_valid() and f2.is_valid():
+            t = Thread.objects.create(
+                type=Thread.TYPE_GROUP,
+                title=f1.cleaned_data["title"].strip(),
+                owner=request.user,
+                is_public=False,
+            )
+            # обов'язково додати власника
+            ThreadMember.objects.create(thread=t, user=request.user)
+            # додати обраних
+            sel = list(f2.cleaned_data["members"])
+            ThreadMember.objects.bulk_create(
+                [ThreadMember(thread=t, user=u) for u in sel],
+                ignore_conflicts=True
+            )
+            return redirect("chat:group_thread", thread_id=t.id)
+    else:
+        f1 = GroupCreateForm()
+        f2 = GroupMembersForm(user=request.user)
+
+    return render(request, "chat/group_create.html", {"form": f1, "form_members": f2})
+
+
+@login_required
+@transaction.atomic
+def group_manage(request, group_id):
+    """Керування складом (доступ тільки власнику)."""
+    thread = get_object_or_404(Thread, pk=group_id, type=Thread.TYPE_GROUP, archived_at__isnull=True)
+    if thread.owner_id != request.user.id:
+        return HttpResponseForbidden("Only owner can manage members")
+
+    # поточні учасники (крім власника)
+    current_ids = set(thread.members.exclude(user=thread.owner).values_list("user_id", flat=True))
+
+    if request.method == "POST":
+        form = GroupMembersForm(request.POST, user=request.user)
+        if form.is_valid():
+            new_ids = set(form.cleaned_data["members"].values_list("id", flat=True))
+            # додати
+            to_add = new_ids - current_ids
+            ThreadMember.objects.bulk_create(
+                [ThreadMember(thread=thread, user_id=uid) for uid in to_add],
+                ignore_conflicts=True
+            )
+            # прибрати
+            to_del = current_ids - new_ids
+            if to_del:
+                ThreadMember.objects.filter(thread=thread, user_id__in=to_del).delete()
+            return redirect("chat:group_thread", thread_id=thread.id)
+    else:
+        # initial
+        form = GroupMembersForm(
+            user=request.user,
+            initial={"members": list(current_ids)}
+        )
+
+    members_qs = thread.members.select_related("user")
+    return render(request, "chat/group_manage.html", {
+        "thread": thread,
+        "form": form,
+        "members": members_qs,
+    })
+
+
+@login_required
+@transaction.atomic
+def group_leave(request, group_id):
+    thread = get_object_or_404(Thread, pk=group_id, type=Thread.TYPE_GROUP, archived_at__isnull=True)
+    # власник не може просто "вийти", хай спершу передасть права або видалить
+    if thread.owner_id == request.user.id:
+        return HttpResponseForbidden("Owner cannot leave. Transfer ownership or delete the group.")
+    ThreadMember.objects.filter(thread=thread, user=request.user).delete()
+    return redirect("chat:home")
+
+
+@login_required
+@transaction.atomic
+def group_delete(request, group_id):
+    """Видалення (архівація) групи. Лише власник."""
+    thread = get_object_or_404(Thread, pk=group_id, type=Thread.TYPE_GROUP, archived_at__isnull=True)
+    if thread.owner_id != request.user.id:
+        return HttpResponseForbidden("Only owner can delete the group")
+    thread.archived_at = timezone.now()
+    thread.archived_by = request.user
+    thread.is_archived = True
+    thread.save(update_fields=["archived_at", "archived_by", "is_archived"])
+    return redirect("chat:home")
 
 
 @login_required

@@ -1,14 +1,15 @@
 {% extends "base.html" %}
 {% load i18n %}
 {% block content %}
-<div class="container py-4">
-  <h3 class="mb-3">{% trans "Chat" %}</h3>
+<div class="relative overflow-hidden mt-4 rounded-2xl bg-gradient-to-br from-white/50 to-slate-50/25 backdrop-blur shadow-xl ring-1 ring-slate-900/10">
+<div class="container py-4 text-center">
+  <h1 class="mb-3 glow-title">{% trans "Chat" %}</h1>
   <div class="row g-3">
     <div class="col-md-4">
       <a href="{% url 'chat:lobby_list' %}" class="card text-center text-decoration-none shadow-sm">
         <div class="card-body">
-          <h5 class="card-title">Lobby</h5>
-          <p class="text-muted mb-0">{% trans "Public rooms for everyone" %}</p>
+          <h5 class="card-title">{% trans "Lobby" %}</h5>
+          <p class="text-muted mb-0">{% trans "Public room for everyone" %}</p>
         </div>
       </a>
     </div>
@@ -24,10 +25,11 @@
       <a href="{% url 'chat:group_list' %}" class="card text-center text-decoration-none shadow-sm">
         <div class="card-body">
           <h5 class="card-title">{% trans "Groups" %}</h5>
-          <p class="text-muted mb-0">{% trans "Private or public groups" %}</p>
+          <p class="text-muted mb-0">{% trans "Group chat" %}</p>
         </div>
       </a>
     </div>
   </div>
+</div>
 </div>
 {% endblock %}

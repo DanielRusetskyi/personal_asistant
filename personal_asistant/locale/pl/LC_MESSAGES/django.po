@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Personal Assistant\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-12 11:26+0300\n"
+"POT-Creation-Date: 2025-10-25 20:19+0300\n"
 "PO-Revision-Date: 2025-10-05 00:20+0300\n"
 "Last-Translator: \n"
 "Language-Team: Polish\n"
@@ -70,6 +70,7 @@ msgstr "Potwierdź nowe hasło"
 
 #: .\accounts\templates\accounts\change_password.html:36
 #: .\accounts\templates\accounts\edit_profile.html:81
+#: .\chat\templates\chat\group_manage.html:42
 msgid "Save"
 msgstr "Zapisz"
 
@@ -77,8 +78,12 @@ msgstr "Zapisz"
 #: .\accounts\templates\accounts\edit_profile.html:84
 #: .\accounts\templates\accounts\profile.html:49
 #: .\additional\templates\rates.html:103
-#: .\additional\templates\weather.html:151 .\noteapp\templatetags\menu.py:127
-#: .\noteapp\templatetags\menu.py:241
+#: .\additional\templates\weather.html:151
+#: .\chat\templates\chat\dm_list.html:40
+#: .\chat\templates\chat\group_list.html:24
+#: .\chat\templates\chat\lobby_list.html:19
+#: .\chat\templates\chat\thread.html:47 .\noteapp\templatetags\menu.py:143
+#: .\noteapp\templatetags\menu.py:257
 #: .\preferences\templates\preferences\language.html:37
 #: .\preferences\templates\preferences\update_push.html:66
 msgid "Back"
@@ -120,7 +125,7 @@ msgid "Authorization"
 msgstr "Logowanie"
 
 #: .\accounts\templates\accounts\login.html:32
-#: .\noteapp\templatetags\menu.py:175
+#: .\noteapp\templatetags\menu.py:191
 msgid "Sign in"
 msgstr "Zaloguj się"
 
@@ -129,7 +134,7 @@ msgid "Forgot password?"
 msgstr "Zapomniałeś hasła?"
 
 #: .\accounts\templates\accounts\login.html:36
-#: .\noteapp\templatetags\menu.py:183
+#: .\noteapp\templatetags\menu.py:199
 msgid "Sign up"
 msgstr "Zarejestruj się"
 
@@ -278,7 +283,7 @@ msgstr "Aktualizacja"
 msgid "Date"
 msgstr "Data"
 
-#: .\additional\templates\rates.html:38 .\noteapp\templatetags\menu.py:106
+#: .\additional\templates\rates.html:38 .\noteapp\templatetags\menu.py:122
 msgid "Today"
 msgstr "Dzisiaj"
 
@@ -334,7 +339,7 @@ msgstr "Brak danych"
 msgid "Failed to load rates"
 msgstr "Nie udało się zaktualizować kursów"
 
-#: .\additional\templates\weather.html:119 .\noteapp\templatetags\menu.py:42
+#: .\additional\templates\weather.html:119 .\noteapp\templatetags\menu.py:58
 msgid "Weather"
 msgstr "Pogoda"
 
@@ -363,6 +368,129 @@ msgstr "Czujesz, jak"
 #: .\templates\includes\task_list.html:12
 msgid "Description"
 msgstr "Opis"
+
+#: .\chat\templates\chat\dm_contacts.html:5
+#: .\chat\templates\chat\dm_list.html:8 .\chat\templates\chat\home.html:20
+msgid "Direct messages"
+msgstr "Wiadomosci prywatne"
+
+#: .\chat\templates\chat\dm_contacts.html:11
+#: .\chat\templates\chat\dm_list.html:31
+msgid "Message"
+msgstr "Wiadomosc"
+
+#: .\chat\templates\chat\dm_contacts.html:15
+msgid "No users found"
+msgstr "Nie znaleziono uzytkownikow"
+
+#: .\chat\templates\chat\dm_list.html:13
+msgid "Search users"
+msgstr "Wyszukaj uzytkownikow"
+
+#: .\chat\templates\chat\dm_list.html:16
+msgid "Find"
+msgstr "Znajdz"
+
+#: .\chat\templates\chat\group_create.html:5
+msgid "Create a group"
+msgstr "Utwórz grupe"
+
+#: .\chat\templates\chat\group_create.html:20
+msgid "Hold Ctrl/Command to select multiple users."
+msgstr "Nacisnij Ctrl/Command, aby wybrać wielu uzytkowników."
+
+#: .\chat\templates\chat\group_create.html:24
+#: .\noteapp\templates\noteapp\notebook_by_date.html:44
+#: .\templates\socialaccount\login.html:70
+msgid "Cancel"
+msgstr "Anuluj"
+
+#: .\chat\templates\chat\group_create.html:25
+msgid "Create"
+msgstr "Utworzono"
+
+#: .\chat\templates\chat\group_list.html:8
+msgid "My groups"
+msgstr "Moje grupy"
+
+#: .\chat\templates\chat\group_list.html:9
+msgid "Create group"
+msgstr "Utwórz grupe"
+
+#: .\chat\templates\chat\group_list.html:15
+msgid "Group"
+msgstr "Grupa"
+
+msgid "Lobby"
+msgstr "Lobby"
+
+#: .\chat\templates\chat\group_list.html:19
+msgid "No groups yet"
+msgstr "Brak grup"
+
+#: .\chat\templates\chat\group_manage.html:8
+msgid "Back to chat"
+msgstr "Wroń do czata"
+
+#: .\chat\templates\chat\group_manage.html:9
+msgid "Delete group?"
+msgstr "Usuń grupe?"
+
+#: .\chat\templates\chat\group_manage.html:11
+msgid "Delete group"
+msgstr "Usuń grupe"
+
+#: .\chat\templates\chat\group_manage.html:19
+msgid "Members"
+msgstr "Użytkownicy"
+
+#: .\chat\templates\chat\group_manage.html:25
+msgid "Owner"
+msgstr "Wlasciciel"
+
+#: .\chat\templates\chat\group_manage.html:35
+msgid "Edit members"
+msgstr "Edytuj użytkowników"
+
+#: .\chat\templates\chat\home.html:6 .\noteapp\templatetags\menu.py:41
+msgid "Chat"
+msgstr "Czat"
+
+#: .\chat\templates\chat\home.html:12
+msgid "Public room for everyone"
+msgstr "Prywatny czat dla wszystkich"
+
+#: .\chat\templates\chat\home.html:27
+msgid "Groups"
+msgstr "Grupy"
+
+#: .\chat\templates\chat\home.html:28
+msgid "Group chat"
+msgstr "Czat grupowy"
+
+#: .\chat\templates\chat\lobby_list.html:14
+msgid "No lobbies yet"
+msgstr "Nie ma jeszcze czatoów"
+
+#: .\chat\templates\chat\thread.html:9
+msgid "Conversation"
+msgstr "Czat"
+
+#: .\chat\templates\chat\thread.html:16
+msgid "Manage"
+msgstr "Zarządzaj"
+
+#: .\chat\templates\chat\thread.html:22
+msgid "Leave"
+msgstr "Opuszczenie czatu"
+
+#: .\chat\templates\chat\thread.html:40
+msgid "Write a message…"
+msgstr "Wpisz wiadomość…"
+
+#: .\chat\templates\chat\thread.html:41
+msgid "Send"
+msgstr "Wyslij"
 
 #: .\noteapp\forms.py:21
 msgid "Describe the task..."
@@ -565,8 +693,8 @@ msgstr "🗑️ Tak, usuń"
 msgid "⬅ Cancel"
 msgstr "⬅ Anuluj"
 
-#: .\noteapp\templates\noteapp\notebook.html:46 .\templates\main.html:33
-#: .\templates\main.html:47
+#: .\noteapp\templates\noteapp\notebook.html:46 .\templates\main.html:22
+#: .\templates\main.html:34 .\templates\main.html:48
 msgid "Menu"
 msgstr "Menu"
 
@@ -577,11 +705,6 @@ msgstr "Nowe zadanie na"
 #: .\noteapp\templates\noteapp\notebook_by_date.html:19
 msgid "⛔ It is not possible to create a task for a past date."
 msgstr "⛔ Nie można utworzyć zadania z datą w przeszłości."
-
-#: .\noteapp\templates\noteapp\notebook_by_date.html:44
-#: .\templates\socialaccount\login.html:70
-msgid "Cancel"
-msgstr "Anuluj"
 
 #: .\noteapp\templates\noteapp\notebook_by_date.html:81
 msgid "➕ Add a new task"
@@ -683,56 +806,61 @@ msgstr "Książka telefoniczna"
 msgid "Settings"
 msgstr "Ustawienia"
 
-#: .\noteapp\templatetags\menu.py:50
+#: .\noteapp\templatetags\menu.py:49
+msgid "Games"
+msgstr ""
+
+#: .\noteapp\templatetags\menu.py:66
 msgid "Rates"
 msgstr "Kursy"
 
-#: .\noteapp\templatetags\menu.py:58
+#: .\noteapp\templatetags\menu.py:74
 msgid "Radio"
 msgstr "Radio"
 
-#: .\noteapp\templatetags\menu.py:99
+#: .\noteapp\templatetags\menu.py:115
 msgid "Calendar"
 msgstr "Kalendarz"
 
-#: .\noteapp\templatetags\menu.py:113
+#: .\noteapp\templatetags\menu.py:129
 msgid "Tasks"
 msgstr "Zadania"
 
-#: .\noteapp\templatetags\menu.py:120
+#: .\noteapp\templatetags\menu.py:136
 msgid "Reminders"
 msgstr "Przypomnienia"
 
-#: .\noteapp\templatetags\menu.py:144 .\templates\base.html:47
+#: .\noteapp\templatetags\menu.py:160 .\templates\base.html:54
 msgid "Search"
 msgstr "Szukaj"
 
-#: .\noteapp\templatetags\menu.py:156
+#: .\noteapp\templatetags\menu.py:172
 msgid "Profile"
 msgstr "Profil"
 
-#: .\noteapp\templatetags\menu.py:164
+#: .\noteapp\templatetags\menu.py:180
 msgid "Logout"
 msgstr "Wyloguj się"
 
-#: .\noteapp\templatetags\menu.py:206
+#: .\noteapp\templatetags\menu.py:222
 msgid "Push"
 msgstr "Push"
 
-#: .\noteapp\templatetags\menu.py:213
+#: .\noteapp\templatetags\menu.py:229
 #: .\preferences\templates\preferences\language.html:20
+#: .\templates\includes\language_switcher.html:10
 msgid "Language"
 msgstr "Język"
 
-#: .\noteapp\templatetags\menu.py:220
+#: .\noteapp\templatetags\menu.py:236
 msgid "Appearance"
 msgstr "Wygląd"
 
-#: .\noteapp\templatetags\menu.py:227
+#: .\noteapp\templatetags\menu.py:243
 msgid "Privacy"
 msgstr "Prywatność"
 
-#: .\noteapp\templatetags\menu.py:234
+#: .\noteapp\templatetags\menu.py:250
 msgid "Account"
 msgstr "Konto"
 
@@ -783,15 +911,15 @@ msgstr "wkrótce"
 msgid "Personal Assistant"
 msgstr "Asystent osobisty"
 
-#: .\templates\base.html:37 .\templates\base.html:181
+#: .\templates\base.html:44 .\templates\base.html:120
 msgid "Assistant"
 msgstr "Asystent"
 
-#: .\templates\base.html:44
+#: .\templates\base.html:51
 msgid "Search…"
 msgstr "Szukaj…"
 
-#: .\templates\base.html:185
+#: .\templates\base.html:124
 msgid "Assistant. All rights reserved."
 msgstr "Asystent. Wszelkie prawa zastrzeżone."
 

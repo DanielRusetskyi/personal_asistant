@@ -17,6 +17,9 @@ urlpatterns = [
     path("groups/", views.group_list, name="group_list"),
     path("groups/create/", views.group_create, name="group_create"),
     path("groups/<int:thread_id>/", views.thread_page, name="group_thread"),
+    path("groups/<int:group_id>/manage/", views.group_manage, name="group_manage"),
+    path("groups/<int:group_id>/leave/", views.group_leave, name="group_leave"),
+    path("groups/<int:group_id>/delete/", views.group_delete, name="group_delete"),
 
     path("threads/<int:thread_id>/leave/",   views.thread_leave,   name="leave"),
     path("threads/<int:thread_id>/archive/", views.thread_archive, name="archive"),

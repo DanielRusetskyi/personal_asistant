@@ -1,11 +1,15 @@
 {% extends "base.html" %}
 {% load i18n %}
 {% block content %}
-<div class="container py-3">
-  <h3 class="mb-3">{% trans "Direct messages" %}</h3>
+<div class="relative overflow-hidden mt-4 rounded-2xl bg-gradient-to-br from-white/50 to-slate-50/25 backdrop-blur shadow-xl ring-1 ring-slate-900/10 text-center">
+<div class="container py-3 text-center">
 
-  <form class="row g-2 mb-3" method="get">
-    <div class="col-auto">
+  <!-- Сяйливий заголовок -->
+  <h1 class="mb-3 glow-title">{% trans "Direct messages" %}</h1>
+
+  <!-- Форма пошуку по центру -->
+  <form class="row g-2 mb-3 justify-content-center" method="get">
+    <div class="col-auto ">
       <input type="search" class="form-control" name="q" value="{{ q }}" placeholder="{% trans 'Search users' %}">
     </div>
     <div class="col-auto">
@@ -13,20 +17,27 @@
     </div>
   </form>
 
-  <ul class="list-group">
-    {% for u in users %}
-      <li class="list-group-item d-flex justify-content-between align-items-center">
-        <div>
-          <strong>{{ u.username }}</strong>
-          {% if u.first_name or u.last_name %}<span class="text-muted"> — {{ u.first_name }} {{ u.last_name }}</span>{% endif %}
-        </div>
-        <a class="btn btn-sm btn-outline-primary" href="{% url 'chat:dm_start' u.id %}">
-          {% trans "Message" %}
-        </a>
-      </li>
-    {% empty %}
-      <li class="list-group-item text-muted">{% trans "No users found" %}</li>
-    {% endfor %}
-  </ul>
+  <div class="row">
+  <div class="col-12 col-md-8 col-lg-6 mx-auto">
+    <ul class="list-group w-50 mx-auto">
+      {% for u in users %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <div class="text-truncate" style="max-width: 75%;">
+            {% if u.first_name or u.last_name %}
+              <span class="text-muted">{{ u.first_name }} {{ u.last_name }}</span>
+            {% endif %}
+          </div>
+          <a class="btn btn-sm btn-outline-primary" href="{% url 'chat:dm_start' u.id %}">
+            {% trans "Message" %}
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+</div>
+  <a href="{% url 'chat:home' %}" class="button_weather inline-block mt-1">
+        ⬅ {% trans 'Back' %}
+    </a>
 </div>
 {% endblock %}

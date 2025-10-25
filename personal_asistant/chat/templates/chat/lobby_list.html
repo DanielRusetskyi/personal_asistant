@@ -1,17 +1,22 @@
 {% extends "base.html" %}
 {% load i18n %}
 {% block content %}
-<div class="container py-3">
-  <h4 class="mb-3">Lobby</h4>
-  <ul class="list-group">
+<div class="relative overflow-hidden mt-4 rounded-2xl bg-gradient-to-br from-white/50 to-slate-50/25 backdrop-blur shadow-xl ring-1 ring-slate-900/10 text-center">
+<div class="container py-3 text-center">
+  <h4 class="mb-3 glow-title">Lobby</h4>
+  <ul class="list-group w-50 mx-auto">
     {% for t in lobbies %}
-      <li class="list-group-item d-flex justify-content-between">
+      <li class="list-group-item d-flex justify-content-center align-items-center">
         <a href="{% url 'chat:lobby_room' t.slug %}">{{ t.title }} </a>
-        <span class="text-muted">#{{ t.slug }}</span>
+<!--        <span class="text-muted">#{{ t.slug }}</span>-->
       </li>
     {% empty %}
       <li class="list-group-item text-muted">{% trans "No lobbies yet" %}</li>
     {% endfor %}
   </ul>
+</div>
+  <a href="{% url 'chat:home' %}" class="button_weather inline-block mt-1">
+      ⬅ {% trans 'Back' %}
+  </a>
 </div>
 {% endblock %}

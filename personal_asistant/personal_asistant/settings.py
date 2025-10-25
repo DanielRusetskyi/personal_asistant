@@ -52,12 +52,11 @@ LOGGING = {
             "backupCount": 3,
             "formatter": "verbose",
         },
-        "ws_file": {
-            "class": "logging.handlers.RotatingFileHandler",
-            "filename": str(LOG_DIR / "ws.log"),
-            "maxBytes": 1024 * 1024 * 10,
-            "backupCount": 3,
-            "formatter": "verbose",
+        'ws_file': {
+            'class': 'logging.FileHandler',   # <-- замість Rotating/TimedRotating
+            'filename': str(LOG_DIR / 'ws.log'),
+            'level': 'INFO',
+            'encoding': 'utf-8',
         },
         "celery_file": {
             "class": "logging.handlers.RotatingFileHandler",

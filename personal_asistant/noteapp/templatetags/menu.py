@@ -44,6 +44,14 @@ def main_menu(context):
             "href": reverse("chat:home"),
             "auth_only": True,
         },
+        {
+            "key": "games",
+            "label": _("Games"),
+            "icon_img": "images/phone_icon.png",  # або нова іконка
+            "icon_emoji": "💬",
+            "href": "#",
+            "auth_only": True,
+        },
         # public
         {
             "key": "weather",

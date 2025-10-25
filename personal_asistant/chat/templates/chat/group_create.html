@@ -2,18 +2,28 @@
 {% load i18n %}
 {% block content %}
 <div class="container py-3">
-  <h4 class="mb-3">{% trans "Create group" %}</h4>
-  <form method="post" class="card p-3 shadow-sm">
+  <h4 class="mb-3">{% trans "Create a group" %}</h4>
+
+  <form method="post" class="card card-body shadow-sm">
     {% csrf_token %}
+
     <div class="mb-3">
-      <label class="form-label">{% trans "Title" %}</label>
-      <input type="text" name="title" class="form-control" placeholder="{% trans 'My group' %}">
+      {{ form.title.label_tag }}
+      {{ form.title }}
+      {{ form.title.errors }}
     </div>
-    <div class="form-check mb-3">
-      <input class="form-check-input" type="checkbox" name="is_public" id="is_public">
-      <label class="form-check-label" for="is_public">{% trans "Public" %}</label>
+
+    <div class="mb-3">
+      {{ form_members.members.label_tag }}
+      {{ form_members.members }}
+      {{ form_members.members.errors }}
+      <div class="form-text">{% trans "Hold Ctrl/Command to select multiple users." %}</div>
     </div>
-    <button class="btn btn-primary" type="submit">{% trans "Create" %}</button>
+
+    <div class="d-flex gap-2">
+      <a href="{% url 'chat:group_list' %}" class="btn btn-outline-secondary">{% trans "Cancel" %}</a>
+      <button class="btn btn-primary" type="submit">{% trans "Create" %}</button>
+    </div>
   </form>
 </div>
 {% endblock %}
